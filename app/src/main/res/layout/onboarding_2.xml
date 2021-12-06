@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/onboarding_2_example"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginHorizontal="35dp"
+		android:layout_marginTop="40dp"
+		android:background="@drawable/rc_20dp"
+		android:elevation="@dimen/shadow_elevation"
+		app:layout_constraintBottom_toTopOf="@+id/login_onboarding_2_textview2"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<ImageView
+			android:id="@+id/onboarding_2_1_1"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:adjustViewBounds="true"
+			android:scaleType="fitStart"
+			android:src="@drawable/pc_onboarding_news"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<LinearLayout
+			android:id="@+id/onboarding_2_1_2"
+			android:layout_width="match_parent"
+			android:layout_height="16dp"
+			android:layout_marginTop="16dp"
+			android:orientation="horizontal"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/onboarding_2_1_1">
+
+			<TextView
+				android:id="@+id/onboarding_2_1_3"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_marginStart="16dp"
+				android:layout_weight="50"
+				android:ellipsize="end"
+				android:maxLines="1"
+				android:text="@string/guap"
+				android:textColor="@color/colorBlue"
+				android:textSize="14sp" />
+
+			<TextView
+				android:id="@+id/onboarding_2_1_4"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_marginEnd="16dp"
+				android:layout_weight="50"
+				android:ellipsize="end"
+				android:maxLines="1"
+				android:paddingStart="16dp"
+				android:paddingEnd="0dp"
+				android:text="@string/onboarding_second_example_date"
+				android:textAlignment="viewEnd"
+				android:textColor="@color/colorLightGray1"
+				android:textSize="13sp" />
+
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/onboarding_2_1_5"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="17dp"
+			android:layout_marginTop="10dp"
+			android:ellipsize="end"
+			android:maxLines="2"
+			android:text="@string/onboarding_second_example_title"
+			android:textColor="@color/colorBlack"
+			android:textSize="15sp"
+			android:textStyle="bold"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/onboarding_2_1_2" />
+
+		<TextView
+			android:id="@+id/onboarding_2_1_6"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="16dp"
+			android:layout_marginTop="10dp"
+			android:ellipsize="end"
+			android:maxLines="3"
+			android:text="@string/onboarding_second_example_description"
+			android:textColor="@color/colorLightGray1"
+			android:textSize="14sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/onboarding_2_1_5" />
+
+		<ImageView
+			android:id="@+id/onboarding_2_1_7"
+			android:layout_width="16dp"
+			android:layout_height="16dp"
+			android:layout_marginStart="24dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="19dp"
+			android:src="@drawable/ic_like"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/onboarding_2_1_6"
+			app:tint="@color/colorRedMain" />
+
+		<TextView
+			android:id="@+id/onboarding_2_1_8"
+			android:layout_width="wrap_content"
+			android:layout_height="16dp"
+			android:layout_marginStart="7dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="20dp"
+			android:ellipsize="end"
+			android:maxLength="5"
+			android:maxLines="1"
+			android:textColor="@color/colorLightGray1"
+			android:textSize="13sp"
+			android:text="98"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/onboarding_2_1_7"
+			app:layout_constraintTop_toBottomOf="@+id/onboarding_2_1_6" />
+
+		<ImageView
+			android:id="@+id/onboarding_2_1_9"
+			android:layout_width="16dp"
+			android:layout_height="16dp"
+			android:layout_marginStart="18dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="19dp"
+			android:src="@drawable/ic_comment"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/onboarding_2_1_8"
+			app:layout_constraintTop_toBottomOf="@+id/onboarding_2_1_6"
+			app:tint="@color/colorBlue" />
+
+		<TextView
+			android:id="@+id/onboarding_2_1_10"
+			android:layout_width="wrap_content"
+			android:layout_height="16dp"
+			android:layout_marginStart="7dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="20dp"
+			android:ellipsize="end"
+			android:maxLength="5"
+			android:maxLines="1"
+			android:textColor="@color/colorLightGray1"
+			android:textSize="13sp"
+			android:text="45"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/onboarding_2_1_9"
+			app:layout_constraintTop_toBottomOf="@+id/onboarding_2_1_6" />
+
+		<ImageView
+			android:id="@+id/onboarding_2_1_11"
+			android:layout_width="16dp"
+			android:layout_height="16dp"
+			android:layout_marginStart="18dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="19dp"
+			android:src="@drawable/ic_share"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/onboarding_2_1_10"
+			app:layout_constraintTop_toBottomOf="@+id/onboarding_2_1_6"
+			app:tint="@color/colorBlue" />
+
+		<TextView
+			android:id="@+id/onboarding_2_1_12"
+			android:layout_width="wrap_content"
+			android:layout_height="16dp"
+			android:layout_marginStart="7dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="20dp"
+			android:ellipsize="end"
+			android:maxLength="5"
+			android:maxLines="1"
+			android:textColor="@color/colorLightGray1"
+			android:textSize="13sp"
+			android:text="72"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/onboarding_2_1_11"
+			app:layout_constraintTop_toBottomOf="@+id/onboarding_2_1_6" />
+
+		<ImageView
+			android:id="@+id/onboarding_2_1_13"
+			android:layout_width="16dp"
+			android:layout_height="16dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginEnd="7dp"
+			android:layout_marginBottom="19dp"
+			android:src="@drawable/ic_view"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/onboarding_2_1_14"
+			app:layout_constraintTop_toBottomOf="@+id/onboarding_2_1_6"
+			app:tint="@color/colorBlue" />
+
+		<TextView
+			android:id="@+id/onboarding_2_1_14"
+			android:layout_width="wrap_content"
+			android:layout_height="16dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginEnd="16dp"
+			android:layout_marginBottom="20dp"
+			android:ellipsize="end"
+			android:maxLength="5"
+			android:maxLines="1"
+			android:textColor="@color/colorLightGray1"
+			android:textSize="13sp"
+			android:text="2.3K"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/onboarding_2_1_6" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+	<TextView
+		android:id="@+id/login_onboarding_2_textview2"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginHorizontal="52dp"
+		android:layout_marginBottom="15dp"
+		android:text="@string/news"
+		android:gravity="center"
+		android:textColor="@color/colorBlack"
+		android:textSize="21sp"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toTopOf="@+id/login_onboarding_2_textview1"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent" />
+
+	<TextView
+		android:id="@+id/login_onboarding_2_textview1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginHorizontal="52dp"
+		android:layout_marginBottom="110dp"
+		android:text="@string/onboarding_second_description"
+		android:gravity="center"
+		android:textColor="@color/colorLightGray1"
+		android:textSize="14sp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

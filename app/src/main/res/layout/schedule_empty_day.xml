@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:scrollbars="none"
+	android:overScrollMode="never">
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+		
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="66dp"/>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="12dp"
+			android:orientation="vertical"
+			android:gravity="center"
+			android:background="@drawable/rc_28dp">
+			
+			<ImageView
+				android:layout_width="100dp"
+				android:layout_height="100dp"
+				android:layout_marginTop="10dp"
+				android:scaleY="1.3"
+				android:scaleX="1.3"
+				android:scaleType="centerCrop"
+				android:src="@drawable/ic_schedule"
+				app:tint="@color/colorBlue" />
+			
+			<TextView
+				android:id="@+id/core_schedule_empty_item_text"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/there_is_no_lessons"
+				android:textSize="21sp"
+				android:textColor="@color/colorBlack"
+				android:textStyle="bold" />
+			
+			<TextView
+				android:id="@+id/textView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="14dp"
+				android:layout_marginBottom="40dp"
+				android:text="@string/you_can_sleep_in_peace"
+				android:textColor="@color/colorLightGray1"
+				android:textSize="15sp"
+				android:textStyle="bold" />
+		
+		</LinearLayout>
+		
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="20dp"/>
+	
+	</LinearLayout>
+
+</ScrollView>

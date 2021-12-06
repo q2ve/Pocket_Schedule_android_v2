@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+	android:id="@+id/core_schedule_item_tag"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="4dp"
+	android:layout_marginBottom="4dp"
+	android:layout_marginEnd="6dp"
+	android:textSize="13sp"
+	android:textColor="@color/colorLightGray1"
+	android:paddingTop="5dp"
+	android:paddingBottom="5dp"
+	android:paddingEnd="10dp"
+	android:paddingStart="10dp"
+	android:background="@drawable/rc_schedule_tag"
+	android:backgroundTint="@color/colorLightGray3" />

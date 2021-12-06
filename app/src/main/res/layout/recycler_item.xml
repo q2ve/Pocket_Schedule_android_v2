@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:orientation="horizontal">
+
+		<TextView
+			android:id="@+id/recycler_item_text"
+			android:text="Group"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="18dp"
+			android:layout_marginEnd="40dp"
+			android:maxLines="1"
+			android:ellipsize="end"
+			android:layout_centerVertical="true"
+			android:textSize="18sp"
+			android:textColor="@color/colorBlack"/>
+
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentEnd="true"
+			android:layout_centerVertical="true"
+			android:layout_marginEnd="22dp"
+			android:rotation="180"
+			android:src="@drawable/ic_back_arrow"
+			app:tint="@color/colorLightGray2"
+			android:scaleX="1.15"
+			android:scaleY="1.3" />
+
+	</RelativeLayout>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="2.5dp"
+		android:background="@drawable/rc_divider"
+		android:backgroundTint="@color/colorLightGray3"
+		android:layout_marginStart="12dp"
+		android:layout_marginEnd="12dp"/>
+
+</LinearLayout>

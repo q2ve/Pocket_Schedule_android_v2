@@ -1,6 +1,7 @@
 package com.q2ve.pocketschedule2.ui.login.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.databinding.LoginMethodSelectorBinding
 import com.q2ve.pocketschedule2.ui.ButtonAnimator
+
+/**
+ * Created by Denis Shishkin
+ * qwq2eq@gmail.com
+ */
 
 class LoginMethodSelectorFragment: Fragment() {
 	private lateinit var binding: LoginMethodSelectorBinding
@@ -61,6 +67,10 @@ class LoginMethodSelectorFragment: Fragment() {
 			if (it == null) cleanErrorMessage() else makeErrorMessage(it)
 		}
 		
+		viewModel.TESTErrorMessage?.subscribe {
+			if (it == null) cleanErrorMessage() else TESTMakeErrorMessage(it)
+		}
+		
 		viewModel.universityName?.subscribe {
 			bindNewUniversityName(it)
 		}
@@ -91,6 +101,12 @@ class LoginMethodSelectorFragment: Fragment() {
 	private fun makeErrorMessage(stringResource: Int) {
 		val errorTextView = binding.loginMethodSelectorErrorTextview
 		errorTextView.text = getString(stringResource)
+	}
+	
+	private fun TESTMakeErrorMessage(string: String) {
+		Log.e("TEST", "Fragment TESTMakeErrorMessage")
+		val errorTextView = binding.loginMethodSelectorErrorTextview
+		errorTextView.text = string
 	}
 	
 	private fun cleanErrorMessage() {

@@ -2,6 +2,11 @@ package com.q2ve.pocketschedule2.helpers.navigator
 
 import com.q2ve.pocketschedule2.R
 
+/**
+ * Created by Denis Shishkin
+ * qwq2eq@gmail.com
+ */
+
 enum class ReplaceAnimation(
 	val enterAnimation: Int,
 	val exitAnimation: Int,

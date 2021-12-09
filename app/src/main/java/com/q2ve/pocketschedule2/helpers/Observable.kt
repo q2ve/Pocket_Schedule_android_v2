@@ -1,5 +1,10 @@
 package com.q2ve.pocketschedule2.helpers
 
+/**
+ * Created by Denis Shishkin
+ * qwq2eq@gmail.com
+ */
+
 typealias Observer<T> = (T) -> Unit
 
 class Observable<T>(value: T) {

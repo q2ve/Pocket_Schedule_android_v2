@@ -1,11 +1,21 @@
 package com.q2ve.pocketschedule2.ui.login.login
 
 import android.app.Activity
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.q2ve.pocketschedule2.helpers.Observable
+import com.q2ve.pocketschedule2.model.ErrorType
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
+import com.q2ve.pocketschedule2.model.retrofit.RetrofitCallSender
+
+/**
+ * Created by Denis Shishkin
+ * qwq2eq@gmail.com
+ */
 
 class LoginMethodSelectorViewModel: ViewModel() {
 	var errorMessage: Observable<Int?>? = Observable(null)
+	var TESTErrorMessage: Observable<String?>? = Observable(null)
 	var loadingSpinnerVisibility: Observable<Boolean>? = Observable(false)
 	var universityName: Observable<String>? = Observable("")
 	
@@ -61,6 +71,10 @@ class LoginMethodSelectorViewModel: ViewModel() {
 		errorMessage?.value = stringId
 	}
 	
+	private fun TESTMakeErrorMessage(string: String) {
+		TESTErrorMessage?.value = string
+	}
+	
 	private fun removeErrorMessage() {
 		errorMessage?.value = null
 	}
@@ -76,6 +90,19 @@ class LoginMethodSelectorViewModel: ViewModel() {
 	}
 	
 	fun vkButtonPressed(activity: Activity) {
+		
+		//TEST
+		Log.e("TEST", "VM vkButtonPressed")
+		fun callbackTest(items: List<RealmItemUniversity>?, error: ErrorType?) {
+			Log.e("TEST", "callbackTest")
+			val test = (items?.get(0)!!.name!! + ", " + items[1].name!!)
+			TESTMakeErrorMessage("$test |||| $error")
+		}
+		
+		RetrofitCallSender().getUniversities(::callbackTest)
+		
+		//TEST
+		
 //		removeErrorMessage()
 //		fragment.placeSpinner()
 //		VK.login(activity, arrayListOf(VKScope.WALL, VKScope.OFFLINE))

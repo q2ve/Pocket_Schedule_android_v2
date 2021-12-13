@@ -13,6 +13,7 @@ import retrofit2.Response
  * qwq2eq@gmail.com
  */
 
+//TODO("Переименовать!")
 class RetrofitCallSender {
 	/**
 	 * Returns ApiRequest configured by RetrofitRequestBuilder.

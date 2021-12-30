@@ -156,7 +156,7 @@
 		app:layout_constraintWidth_percent="0.6"
 		android:layout_marginTop="30dp"
 		android:fontFamily="@font/sf_pro_display_regular"
-		android:textAlignment="center"
+		android:gravity="center"
 		android:textColor="@color/colorRedError"
 		android:textSize="14sp"
 		app:layout_constraintEnd_toEndOf="parent"

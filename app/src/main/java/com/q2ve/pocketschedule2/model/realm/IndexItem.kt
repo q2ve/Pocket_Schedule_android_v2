@@ -1,5 +1,6 @@
 package com.q2ve.pocketschedule2.model.realm
 
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import java.util.UUID.randomUUID
@@ -13,6 +14,6 @@ open class IndexItem (
 	@PrimaryKey
 	var _id: String = randomUUID().toString(),
 	var index: Int = 0,
-	var indexedObject: RealmObject? = null,
-	var indexedObjectClass: String = ""
+	var indexedObjectClass: String = "",
+	var indexedUniversity: RealmItemUniversity? = null
 ): RealmObject()

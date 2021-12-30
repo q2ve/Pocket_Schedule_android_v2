@@ -1,12 +1,9 @@
 package com.q2ve.pocketschedule2.ui.login.login
 
 import android.app.Activity
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.q2ve.pocketschedule2.helpers.Observable
-import com.q2ve.pocketschedule2.model.ErrorType
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
-import com.q2ve.pocketschedule2.model.retrofit.RetrofitCallSender
+import com.q2ve.pocketschedule2.model.Model
 
 /**
  * Created by Denis Shishkin
@@ -92,14 +89,10 @@ class LoginMethodSelectorViewModel: ViewModel() {
 	fun vkButtonPressed(activity: Activity) {
 		
 		//TEST
-		Log.e("TEST", "VM vkButtonPressed")
-		fun callbackTest(items: List<RealmItemUniversity>?, error: ErrorType?) {
-			Log.e("TEST", "callbackTest")
-			val test = (items?.get(0)!!.name!! + ", " + items[1].name!!)
-			TESTMakeErrorMessage("$test |||| $error")
+		Model().getUniversitiesTEST { items ->
+			val test = (items[0].name!! + ", " + items[1].name!!)
+			TESTMakeErrorMessage(test)
 		}
-		
-		RetrofitCallSender().getUniversities(::callbackTest)
 		
 		//TEST
 		

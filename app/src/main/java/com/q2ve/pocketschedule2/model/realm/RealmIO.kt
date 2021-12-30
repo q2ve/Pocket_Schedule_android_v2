@@ -7,6 +7,8 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmObject
 import io.realm.Sort
+import kotlin.reflect.KMutableProperty
+import kotlin.reflect.KProperty
 
 /**
  * Created by Denis Shishkin
@@ -70,7 +72,7 @@ class RealmIO {
 		id: String,
 		noinline callback: ((T?, ErrorType?) -> Unit)
 	) {
-		Log.d("Test - Generic name is ", T::class.java.simpleName)
+		Log.d("Test - Generic name is", T::class.java.simpleName)
 		var output: T? = null
 		val realm = Realm.getInstance(config)
 		realm.executeTransactionAsync(
@@ -92,7 +94,7 @@ class RealmIO {
 	inline fun <reified T: RealmObject> copyFromRealm(
 		noinline callback: ((List<T>, ErrorType?) -> Unit)
 	) {
-		Log.d("Test - Generic name is ", T::class.java.simpleName)
+		Log.d("Test - Generic name is", T::class.java.simpleName)
 		var output: List<T> = emptyList()
 		val realm = Realm.getInstance(config)
 		realm.executeTransactionAsync(
@@ -113,11 +115,11 @@ class RealmIO {
 	/**
 	 * This function is needed to index and add items we got from the server to the local database.
 	 */
-	inline fun <reified T: RealmObject> insertOrUpdateWithIndexer(
+	inline fun <reified T: RealmObject> insertOrUpdateWithIndexing(
 		inputObjects: List<RealmObject>,
 		noinline callback: (List<T>, ErrorType?) -> Unit
 	) {
-		Log.d("Test - Generic name is ", T::class.java.simpleName)
+		Log.d("Test - Generic name is", T::class.java.simpleName)
 		var output: List<T> = emptyList()
 		val className = T::class.java.simpleName
 		val realm = Realm.getInstance(config)
@@ -128,20 +130,38 @@ class RealmIO {
 									 .findAll()
 				oldIndexItems.deleteAllFromRealm()
 				
-				inputObjects.forEach {
-					r.copyToRealmOrUpdate(it)
+				inputObjects.forEach { realmObject ->
+					r.copyToRealmOrUpdate(realmObject)
 					val countOfIndexedItems = r.where(IndexItem::class.java)
 								 .equalTo("indexedObjectClass", className)
 								 .findAll()
 								 .size
 					/**
 					 * Index items needs to get the objects from DB
-					 * in the correct order they came from the server
+					 * in the correct order they came from the server.
 					 */
 					val indexItem = IndexItem()
 					indexItem.index = countOfIndexedItems
-					indexItem.indexedObject = it
 					indexItem.indexedObjectClass = className
+					/**
+					 * A Great Reflexive Magic that finds right field in index item
+					 * and fills it with the inputted object.
+					 * It's necessary for this code to work with objects of any classes
+					 * that i might add in the future.
+					 */
+					val fields = IndexItem::class.members
+//					fields.forEach {
+//						if (it.returnType.classifier.toString() == T::class.java.toString()) {
+//							if (it.returnType.classifier is ЧТО-ТО)
+//							Log.e("CURRENT TEST - СРАБОТАЛО!!!!!!!!!!!",  "-------------------------------------------")
+//						}
+//					}
+					val field = fields.find {
+						it.returnType.classifier.toString() == T::class.java.toString()
+					}
+					if (field is KMutableProperty) {
+						field.setter.call(indexItem, realmObject)
+					}
 					r.insertOrUpdate(indexItem)
 				}
 				/**
@@ -152,9 +172,13 @@ class RealmIO {
 									   .sort("index", Sort.ASCENDING)
 									   .findAll()
 				val sortedList: MutableList<T> = emptyList<T>().toMutableList()
-				indexObjectsSortedList.forEach {
-					if (it.indexedObject != null) {
-						sortedList += it.indexedObject as T
+				indexObjectsSortedList.forEach { indexItem ->
+					val fields = IndexItem::class.members
+					val field = fields.find {
+						it.returnType.classifier.toString() == T::class.java.toString()
+					}
+					if (field is KProperty) {
+						sortedList += field.getter.call(indexItem) as T
 					}
 				}
 				/**
@@ -188,9 +212,13 @@ class RealmIO {
 					.sort("index", Sort.ASCENDING)
 					.findAll()
 				val sortedList: MutableList<T> = emptyList<T>().toMutableList()
-				indexObjectsSortedList.forEach {
-					if (it.indexedObject != null) {
-						sortedList += it.indexedObject as T
+				indexObjectsSortedList.forEach { indexItem ->
+					val fields = IndexItem::class.members
+					val field = fields.find {
+						it.returnType.classifier.toString() == T::class.java.toString()
+					}
+					if (field is KMutableProperty<*>) {
+						sortedList += field.getter.call(indexItem) as T
 					}
 				}
 				/**

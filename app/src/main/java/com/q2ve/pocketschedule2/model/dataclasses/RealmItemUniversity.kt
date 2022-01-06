@@ -9,7 +9,7 @@ import io.realm.annotations.PrimaryKey
  * qwq2eq@gmail.com
  */
 
-open class RealmItemUniversitySHITCRAP (
+open class RealmItemUniversity (
 	@PrimaryKey
 	@JvmField
 	var _id: String = "",

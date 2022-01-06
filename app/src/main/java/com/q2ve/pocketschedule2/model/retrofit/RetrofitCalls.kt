@@ -2,7 +2,7 @@ package com.q2ve.pocketschedule2.model.retrofit
 
 import com.q2ve.pocketschedule2.model.ErrorType
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemScheduleUser
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversitySHITCRAP
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
 import com.q2ve.pocketschedule2.model.dataclasses.RetrofitItemResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -69,18 +69,18 @@ class RetrofitCalls {
 	
 	//Requests calls
 	
-	fun getUniversities(externalCallback: (List<RealmItemUniversitySHITCRAP>?, ErrorType?) -> Unit) {
-		val callback = object: Callback<RetrofitItemResponse<RealmItemUniversitySHITCRAP>> {
+	fun getUniversities(externalCallback: (List<RealmItemUniversity>?, ErrorType?) -> Unit) {
+		val callback = object: Callback<RetrofitItemResponse<RealmItemUniversity>> {
 			override fun onResponse(
-				call: Call<RetrofitItemResponse<RealmItemUniversitySHITCRAP>>,
-				response: Response<RetrofitItemResponse<RealmItemUniversitySHITCRAP>>
+				call: Call<RetrofitItemResponse<RealmItemUniversity>>,
+				response: Response<RetrofitItemResponse<RealmItemUniversity>>
 			) {
 				val errorType = checkItemResponse(response)
 				val items = if (errorType == null) (response.body()?.result?.items) else null
 				externalCallback(items, errorType)
 			}
 			override fun onFailure(
-				call: Call<RetrofitItemResponse<RealmItemUniversitySHITCRAP>>,
+				call: Call<RetrofitItemResponse<RealmItemUniversity>>,
 				t: Throwable
 			) {
 				val errorType = checkOnFailure(t)

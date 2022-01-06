@@ -17,7 +17,7 @@ open class RealmItemUser(
 	var serviceLogin: String? = null,
 	var avatarURL: String? = null,
 	var vkId: Int? = null,
-	var university: RealmItemUniversitySHITCRAP? = null,
+	var university: RealmItemUniversity? = null,
 	var scheduleUser: RealmItemScheduleUser? = null
 ): RealmObject() {
 	fun set_id(value: String?) { _id = value ?: "" }

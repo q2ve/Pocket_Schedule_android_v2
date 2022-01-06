@@ -1,7 +1,7 @@
 package com.q2ve.pocketschedule2.model
 
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemScheduleUser
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversitySHITCRAP
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
 import com.q2ve.pocketschedule2.model.realm.RealmIO
 import com.q2ve.pocketschedule2.model.retrofit.RetrofitCalls
 
@@ -12,10 +12,10 @@ import com.q2ve.pocketschedule2.model.retrofit.RetrofitCalls
 
 class Model {
 	fun testREMOVEit() {
-		fun testCallback(foo: RealmItemUniversitySHITCRAP?, bar: ErrorType?) {
+		fun testCallback(foo: RealmItemUniversity?, bar: ErrorType?) {
 			RealmIO().insertOrUpdate(foo!!)
 		}
-		fun testCallback2(foo: List<RealmItemUniversitySHITCRAP>, bar: ErrorType?) {
+		fun testCallback2(foo: List<RealmItemUniversity>, bar: ErrorType?) {
 			RealmIO().insertOrUpdate(foo)
 		}
 		RealmIO().copyFromRealm("1488", ::testCallback)
@@ -24,11 +24,11 @@ class Model {
 		RealmIO().insertOrUpdateWithIndexing(emptyList(), ::testCallback2)
 	}
 	
-	fun getUniversitiesTEST(callback: (List<RealmItemUniversitySHITCRAP>) -> Unit) {
-		RetrofitCalls().getUniversities { objects: List<RealmItemUniversitySHITCRAP>?, error: ErrorType? ->
+	fun getUniversitiesTEST(callback: (List<RealmItemUniversity>) -> Unit) {
+		RetrofitCalls().getUniversities { objects: List<RealmItemUniversity>?, error: ErrorType? ->
 			if (objects != null) {
-				fun testCallback(foo: List<RealmItemUniversitySHITCRAP>, bar: ErrorType?) {
-					RealmIO().copyIndexedFromRealm<RealmItemUniversitySHITCRAP> { list, errorType ->
+				fun testCallback(foo: List<RealmItemUniversity>, bar: ErrorType?) {
+					RealmIO().copyIndexedFromRealm<RealmItemUniversity> { list, errorType ->
 						callback(ErrorChecker().checkUniversities(list))
 					}
 				}
@@ -37,7 +37,7 @@ class Model {
 		}
 	}
 	
-	fun getUniversities(callback: (List<RealmItemUniversitySHITCRAP>?, ErrorType?) -> Unit) {
+	fun getUniversities(callback: (List<RealmItemUniversity>?, ErrorType?) -> Unit) {
 		RetrofitCalls().getUniversities { objects, errorType ->
 			if (errorType != null) {
 				callback(null, errorType)

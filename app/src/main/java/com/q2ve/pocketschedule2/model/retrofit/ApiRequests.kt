@@ -1,7 +1,7 @@
 package com.q2ve.pocketschedule2.model.retrofit
 
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemScheduleUser
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversitySHITCRAP
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
 import com.q2ve.pocketschedule2.model.dataclasses.RetrofitItemResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -39,7 +39,7 @@ interface ApiRequests {
 		@Query("offset") offset: Int,
 		@Query("limit") limit: Int,
 		@Query("q") q: String = ""
-	): Call<RetrofitItemResponse<RealmItemUniversitySHITCRAP>>
+	): Call<RetrofitItemResponse<RealmItemUniversity>>
 
 //	@GET("universities/{university}/schedule/{scheduleUserId}/?") //APIv2
 //	fun getLessons (

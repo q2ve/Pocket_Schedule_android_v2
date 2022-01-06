@@ -14,6 +14,6 @@ open class RealmItemMain (
 	var currentUser: RealmItemUser? = null,
 	var sessionId: String?= null,
 	var scheduleUser: RealmItemScheduleUser? = null,
-	var scheduleUniversity: RealmItemUniversitySHITCRAP? = null,
+	var scheduleUniversity: RealmItemUniversity? = null,
 	var startScreen: Int = 1
 ): RealmObject()

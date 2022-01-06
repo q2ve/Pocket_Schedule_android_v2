@@ -1,12 +1,8 @@
 package com.q2ve.pocketschedule2.model.retrofit
 
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemScheduleUser
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
-import com.q2ve.pocketschedule2.model.dataclasses.RetrofitItemResponse
+import com.q2ve.pocketschedule2.model.dataclasses.*
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * Created by Denis Shishkin
@@ -62,18 +58,20 @@ interface ApiRequests {
 //	fun getDeadlineSources (
 //		@Header("X-Session-Id") sessionId: String
 //	): Call<RetrofitResponseObject<RetrofitItemDeadlineSource>>
-//
-//	@POST("auth/{service}/") //APIv2
-//	fun postUser (
-//		@Path("service") service: String,
-//		@Body body: RetrofitBodyLoginPassword
-//	): Call<RetrofitAuthResponseObject>
-//
-//	@POST("auth/vk") //APIv2
-//	fun postVkUser (
-//		@Body body: RetrofitBodyToken
-//	): Call<RetrofitAuthResponseObject>
-//
+	
+	//APIv2
+	@POST("auth/{service}/")
+	fun postUser (
+		@Path("service") service: String,
+		@Body body: RetrofitBodyLoginPassword
+	): Call<RetrofitItemAuthResponse>
+	
+	//APIv2
+	@POST("auth/vk")
+	fun postVkUser (
+		@Body body: RetrofitBodyToken
+	): Call<RetrofitItemAuthResponse>
+
 //	@POST("deadlines") //APIv2
 //	fun postDeadline (
 //		@Header("X-Session-Id") sessionId: String,

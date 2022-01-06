@@ -16,55 +16,53 @@ import kotlin.reflect.KProperty
  * qwq2eq@gmail.com
  */
 
-class RealmIO {
+class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
+	
 	val config: RealmConfiguration = RealmConfiguration.Builder()
 		.name(Constants.realmName)
 		.allowQueriesOnUiThread(true)
 		.allowWritesOnUiThread(true)
 		.build()
 		
-	fun insertOrUpdate(
-		inputObject: RealmObject,
-		callback: ((RealmObject?, ErrorType?) -> Unit)? = null
+	fun <T: RealmObject> insertOrUpdate(
+		inputObject: T,
+		onSuccess: ((T) -> Unit)? = null
 	) {
-		var output: RealmObject? = null
+		var output: T? = null
 		val realm = Realm.getInstance(config)
 		realm.executeTransactionAsync(
 			{ r: Realm ->
 				output = r.copyToRealmOrUpdate(inputObject)
 			}, {
-				if (callback != null) {
-					callback(output, null)
-				}
-			}, {
-				if (callback != null) {
-					callback(null, ErrorType.RealmError)
+				if (output != null) onSuccess?.let { it(output!!) }
+				else onError?.let { it(ErrorType.RealmError) }
+			}, { t: Throwable ->
+				onError?.let {
 					//TODO("Check possible throwable.")
-					Log.e("RealmIO.insertOrUpdate single", it.toString())
+					Log.e("RealmIO.insertOrUpdate single", t.toString())
+					it(ErrorType.RealmError)
 				}
 			}
 		)
 		realm.close()
 	}
 	
-	fun insertOrUpdate(
-		inputObjects: List<RealmObject>,
-		callback: ((List<RealmObject>, ErrorType?) -> Unit)? = null
+	fun <T: RealmObject> insertOrUpdate(
+		inputObjects: List<T>,
+		onSuccess: ((List<T>) -> Unit)? = null,
 	) {
-		var output: List<RealmObject> = emptyList()
+		var output: List<T> = emptyList()
 		val realm = Realm.getInstance(config)
 		realm.executeTransactionAsync(
 			{ r: Realm ->
 				output = r.copyToRealmOrUpdate(inputObjects)
 			}, {
-				if (callback != null) {
-					callback(output, null)
-				}
-			}, {
-				if (callback != null) {
-					callback(emptyList(), ErrorType.RealmError)
+				onSuccess?.let { it(output) }
+			}, { t: Throwable ->
+				onError?.let {
 					//TODO("Check possible throwable.")
-					Log.e("RealmIO.insertOrUpdate multi", it.toString())
+					Log.e("RealmIO.insertOrUpdate multi", t.toString())
+					it(ErrorType.RealmError)
 				}
 			}
 		)
@@ -73,9 +71,8 @@ class RealmIO {
 	
 	inline fun <reified T: RealmObject> copyFromRealm(
 		id: String,
-		noinline callback: ((T?, ErrorType?) -> Unit)
+		noinline onSuccess: ((T) -> Unit)
 	) {
-		Log.d("Test - Generic name is", T::class.java.simpleName)
 		var output: T? = null
 		val realm = Realm.getInstance(config)
 		realm.executeTransactionAsync(
@@ -84,18 +81,21 @@ class RealmIO {
 				output = if (realmObject == null) null
 						 else r.copyFromRealm(realmObject)
 			}, {
-				callback(output, null)
-			}, {
-				callback(null, ErrorType.RealmError)
-				//TODO("Check possible throwable.")
-				Log.e("RealmIO.copyFromRealm single", it.toString())
+				if (output != null) onSuccess(output!!)
+				else onError?.let { it(ErrorType.RealmError) }
+			}, { t: Throwable ->
+				onError?.let {
+					//TODO("Check possible throwable.")
+					Log.e("RealmIO.copyFromRealm single", t.toString())
+					it(ErrorType.RealmError)
+				}
 			}
 		)
 		realm.close()
 	}
 	
 	inline fun <reified T: RealmObject> copyFromRealm(
-		noinline callback: ((List<T>, ErrorType?) -> Unit)
+		noinline onSuccess: ((List<T>) -> Unit)
 	) {
 		Log.d("Test - Generic name is", T::class.java.simpleName)
 		var output: List<T> = emptyList()
@@ -105,11 +105,13 @@ class RealmIO {
 				val realmObjects: List<T> = r.where(T::class.java).findAll()
 				output = r.copyFromRealm(realmObjects)
 			}, {
-				callback(output, null)
-			}, {
-				callback(emptyList(), ErrorType.RealmError)
-				//TODO("Check possible throwable.")
-				Log.e("RealmIO.copyFromRealm multi", it.toString())
+				onSuccess(output)
+			}, { t: Throwable ->
+				onError?.let {
+					//TODO("Check possible throwable.")
+					Log.e("RealmIO.copyFromRealm multi", t.toString())
+					it(ErrorType.RealmError)
+				}
 			}
 		)
 		realm.close()
@@ -120,7 +122,7 @@ class RealmIO {
 	 */
 	inline fun <reified T: RealmObject> insertOrUpdateWithIndexing(
 		inputObjects: List<RealmObject>,
-		noinline callback: (List<T>, ErrorType?) -> Unit
+		noinline onSuccess: (List<T>) -> Unit
 	) {
 		Log.d("Test - Generic name is", T::class.java.simpleName)
 		var output: List<T> = emptyList()
@@ -189,18 +191,20 @@ class RealmIO {
 				 */
 				output = r.copyFromRealm(sortedList)
 			}, {
-				callback(output, null)
-			}, {
-				callback(emptyList(), ErrorType.RealmError)
-				//TODO("Check possible throwable.")
-				Log.e("RealmIO.insertOrUpdateWithIndexing", it.toString())
+				onSuccess(output)
+			}, { t: Throwable ->
+				onError?.let {
+					//TODO("Check possible throwable.")
+					Log.e("RealmIO.insertOrUpdateWithIndexing", t.toString())
+					it(ErrorType.RealmError)
+				}
 			}
 		)
 		realm.close()
 	}
 	
 	inline fun <reified T: RealmObject> copyIndexedFromRealm(
-		noinline callback: ((List<T>, ErrorType?) -> Unit)
+		noinline onSuccess: ((List<T>) -> Unit)
 	) {
 		Log.d("Test - Generic name is ", T::class.java.simpleName)
 		var output: List<T> = emptyList()
@@ -230,11 +234,13 @@ class RealmIO {
 				 */
 				output = r.copyFromRealm(sortedList)
 			}, {
-				callback(output, null)
-			}, {
-				callback(emptyList(), ErrorType.RealmError)
-				//TODO("Check possible throwable.")
-				Log.e("RealmIO.copyIndexedFromRealm", it.toString())
+				onSuccess(output)
+			}, { t: Throwable ->
+				onError?.let {
+					//TODO("Check possible throwable.")
+					Log.e("RealmIO.copyIndexedFromRealm", t.toString())
+					it(ErrorType.RealmError)
+				}
 			}
 		)
 		realm.close()

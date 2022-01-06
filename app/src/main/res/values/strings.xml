@@ -124,5 +124,6 @@
 	<string name="auth_requirement_example_fourth">Находить всю важную\nинформацию об\nуниверситете и не только</string>
 	<string name="outdated_app">Текущая версия приложения устарела,\nобновите приложение</string>
 	<string name="go_to_google_play">Перейти в Google Play</string>
+	<string name="an_error_has_occurred_try_again">Произошла ошибка, попробуйте еще раз</string>
 
 </resources>

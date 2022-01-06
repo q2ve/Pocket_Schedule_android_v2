@@ -3,13 +3,15 @@ package com.q2ve.pocketschedule2.ui.login.login
 import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.helpers.Observable
-import com.q2ve.pocketschedule2.helpers.recyclerSelector.RecyclerSelectorAdapter
-import com.q2ve.pocketschedule2.helpers.recyclerSelector.RecyclerSelectorOnScrollListener
-import com.q2ve.pocketschedule2.helpers.recyclerSelector.RecyclerSelectorUploadingControllerGroups
+import com.q2ve.pocketschedule2.helpers.VKAuthCallbackSetter
+import com.q2ve.pocketschedule2.helpers.recyclerSelector.RecyclerSelectorPresenter
+import com.q2ve.pocketschedule2.helpers.recyclerSelector.RecyclerSelectorUploadingControllerUniversities
 import com.q2ve.pocketschedule2.model.ErrorType
+import com.q2ve.pocketschedule2.model.Model
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemMain
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
 import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
 
 /**
@@ -18,67 +20,50 @@ import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
  */
 
 class LoginMethodSelectorViewModel: ViewModel() {
-	val router = LoginMethodSelectorRouter()
+	private val router = LoginMethodSelectorRouter()
+	private var bottomPopupContainer: BottomPopupContainerFragment? = null
+	private var selectedUniversity: RealmItemUniversity? = null
 	
 	var errorMessage: Observable<Int?>? = Observable(null)
-	var TESTErrorMessage: Observable<String?>? = Observable(null)
 	var loadingSpinnerVisibility: Observable<Boolean>? = Observable(false)
 	var universityName: Observable<String>? = Observable("")
 	
 	init {
-//		VkCallbackDestinationSetter.setDestination(this)
+		VKAuthCallbackSetter.callback = ::vkAuthCallback
 	}
 	
-	fun vkAuthCallback(token: String?) {
-//		if (token == null) {
-//			fragment.makeErrorMessage(false, R.string.vk_auth_unsuccessful)
-//			fragment.removeSpinner()
-//		} else {
-//			ContentGetter(this).postVkUser(token)
-//		}
+	private fun vkAuthCallback(token: String?) {
+		if (token == null) {
+			makeErrorMessage(R.string.vk_auth_unsuccessful)
+			hideSpinner()
+		} else {
+			fun onError(errorType: ErrorType) {
+				hideSpinner()
+				when (errorType) {
+					ErrorType.ValidationError -> makeErrorMessage(R.string.vk_auth_unsuccessful)
+					ErrorType.NoInternetConnection -> Unit //This error will be displayed as toast
+					else -> makeErrorMessage(R.string.server_error)
+				}
+			}
+			Model(::onError).postVkUser(token) { mainObject: RealmItemMain ->
+				val user = mainObject.currentUser
+				if (user?.scheduleUser == null || user.university == null) {
+//					PopupLoginPresenter(this)
+				} else router.goToCoreFragments()
+			}
+		}
 	}
 	
-	fun contentGetterCallback(
-//		objects: List<Any>?,
-//		isError: Boolean,
-//		errorType: ErrorType?,
-//		escortingObject: Any?
-	) {
-//		if (isError) {
-//			fragment.removeSpinner()
-//			when (errorType) {
-//				ErrorType.ValidationError -> {
-//					fragment.makeErrorMessage(false, R.string.vk_auth_unsuccessful)
-//				}
-//				ErrorType.NoInternetConnection -> {
-//					//Do nothing. This error will be displayed as toast
-//				}
-//				else -> {
-//					fragment.makeErrorMessage(false, R.string.server_error)
-//				}
-//			}
-//		} else {
-//			val outputObject = objects!!.first() as RealmMainObject
-//			val user = outputObject.currentUser!!
-//			//Log.d("scheduleUser", outputObject.scheduleUser?.name.toString())
-//			//Log.d("scheduleUniversity", outputObject.scheduleUniversity?.universityName.toString())
-//			//Log.d("user.scheduleUser", user.scheduleUser?.name.toString())
-//			//Log.d("user.university", user.university?.universityName.toString())
-//			if (user.scheduleUser == null || user.university == null) {
-//				PopupLoginPresenter(this)
-//			} else {
-//				parent.goToCoreFragments()
-//			}
-//
-//		}
+	private fun showSpinner() {
+		loadingSpinnerVisibility?.value = true
+	}
+	
+	private fun hideSpinner() {
+		loadingSpinnerVisibility?.value = false
 	}
 	
 	private fun makeErrorMessage(stringId: Int) {
 		errorMessage?.value = stringId
-	}
-	
-	private fun TESTMakeErrorMessage(string: String) {
-		TESTErrorMessage?.value = string
 	}
 	
 	private fun removeErrorMessage() {
@@ -86,95 +71,58 @@ class LoginMethodSelectorViewModel: ViewModel() {
 	}
 	
 	fun enterButtonPressed() {
-//		removeErrorMessage()
-//		if (selectedUniversity == null) {
-//			fragment.makeErrorMessage(false, R.string.error_no_university_selected)
-//		}
-//		else {
-//			parent.goToSecondScreen(selectedUniversity!!, isFromOnboarding)
-//		}
+		removeErrorMessage()
+		if (selectedUniversity == null) makeErrorMessage(R.string.error_no_university_selected)
+//		else router.openUniversityAuthScreen(selectedUniversity, isFromOnboarding)
 	}
 	
 	fun vkButtonPressed(activity: Activity) {
-		
-		//TEST
-		fun tesst() {
-			TESTMakeErrorMessage("Suck")
-		}
-		
-		fun tesst2(fragment: BottomPopupContainerFragment) {
-			var uploadingController: RecyclerSelectorUploadingControllerGroups? = null
-			fun testOnErrorCallback(errorType: ErrorType) {
-				Log.e("testOnErrorCallback", errorType.toString())
-			}
-			fun testOnClickCallback(index: Int) {
-				Log.e("testOnClickCallback", uploadingController?.getItem(index)?.name.toString())
-			}
-			
-			val container = fragment.binding.bottomPopupContainerContentContainer
-			val recycler = RecyclerView(activity)
-			val layoutManager = LinearLayoutManager(activity)
-			val adapter = RecyclerSelectorAdapter(emptyList(), ::testOnClickCallback)
-			uploadingController = RecyclerSelectorUploadingControllerGroups(adapter, ::testOnErrorCallback, "GUAP")
-			val onScrollListener = RecyclerSelectorOnScrollListener(layoutManager, uploadingController::uploadMoreItems)
-			
-			recycler.layoutManager = layoutManager
-			recycler.adapter = adapter
-			recycler.addOnScrollListener(onScrollListener)
-			
-			container.addView(recycler)
-			
-			uploadingController.uploadItems()
-		}
-		
-		router.openUniversitySelector(::tesst2, ::tesst)
-//		Model().getUniversitiesTEST { items ->
-//			val test = (items[1].name!!)
-//			TESTMakeErrorMessage(test)
-//			router.openUniversitySelector(::tesst2, ::tesst)
-//		}
-		//TEST
-		
-//		removeErrorMessage()
-//		fragment.placeSpinner()
-//		VK.login(activity, arrayListOf(VKScope.WALL, VKScope.OFFLINE))
+		removeErrorMessage()
+		showSpinner()
+		router.openVKAuthScreen(activity)
 	}
 	
-	fun backButtonPressed() {
+	fun backButtonPressed(activity: Activity) {
+		router.goBackToOnboarding(activity)
 //		if (isFromOnboarding) {
-//			parent.goToOnboarding(isFromLogin = true)
+//			router.goBackToOnboarding(isFromLogin = true)
 //		} else {
-//			parent.goToCoreFragments()
+//			router.goToCoreFragments(smthng)
 //		}
 	}
 	
 	fun universitySelectorPressed() {
-//		removeErrorMessage()
-//		bottomMenuView.presenter = bottomMenuPresenter
-//		FragmentReplacer.addFragment(R.id.login_navigation, bottomMenuView)
-//		placeSelector()
+		removeErrorMessage()
+		router.openBottomPopupContainer(::placeSelector)
 	}
 	
-	private fun placeSelector() {
-//		RecyclerPresenter(
-//			this,
-//			R.id.bottom_menu_recycler_container,
-//			null,
-//			IndexerItemType.Universities
-//		)
+	private fun placeSelector(fragment: BottomPopupContainerFragment) {
+		bottomPopupContainer = fragment
+		val container = fragment.binding.bottomPopupContainerContentContainer
+		val uploadingController = RecyclerSelectorUploadingControllerUniversities(
+			null,
+			::onSelectorError
+		)
+		fun onItemClick(index: Int) { recyclerCallback(uploadingController.getItem(index)) }
+		RecyclerSelectorPresenter(container, fragment, uploadingController, ::onItemClick)
+			.placeRecycler()
 	}
 	
-	fun bottomMenuClosed() {
-		//Do nothing
+	private fun onSelectorError(errorType: ErrorType) {
+		Log.e("LoginMethodSelectorViewModel.onSelectorError", errorType.toString())
+		makeErrorMessage(R.string.an_error_has_occurred_try_again)
+		bottomPopupContainer?.animateExit()
 	}
 	
-	fun recyclerCallback(
-//		realmObject: RealmIdNameInterface,
-//		contentType: IndexerItemType
-	) {
-//		selectedUniversity = realmObject as RealmUniversityObject
-//		fragment.bindNewUniversityName(realmObject.getTheName())
-//		bottomMenuView.exitAnimation()
+	private fun recyclerCallback(university: RealmItemUniversity?) {
+		if (university == null) {
+			Log.e("LoginMethodSelectorViewModel.recyclerCallback", "university == null")
+			makeErrorMessage(R.string.an_error_has_occurred_try_again)
+		} else {
+			selectedUniversity = university
+			universityName?.value = university.name ?: ""
+		}
+		bottomPopupContainer?.animateExit()
 	}
 	
 	fun onDestroyView() {

@@ -1,7 +1,10 @@
 package com.q2ve.pocketschedule2.model
 
+import com.q2ve.pocketschedule2.helpers.UserObserver
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemMain
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemScheduleUser
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUser
 import com.q2ve.pocketschedule2.model.realm.RealmIO
 import com.q2ve.pocketschedule2.model.retrofit.RetrofitCalls
 
@@ -10,40 +13,19 @@ import com.q2ve.pocketschedule2.model.retrofit.RetrofitCalls
  * qwq2eq@gmail.com
  */
 
-class Model {
-	fun testREMOVEit() {
-		fun testCallback(foo: RealmItemUniversity?, bar: ErrorType?) {
-			RealmIO().insertOrUpdate(foo!!)
-		}
-		fun testCallback2(foo: List<RealmItemUniversity>, bar: ErrorType?) {
-			RealmIO().insertOrUpdate(foo)
-		}
-		RealmIO().copyFromRealm("1488", ::testCallback)
-		RealmIO().copyFromRealm(::testCallback2)
-		RealmIO().copyIndexedFromRealm(::testCallback2)
-		RealmIO().insertOrUpdateWithIndexing(emptyList(), ::testCallback2)
+//TODO("ПРОВЕРКА НА ДОСТУПНОСТЬ ИНТЕРНЕТА, СУКА")
+class Model(private val onError: (ErrorType) -> Unit) {
+	
+	private fun onRetrofitError(errorType: ErrorType) {
+		ErrorResolver().resolveRetrofitError(errorType, onError)
 	}
 	
-	fun getUniversitiesTEST(callback: (List<RealmItemUniversity>) -> Unit) {
-		RetrofitCalls().getUniversities { objects: List<RealmItemUniversity>?, error: ErrorType? ->
-			if (objects != null) {
-				fun testCallback(foo: List<RealmItemUniversity>, bar: ErrorType?) {
-					RealmIO().copyIndexedFromRealm<RealmItemUniversity> { list, errorType ->
-						callback(ErrorChecker().checkUniversities(list))
-					}
-				}
-				RealmIO().insertOrUpdateWithIndexing(objects, ::testCallback)
-			}
-		}
-	}
+	private val retrofitCalls = RetrofitCalls(::onRetrofitError)
 	
-	fun getUniversities(callback: (List<RealmItemUniversity>?, ErrorType?) -> Unit) {
-		RetrofitCalls().getUniversities { objects, errorType ->
-			if (errorType != null) {
-				callback(null, errorType)
-			} else {
-				RealmIO().insertOrUpdateWithIndexing(objects ?: emptyList(), callback)
-			}
+	fun getUniversities(onSuccess: (List<RealmItemUniversity>) -> Unit) {
+		RetrofitCalls(::onRetrofitError).getUniversities { objects ->
+			val universities: List<RealmItemUniversity> = objects ?: emptyList()
+			RealmIO(onError).insertOrUpdateWithIndexing(universities, onSuccess)
 		}
 	}
 	
@@ -52,15 +34,11 @@ class Model {
 		limit: Int,
 		university: String,
 		query: String = "",
-		callback: (List<RealmItemScheduleUser>?, ErrorType?) -> Unit
+		onSuccess: (List<RealmItemScheduleUser>) -> Unit
 	) {
-		RetrofitCalls().getGroups (offset, limit, university, query)
-		{ objects: List<RealmItemScheduleUser>?, errorType: ErrorType? ->
-			if (errorType != null) {
-				callback(null, errorType)
-			} else {
-				RealmIO().insertOrUpdateWithIndexing(objects ?: emptyList(), callback)
-			}
+		retrofitCalls.getGroups (offset, limit, university, query)
+		{ objects: List<RealmItemScheduleUser>? ->
+			RealmIO().insertOrUpdateWithIndexing(objects ?: emptyList(), onSuccess)
 		}
 	}
 	
@@ -69,15 +47,50 @@ class Model {
 		limit: Int,
 		university: String,
 		query: String = "",
-		callback: (List<RealmItemScheduleUser>?, ErrorType?) -> Unit
+		onSuccess: (List<RealmItemScheduleUser>) -> Unit
 	) {
-		RetrofitCalls().getProfessors (offset, limit, university, query)
-		{ objects: List<RealmItemScheduleUser>?, errorType: ErrorType? ->
-			if (errorType != null) {
-				callback(null, errorType)
-			} else {
-				RealmIO().insertOrUpdateWithIndexing(objects ?: emptyList(), callback)
+		retrofitCalls.getProfessors (offset, limit, university, query)
+		{ objects: List<RealmItemScheduleUser>? ->
+			RealmIO().insertOrUpdateWithIndexing(objects ?: emptyList(), onSuccess)
+		}
+	}
+
+	private fun resolveAuthOnSuccess(
+		sessionId: String?,
+		user: RealmItemUser?,
+		onSuccess: (RealmItemMain) -> Unit
+	) {
+		when {
+			user == null -> onError(ErrorType.UnknownServerError)
+			sessionId == null -> onError(ErrorType.UnknownServerError)
+			else -> {
+				val mainObject = UserObserver.getMainObject()
+				mainObject.currentUser = user
+				mainObject.sessionId = sessionId
+				RealmIO(onError).insertOrUpdate(mainObject, onSuccess)
 			}
+		}
+	}
+	
+	fun postUser(
+		login: String,
+		password: String,
+		service: String,
+		onSuccess: (RealmItemMain) -> Unit
+	) {
+		retrofitCalls.postUser(login, password, service)
+		{ sessionId: String?, user: RealmItemUser? ->
+			resolveAuthOnSuccess(sessionId, user, onSuccess)
+		}
+	}
+	
+	fun postVkUser(
+		token: String,
+		onSuccess: (RealmItemMain) -> Unit
+	) {
+		retrofitCalls.postVkUser(token)
+		{ sessionId: String?, user: RealmItemUser? ->
+			resolveAuthOnSuccess(sessionId, user, onSuccess)
 		}
 	}
 }

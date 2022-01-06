@@ -1,103 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:background="@color/colorPlaqueBackground"
-	android:focusableInTouchMode="true"
-	android:clickable="true"
-	android:focusable="true" >
-
-	<androidx.constraintlayout.widget.ConstraintLayout
-		android:id="@+id/recycler_view_selector_search_box"
-		android:layout_width="match_parent"
-		android:layout_height="40dp"
-		android:layout_marginHorizontal="12dp"
-		android:background="@drawable/rc_search_field" >
-
-		<ImageView
-			android:id="@+id/recycler_view_selector_search_button"
-			android:layout_width="27dp"
-			android:layout_height="27dp"
-			android:layout_marginStart="12dp"
-			android:src="@drawable/ic_search"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:tint="@color/colorUNNAMED" />
-
-		<EditText
-			android:id="@+id/recycler_view_selector_search_field"
-			android:layout_width="0dp"
-			app:layout_constraintWidth_default="spread"
-			android:layout_height="match_parent"
-			android:layout_marginStart="12dp"
-			android:layout_marginEnd="12dp"
-			app:layout_constraintEnd_toStartOf="@+id/recycler_view_selector_cancel_button"
-			app:layout_constraintStart_toEndOf="@+id/recycler_view_selector_search_button"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			android:gravity="center_vertical"
-			android:background="@null"
-			android:textSize="16sp"
-			android:textColor="@color/colorBlack"
-			android:singleLine="true"
-			android:ellipsize="end"
-			android:hint="@string/search_with_ellipsis"/>
-
-		<ImageView
-			android:id="@+id/recycler_view_selector_cancel_button"
-			android:layout_width="27dp"
-			android:layout_height="27dp"
-			android:layout_marginEnd="12dp"
-			android:rotation="45"
-			android:src="@drawable/ic_plus"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:tint="@color/colorLightGray1"
-			android:visibility="invisible" />
-
-	</androidx.constraintlayout.widget.ConstraintLayout>
-
+	android:layout_marginTop="15dp"
+	android:orientation="vertical">
+	
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/recycler_recyclerview"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="10dp"
-		android:layout_below="@id/recycler_view_selector_search_box"
-		android:layout_above="@id/recycler_uploading_progressbar"
-		tools:listitem="@layout/recycler_item"
 		android:fadingEdge="vertical"
 		android:fadingEdgeLength="30dp"
+		android:overScrollMode="never"
 		android:requiresFadingEdge="vertical"
-		android:background="@color/colorPlaqueBackground"
-		android:overScrollMode="never" />
+		tools:listitem="@layout/recycler_item" />
 	
-	<TextView
-		android:id="@+id/recycler_error_textview"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_above="@id/recycler_uploading_progressbar"
-		android:layout_below="@id/recycler_view_selector_search_box"
-		android:layout_marginHorizontal="40dp"
-		android:layout_marginTop="40dp"
-		android:textAlignment="center"
-		android:textColor="@color/colorRedError"
-		android:textSize="14sp"
-		app:layout_constraintWidth_percent="0.6" />
-
 	<ProgressBar
 		android:id="@+id/recycler_uploading_progressbar"
-		android:layout_width="40dp"
+		android:layout_width="match_parent"
 		android:layout_height="40dp"
 		android:layout_marginVertical="10dp"
-		android:layout_alignParentBottom="true"
-		android:layout_centerHorizontal="true"
+		android:layout_gravity="bottom"
 		android:indeterminateTint="@color/colorBlue"
-		android:visibility="gone" />
-
-</RelativeLayout>
+		android:visibility="visible" />
+	
+</FrameLayout>

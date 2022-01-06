@@ -4,8 +4,17 @@ import com.q2ve.pocketschedule2.model.ErrorType
 import com.q2ve.pocketschedule2.model.Model
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
 
+/**
+ * Created by Denis Shishkin
+ * qwq2eq@gmail.com
+ */
+
+/**
+ * The controller will be unable to amend the recycler`s dataset if
+ * the recyclerAdapter will not be provided in the constructor or later.
+ */
 class RecyclerSelectorUploadingControllerUniversities(
-	recyclerAdapter: RecyclerSelectorAdapter,
+	recyclerAdapter: RecyclerSelectorAdapter?,
 	private val onErrorCallback: (ErrorType) -> Unit
 ): RecyclerSelectorUploadingControllerBase(recyclerAdapter) {
 	private var universities = emptyList<RealmItemUniversity>().toMutableList()
@@ -19,15 +28,11 @@ class RecyclerSelectorUploadingControllerUniversities(
 			universities = emptyList<RealmItemUniversity>().toMutableList()
 			emptyRecyclerDataset()
 		}
-		Model().getUniversities	{ objects, errorType ->
-			if (errorType != null) {
-				onErrorCallback(errorType)
-			} else {
-				universities += objects ?: emptyList()
-				val stringsList = emptyList<String>().toMutableList()
-				(objects ?: emptyList()).forEach { stringsList.add(it.name ?: "") }
-				fillRecyclerDataset(stringsList)
-			}
+		Model(onErrorCallback).getUniversities	{ objects ->
+			universities += objects
+			val stringsList = emptyList<String>().toMutableList()
+			objects.forEach { stringsList.add(it.name ?: "") }
+			fillRecyclerDataset(stringsList)
 		}
 	}
 	

@@ -7,7 +7,7 @@ import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
  * qwq2eq@gmail.com
  */
 
-class ErrorChecker {
+class ObjectsErrorChecker {
 	private fun checkUniversity(item: RealmItemUniversity?): RealmItemUniversity? {
 		return if (item?._id == null || item._id == "" ||
 			item.name == null || item.name == "" ||

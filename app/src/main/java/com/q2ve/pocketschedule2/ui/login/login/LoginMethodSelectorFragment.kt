@@ -66,10 +66,6 @@ class LoginMethodSelectorFragment: Fragment() {
 			if (it == null) cleanErrorMessage() else makeErrorMessage(it)
 		}
 		
-		viewModel.TESTErrorMessage?.subscribe {
-			if (it == null) cleanErrorMessage() else TESTMakeErrorMessage(it)
-		}
-		
 		viewModel.universityName?.subscribe {
 			bindNewUniversityName(it)
 		}
@@ -86,7 +82,7 @@ class LoginMethodSelectorFragment: Fragment() {
 	}
 	
 	private fun backButtonPressed () {
-		viewModel.backButtonPressed()
+		viewModel.backButtonPressed(requireActivity())
 	}
 	
 	private fun universitySelectorPressed() {
@@ -100,11 +96,6 @@ class LoginMethodSelectorFragment: Fragment() {
 	private fun makeErrorMessage(stringResource: Int) {
 		val errorTextView = binding.loginMethodSelectorErrorTextview
 		errorTextView.text = getString(stringResource)
-	}
-	
-	private fun TESTMakeErrorMessage(string: String) {
-		val errorTextView = binding.loginMethodSelectorErrorTextview
-		errorTextView.text = string
 	}
 	
 	private fun cleanErrorMessage() {

@@ -1,9 +1,11 @@
 package com.q2ve.pocketschedule2.model.retrofit
 
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemScheduleUser
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversitySHITCRAP
 import com.q2ve.pocketschedule2.model.dataclasses.RetrofitItemResponse
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -12,29 +14,32 @@ import retrofit2.http.Query
  */
 
 interface ApiRequests {
-
-//	@GET("universities/{university}/groups?") //APIv2
-//	fun getGroups (
-//		@Path("university") university: String,
-//		@Query("offset") offset: Int,
-//		@Query("limit") limit: Int,
-//		@Query("q") q: String = ""
-//	): Call<RetrofitResponseObject<RetrofitItemScheduleUser>>
-//
-//	@GET("universities/{university}/professors?") //APIv2
-//	fun getProfessors (
-//		@Path("university") university: String,
-//		@Query("offset") offset: Int,
-//		@Query("limit") limit: Int,
-//		@Query("q") q: String = ""
-//	): Call<RetrofitResponseObject<RetrofitItemScheduleUser>>
-
-	@GET("universities?") //APIv2
+	
+	//APIv2
+	@GET("universities/{university}/groups?")
+	fun getGroups (
+		@Path("university") university: String,
+		@Query("offset") offset: Int,
+		@Query("limit") limit: Int,
+		@Query("q") q: String = ""
+	): Call<RetrofitItemResponse<RealmItemScheduleUser>>
+	
+	//APIv2
+	@GET("universities/{university}/professors?")
+	fun getProfessors (
+		@Path("university") university: String,
+		@Query("offset") offset: Int,
+		@Query("limit") limit: Int,
+		@Query("q") q: String = ""
+	): Call<RetrofitItemResponse<RealmItemScheduleUser>>
+	
+	//APIv2
+	@GET("universities?")
 	fun getUniversities (
 		@Query("offset") offset: Int,
 		@Query("limit") limit: Int,
 		@Query("q") q: String = ""
-	): Call<RetrofitItemResponse<RealmItemUniversity>>
+	): Call<RetrofitItemResponse<RealmItemUniversitySHITCRAP>>
 
 //	@GET("universities/{university}/schedule/{scheduleUserId}/?") //APIv2
 //	fun getLessons (

@@ -1,7 +1,7 @@
 package com.q2ve.pocketschedule2
 
 import androidx.fragment.app.FragmentActivity
-import com.q2ve.pocketschedule2.helpers.ResourceGetter
+import com.q2ve.pocketschedule2.helpers.UserObserver
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
 import com.q2ve.pocketschedule2.ui.Frames
@@ -16,9 +16,10 @@ import io.realm.Realm
 class LaunchManager(private val activity: FragmentActivity) {
 	
 	fun initializeHelpers() {
-		ResourceGetter.configure(activity)
+		//ResourceGetter.configure(activity)
 		Navigator.configure(activity)
 		Realm.init(activity)
+		UserObserver.configure()
 	}
 	
 	fun applicationStarted() {

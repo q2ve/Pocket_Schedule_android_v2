@@ -3,6 +3,7 @@ package com.q2ve.pocketschedule2.model.realm
 import android.util.Log
 import com.q2ve.pocketschedule2.helpers.Constants
 import com.q2ve.pocketschedule2.model.ErrorType
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemMain
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmObject
@@ -18,6 +19,8 @@ import kotlin.reflect.KProperty
 class RealmIO {
 	val config: RealmConfiguration = RealmConfiguration.Builder()
 		.name(Constants.realmName)
+		.allowQueriesOnUiThread(true)
+		.allowWritesOnUiThread(true)
 		.build()
 		
 	fun insertOrUpdate(
@@ -189,7 +192,8 @@ class RealmIO {
 				callback(output, null)
 			}, {
 				callback(emptyList(), ErrorType.RealmError)
-				Log.e("RealmIO.insertOrUpdateWithIndexer", it.toString())
+				//TODO("Check possible throwable.")
+				Log.e("RealmIO.insertOrUpdateWithIndexing", it.toString())
 			}
 		)
 		realm.close()
@@ -233,6 +237,45 @@ class RealmIO {
 				Log.e("RealmIO.copyIndexedFromRealm", it.toString())
 			}
 		)
+		realm.close()
+	}
+	
+	fun getMainObject(): RealmItemMain {
+		val realm = Realm.getInstance(config)
+		var mainObject = RealmItemMain()
+		realm.executeTransaction { r: Realm ->
+			val foundMainObject = r.where(RealmItemMain::class.java)
+									.equalTo("_id", "mainObject")
+									.findFirst()
+			if (foundMainObject == null) { r.insertOrUpdate(RealmItemMain()) }
+			else {
+				mainObject = foundMainObject
+				Log.d("getMainObject foundMainObject in realm transaction", mainObject.toString())
+			}
+		}
+		realm.close()
+		Log.d("getMainObject before return", mainObject.toString())
+		return mainObject
+	}
+	
+	fun observeMainObject(setMainObject: (RealmItemMain) -> Unit) {
+		val realm = Realm.getInstance(config)
+		var mainObject: RealmItemMain? = null
+		realm.executeTransaction { r: Realm ->
+			mainObject = r.where(RealmItemMain::class.java)
+							.equalTo("_id", "mainObject")
+							.findFirst()
+		}
+		Log.d("observeMainObject", mainObject.toString())
+		if (mainObject == null) {
+			TODO("Надо придумать что-то с этим говном.")
+		}
+		mainObject?.addChangeListener { it: RealmItemMain ->
+			Log.d("mainObjectChangeListener", it.toString())
+			realm.executeTransaction { r: Realm ->
+				setMainObject(r.copyFromRealm(it))
+			}
+		}
 		realm.close()
 	}
 }

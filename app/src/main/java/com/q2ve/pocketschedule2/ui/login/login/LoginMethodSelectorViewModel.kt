@@ -1,9 +1,16 @@
 package com.q2ve.pocketschedule2.ui.login.login
 
 import android.app.Activity
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.q2ve.pocketschedule2.helpers.Observable
-import com.q2ve.pocketschedule2.model.Model
+import com.q2ve.pocketschedule2.helpers.recyclerSelector.RecyclerSelectorAdapter
+import com.q2ve.pocketschedule2.helpers.recyclerSelector.RecyclerSelectorOnScrollListener
+import com.q2ve.pocketschedule2.helpers.recyclerSelector.RecyclerSelectorUploadingControllerGroups
+import com.q2ve.pocketschedule2.model.ErrorType
+import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
 
 /**
  * Created by Denis Shishkin
@@ -11,6 +18,8 @@ import com.q2ve.pocketschedule2.model.Model
  */
 
 class LoginMethodSelectorViewModel: ViewModel() {
+	val router = LoginMethodSelectorRouter()
+	
 	var errorMessage: Observable<Int?>? = Observable(null)
 	var TESTErrorMessage: Observable<String?>? = Observable(null)
 	var loadingSpinnerVisibility: Observable<Boolean>? = Observable(false)
@@ -89,11 +98,41 @@ class LoginMethodSelectorViewModel: ViewModel() {
 	fun vkButtonPressed(activity: Activity) {
 		
 		//TEST
-		Model().getUniversitiesTEST { items ->
-			val test = (items[0].name!! + ", " + items[1].name!!)
-			TESTMakeErrorMessage(test)
+		fun tesst() {
+			TESTMakeErrorMessage("Suck")
 		}
 		
+		fun tesst2(fragment: BottomPopupContainerFragment) {
+			var uploadingController: RecyclerSelectorUploadingControllerGroups? = null
+			fun testOnErrorCallback(errorType: ErrorType) {
+				Log.e("testOnErrorCallback", errorType.toString())
+			}
+			fun testOnClickCallback(index: Int) {
+				Log.e("testOnClickCallback", uploadingController?.getItem(index)?.name.toString())
+			}
+			
+			val container = fragment.binding.bottomPopupContainerContentContainer
+			val recycler = RecyclerView(activity)
+			val layoutManager = LinearLayoutManager(activity)
+			val adapter = RecyclerSelectorAdapter(emptyList(), ::testOnClickCallback)
+			uploadingController = RecyclerSelectorUploadingControllerGroups(adapter, ::testOnErrorCallback, "GUAP")
+			val onScrollListener = RecyclerSelectorOnScrollListener(layoutManager, uploadingController::uploadMoreItems)
+			
+			recycler.layoutManager = layoutManager
+			recycler.adapter = adapter
+			recycler.addOnScrollListener(onScrollListener)
+			
+			container.addView(recycler)
+			
+			uploadingController.uploadItems()
+		}
+		
+		router.openUniversitySelector(::tesst2, ::tesst)
+//		Model().getUniversitiesTEST { items ->
+//			val test = (items[1].name!!)
+//			TESTMakeErrorMessage(test)
+//			router.openUniversitySelector(::tesst2, ::tesst)
+//		}
 		//TEST
 		
 //		removeErrorMessage()

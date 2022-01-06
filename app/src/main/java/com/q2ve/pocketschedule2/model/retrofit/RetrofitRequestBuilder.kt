@@ -19,10 +19,15 @@ class RetrofitRequestBuilder {
 		httpBuilder.connectTimeout(20, TimeUnit.SECONDS)
 		httpBuilder.readTimeout(20, TimeUnit.SECONDS)
 		httpBuilder.writeTimeout(20, TimeUnit.SECONDS)
-		val certificatePinner = CertificatePinner.Builder()
-			.add(Constants.serverUrl, Constants.serverCertFingerprint)
-			.build()
-		val client = httpBuilder.certificatePinner(certificatePinner).build()
+		val client: OkHttpClient =
+			if (Constants.enableCertificatePining) {
+				val certificatePinner = CertificatePinner.Builder()
+					.add(Constants.serverUrl, Constants.serverCertFingerprint)
+					.build()
+				httpBuilder.certificatePinner(certificatePinner).build()
+			} else {
+				httpBuilder.build()
+			}
 		return Retrofit.Builder()
 			.client(client)
 			.baseUrl(Constants.serverUrlApi)

@@ -1,6 +1,7 @@
 package com.q2ve.pocketschedule2.model.realm
 
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemScheduleUser
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversitySHITCRAP
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import java.util.UUID.randomUUID
@@ -15,5 +16,6 @@ open class IndexItem (
 	var _id: String = randomUUID().toString(),
 	var index: Int = 0,
 	var indexedObjectClass: String = "",
-	var indexedUniversity: RealmItemUniversity? = null
+	var indexedUniversitySHITCRAP: RealmItemUniversitySHITCRAP? = null,
+	var indexedScheduleUser: RealmItemScheduleUser? = null
 ): RealmObject()

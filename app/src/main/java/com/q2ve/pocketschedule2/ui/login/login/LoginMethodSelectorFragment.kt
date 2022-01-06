@@ -1,7 +1,6 @@
 package com.q2ve.pocketschedule2.ui.login.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -104,7 +103,6 @@ class LoginMethodSelectorFragment: Fragment() {
 	}
 	
 	private fun TESTMakeErrorMessage(string: String) {
-		Log.e("TEST", "Fragment TESTMakeErrorMessage")
 		val errorTextView = binding.loginMethodSelectorErrorTextview
 		errorTextView.text = string
 	}

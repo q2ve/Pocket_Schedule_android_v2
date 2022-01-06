@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout
+		android:id="@+id/bottom_popup_container_background"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="#F8000000"
+		android:orientation="horizontal"
+		android:translationY="1000dp"
+		android:focusableInTouchMode="true"
+		android:clickable="true"
+		android:focusable="true" />
+
+	<androidx.constraintlayout.motion.widget.MotionLayout
+		android:id="@+id/bottom_popup_container_motion_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_marginTop="70dp"
+		app:layoutDescription="@xml/bottom_popup_container_motion_scene"
+		android:translationY="1000dp">
+
+		<LinearLayout
+			android:id="@+id/bottom_popup_container_container"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:minHeight="300dp"
+			android:background="@drawable/rc_bottom_popup_container"
+			android:orientation="vertical">
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="15dp">
+
+				<TextView
+					android:id="@+id/bottom_popup_container_title"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:textColor="#FF000000"
+					android:textSize="21sp"
+					android:textStyle="bold" />
+
+				<Button
+					android:id="@+id/bottom_popup_container_exit_button"
+					android:layout_width="28dp"
+					android:layout_height="28dp"
+					android:layout_alignParentEnd="true"
+					android:layout_centerVertical="true"
+					android:layout_marginEnd="15dp"
+					android:background="@drawable/ic_cancel_cross_outline" />
+
+			</RelativeLayout>
+			
+			<LinearLayout
+				android:id="@+id/bottom_popup_container_content_container"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<ProgressBar
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:layout_marginVertical="30dp"
+					android:visibility="gone" />
+				
+			</LinearLayout>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="20dp"/>
+
+		</LinearLayout>
+	</androidx.constraintlayout.motion.widget.MotionLayout>
+</RelativeLayout>

@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
+import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
 import com.q2ve.pocketschedule2.ui.Frames
 import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
 import com.vk.api.sdk.VK
@@ -21,11 +22,18 @@ class LoginMethodSelectorRouter {
 		VK.login(activity, arrayListOf(VKScope.WALL, VKScope.OFFLINE))
 	}
 	
-	fun openUniversityAuthScreen() {
-		//TODO()
+	fun openUniversityAuthScreen(authorizationService: String, universityId: String) {
+		Frames.getLoginFrame()?.let { frame: Int ->
+			Navigator.replaceFragment(
+				LoginViaUniversityFragment.newInstance(authorizationService, universityId),
+				frame,
+				ReplaceAnimation.SlideRtL,
+				true
+			)
+		}
 	}
 	
-	fun openPopupScheduleUserSelector() {
+	fun openScheduleUserSelector() {
 		//TODO()
 	}
 	

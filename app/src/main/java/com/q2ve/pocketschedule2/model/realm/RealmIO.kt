@@ -32,7 +32,8 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 		val realm = Realm.getInstance(config)
 		realm.executeTransactionAsync(
 			{ r: Realm ->
-				output = r.copyToRealmOrUpdate(inputObject)
+				val objectInRealm = r.copyToRealmOrUpdate(inputObject)
+				output = r.copyFromRealm(objectInRealm)
 			}, {
 				if (output != null) onSuccess?.let { it(output!!) }
 				else onError?.let { it(ErrorType.RealmError) }
@@ -55,7 +56,8 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 		val realm = Realm.getInstance(config)
 		realm.executeTransactionAsync(
 			{ r: Realm ->
-				output = r.copyToRealmOrUpdate(inputObjects)
+				val objectsInRealm = r.copyToRealmOrUpdate(inputObjects)
+				output = r.copyFromRealm(objectsInRealm)
 			}, {
 				onSuccess?.let { it(output) }
 			}, { t: Throwable ->
@@ -97,7 +99,6 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 	inline fun <reified T: RealmObject> copyFromRealm(
 		noinline onSuccess: ((List<T>) -> Unit)
 	) {
-		Log.d("Test - Generic name is", T::class.java.simpleName)
 		var output: List<T> = emptyList()
 		val realm = Realm.getInstance(config)
 		realm.executeTransactionAsync(
@@ -124,7 +125,6 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 		inputObjects: List<RealmObject>,
 		noinline onSuccess: (List<T>) -> Unit
 	) {
-		Log.d("Test - Generic name is", T::class.java.simpleName)
 		var output: List<T> = emptyList()
 		val className = T::class.java.simpleName
 		val realm = Realm.getInstance(config)
@@ -206,7 +206,6 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 	inline fun <reified T: RealmObject> copyIndexedFromRealm(
 		noinline onSuccess: ((List<T>) -> Unit)
 	) {
-		Log.d("Test - Generic name is ", T::class.java.simpleName)
 		var output: List<T> = emptyList()
 		val className = T::class.java.simpleName
 		val realm = Realm.getInstance(config)
@@ -255,12 +254,10 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 									.findFirst()
 			if (foundMainObject == null) { r.insertOrUpdate(RealmItemMain()) }
 			else {
-				mainObject = foundMainObject
-				Log.d("getMainObject foundMainObject in realm transaction", mainObject.toString())
+				mainObject = r.copyFromRealm(foundMainObject)
 			}
 		}
 		realm.close()
-		Log.d("getMainObject before return", mainObject.toString())
 		return mainObject
 	}
 	
@@ -272,12 +269,10 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 							.equalTo("_id", "mainObject")
 							.findFirst()
 		}
-		Log.d("observeMainObject", mainObject.toString())
 		if (mainObject == null) {
 			TODO("Надо придумать что-то с этим говном.")
 		}
 		mainObject?.addChangeListener { it: RealmItemMain ->
-			Log.d("mainObjectChangeListener", it.toString())
 			realm.executeTransaction { r: Realm ->
 				setMainObject(r.copyFromRealm(it))
 			}

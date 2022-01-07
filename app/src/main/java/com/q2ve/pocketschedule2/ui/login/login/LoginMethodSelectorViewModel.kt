@@ -45,12 +45,14 @@ class LoginMethodSelectorViewModel: ViewModel() {
 					else -> makeErrorMessage(R.string.server_error)
 				}
 			}
-			Model(::onError).postVkUser(token) { mainObject: RealmItemMain ->
+			fun onSuccess(mainObject: RealmItemMain) {
 				val user = mainObject.currentUser
 				if (user?.scheduleUser == null || user.university == null) {
-//					PopupLoginPresenter(this)
-				} else router.goToCoreFragments()
+					router.openScheduleUserSelector()
+				}
+				else router.goToCoreFragments()
 			}
+			Model(::onError).postVkUser(token, ::onSuccess)
 		}
 	}
 	
@@ -73,6 +75,11 @@ class LoginMethodSelectorViewModel: ViewModel() {
 	fun enterButtonPressed() {
 		removeErrorMessage()
 		if (selectedUniversity == null) makeErrorMessage(R.string.error_no_university_selected)
+		else {
+			val authorizationService = selectedUniversity!!.serviceName ?: ""
+			val universityId = selectedUniversity!!._id
+			router.openUniversityAuthScreen(authorizationService, universityId)
+		}
 //		else router.openUniversityAuthScreen(selectedUniversity, isFromOnboarding)
 	}
 	

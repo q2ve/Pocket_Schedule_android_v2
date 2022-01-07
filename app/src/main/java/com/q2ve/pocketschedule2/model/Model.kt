@@ -67,6 +67,12 @@ class Model(private val onError: (ErrorType) -> Unit) {
 				val mainObject = UserObserver.getMainObject()
 				mainObject.currentUser = user
 				mainObject.sessionId = sessionId
+				if (user.scheduleUser != null) {
+					mainObject.scheduleUser = user.scheduleUser
+				}
+				if (user.university != null) {
+					mainObject.scheduleUniversity = user.university
+				}
 				RealmIO(onError).insertOrUpdate(mainObject, onSuccess)
 			}
 		}

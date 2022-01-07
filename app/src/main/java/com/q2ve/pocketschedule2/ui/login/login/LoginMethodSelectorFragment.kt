@@ -38,19 +38,19 @@ class LoginMethodSelectorFragment: Fragment() {
 		//Setting on click listeners and animations
 		enterButton = binding.loginMethodSelectorEnterButton
 		enterButton.setOnClickListener { enterButtonPressed() }
-		ButtonAnimator(enterButton)
+		ButtonAnimator(enterButton).animateWeakPressing()
 		
 		vkButton = binding.loginMethodSelectorVkButton
 		vkButton.setOnClickListener { vkButtonPressed() }
-		ButtonAnimator(vkButton)
+		ButtonAnimator(vkButton).animateWeakPressing()
 		
 		backButton = binding.loginMethodSelectorBackButton
 		backButton.setOnClickListener { backButtonPressed() }
-		ButtonAnimator(backButton)
+		ButtonAnimator(backButton).animateWeakPressing()
 		
 		universitySelectorButton = binding.loginMethodSelectorUniversitySelectorButton
 		universitySelectorButton.setOnClickListener { universitySelectorPressed() }
-		ButtonAnimator(universitySelectorButton)
+		ButtonAnimator(universitySelectorButton).animateWeakPressing()
 		
 		universityTextView = binding.loginMethodSelectorLoginField
 		universityTextView.setOnClickListener { universitySelectorPressed() }

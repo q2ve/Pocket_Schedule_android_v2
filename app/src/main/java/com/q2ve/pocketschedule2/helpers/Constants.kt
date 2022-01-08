@@ -14,5 +14,5 @@ object Constants {
 	const val mainObjectId = "mainObject"
 	const val realmName = "SUAI_database"
 	const val connectionTimeout = 20L
-	const val paginationStep = 20L
+	const val paginationStep = 20
 }

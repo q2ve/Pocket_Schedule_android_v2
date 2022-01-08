@@ -16,7 +16,7 @@ class ObjectsErrorChecker {
 	}
 	
 	fun checkUniversities(items: List<RealmItemUniversity>): List<RealmItemUniversity> {
-		val output: MutableList<RealmItemUniversity> = emptyList<RealmItemUniversity>().toMutableList()
+		val output = emptyList<RealmItemUniversity>().toMutableList()
 		items.forEach { if (checkUniversity(it) != null) output.add(it) }
 		return output
 	}

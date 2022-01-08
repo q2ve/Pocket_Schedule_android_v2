@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.q2ve.pocketschedule2.R
@@ -17,7 +18,6 @@ import com.q2ve.pocketschedule2.ui.ButtonAnimator
  */
 
 class LoginMethodSelectorFragment: Fragment() {
-	private lateinit var binding: LoginMethodSelectorBinding
 	private lateinit var viewModel: LoginMethodSelectorViewModel
 	
 	private lateinit var enterButton: ImageButton
@@ -26,13 +26,14 @@ class LoginMethodSelectorFragment: Fragment() {
 	private lateinit var universitySelectorButton: ImageView
 	private lateinit var universityTextView: TextView
 	private lateinit var spinner: ProgressBar
+	private lateinit var errorField: TextView
 	
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View {
-		binding = LoginMethodSelectorBinding.inflate(inflater, container, false)
+		val binding = LoginMethodSelectorBinding.inflate(inflater, container, false)
 		viewModel = ViewModelProvider(this).get(LoginMethodSelectorViewModel::class.java)
 		
 		//Setting on click listeners and animations
@@ -57,13 +58,15 @@ class LoginMethodSelectorFragment: Fragment() {
 		
 		spinner = binding.loginMethodSelectorWaitingSpinner
 		
+		errorField = binding.loginMethodSelectorErrorTextview
+		
 		//Subscribing on viewModel fields
 		viewModel.loadingSpinnerVisibility?.subscribe {
 			if (it) placeSpinner() else removeSpinner()
 		}
 		
 		viewModel.errorMessage?.subscribe {
-			if (it == null) cleanErrorMessage() else makeErrorMessage(it)
+			if (it == null) removeErrorMessage() else makeErrorMessage(it)
 		}
 		
 		viewModel.universityName?.subscribe {
@@ -93,15 +96,9 @@ class LoginMethodSelectorFragment: Fragment() {
 		universityTextView.text = name
 	}
 	
-	private fun makeErrorMessage(stringResource: Int) {
-		val errorTextView = binding.loginMethodSelectorErrorTextview
-		errorTextView.text = getString(stringResource)
-	}
+	private fun makeErrorMessage(resource: Int) { errorField.text = getString(resource) }
 	
-	private fun cleanErrorMessage() {
-		val errorTextView = binding.loginMethodSelectorErrorTextview
-		errorTextView.text = ""
-	}
+	private fun removeErrorMessage() { errorField.text = "" }
 	
 	//TODO("Color changing animation. And better color for locked state")
 	private fun placeSpinner() {
@@ -112,7 +109,9 @@ class LoginMethodSelectorFragment: Fragment() {
 		universityTextView.setOnClickListener(null)
 		vkButton.setOnClickListener(null)
 		vkButton.text = ""
-		vkButton.background.setTint(resources.getColor(R.color.colorBlueLocked))
+		vkButton.background.setTint(
+			ContextCompat.getColor(requireContext(), R.color.colorBlueLocked)
+		)
 	}
 	
 	private fun removeSpinner() {
@@ -123,7 +122,9 @@ class LoginMethodSelectorFragment: Fragment() {
 		universityTextView.setOnClickListener { universitySelectorPressed() }
 		vkButton.setOnClickListener { vkButtonPressed() }
 		vkButton.text = resources.getString(R.string.login_via_VK)
-		vkButton.background.setTint(resources.getColor(R.color.colorBlue))
+		vkButton.background.setTint(
+			ContextCompat.getColor(requireContext(), R.color.colorBlue)
+		)
 	}
 	
 	override fun onDestroy() {

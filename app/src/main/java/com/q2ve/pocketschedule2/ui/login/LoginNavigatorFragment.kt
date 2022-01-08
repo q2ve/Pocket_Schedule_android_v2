@@ -60,7 +60,7 @@ class LoginNavigatorFragment: Fragment() {
 	}
 	
 	private fun getEllipse(): ImageView? {
-		return view?.findViewById(R.id.login_background_ellipse)
+		return view?.findViewById(R.id.schedule_user_picker_background_ellipse)
 	}
 	
 	override fun onSaveInstanceState(outState: Bundle) {

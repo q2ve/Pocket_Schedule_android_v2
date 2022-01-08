@@ -15,10 +15,11 @@ import java.util.concurrent.TimeUnit
 class RetrofitRequestBuilder {
 	fun getRequest(): ApiRequests {
 		val httpBuilder = OkHttpClient.Builder()
-		httpBuilder.callTimeout(20, TimeUnit.SECONDS)
-		httpBuilder.connectTimeout(20, TimeUnit.SECONDS)
-		httpBuilder.readTimeout(20, TimeUnit.SECONDS)
-		httpBuilder.writeTimeout(20, TimeUnit.SECONDS)
+		val timeout = Constants.connectionTimeout
+		httpBuilder.callTimeout(timeout, TimeUnit.SECONDS)
+		httpBuilder.connectTimeout(timeout, TimeUnit.SECONDS)
+		httpBuilder.readTimeout(timeout, TimeUnit.SECONDS)
+		httpBuilder.writeTimeout(timeout, TimeUnit.SECONDS)
 		val client: OkHttpClient =
 			if (Constants.enableCertificatePining) {
 				val certificatePinner = CertificatePinner.Builder()

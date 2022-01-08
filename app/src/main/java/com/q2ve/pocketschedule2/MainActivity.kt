@@ -18,6 +18,8 @@ import com.vk.api.sdk.auth.VKAuthCallback
  */
 
 class MainActivity : AppCompatActivity() {
+	var allowBackButtonAction: Boolean = true
+	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		
@@ -54,7 +56,9 @@ class MainActivity : AppCompatActivity() {
 	}
 	
 	override fun onBackPressed() {
-		super.onBackPressed()
+		if (allowBackButtonAction) {
+			super.onBackPressed()
+		}
 	}
 	
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

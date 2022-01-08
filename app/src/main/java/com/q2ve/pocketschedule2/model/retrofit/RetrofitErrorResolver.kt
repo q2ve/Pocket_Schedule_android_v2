@@ -1,9 +1,10 @@
 package com.q2ve.pocketschedule2.model.retrofit
 
 import com.q2ve.pocketschedule2.model.ErrorType
-import com.q2ve.pocketschedule2.model.dataclasses.RetrofitItemAuthResponse
 import com.q2ve.pocketschedule2.model.dataclasses.RetrofitItemError
-import com.q2ve.pocketschedule2.model.dataclasses.RetrofitItemResponse
+import com.q2ve.pocketschedule2.model.dataclasses.RetrofitResponse
+import com.q2ve.pocketschedule2.model.dataclasses.RetrofitResponseAuth
+import com.q2ve.pocketschedule2.model.dataclasses.RetrofitResponseMe
 import retrofit2.Response
 
 /**
@@ -32,14 +33,10 @@ class RetrofitErrorResolver {
 	 * Returns ErrorType object if response is unsuccessful.
 	 * Returns null if no errors are found.
 	 */
-	fun <T> checkItemResponse(response: Response<RetrofitItemResponse<T>>): ErrorType? {
+	fun <T> checkResponse(response: Response<RetrofitResponse<T>>): ErrorType? {
 		return when {
-			(response.body() == null || response.code() == 500) -> {
-				ErrorType.UnknownServerError
-			}
-			(response.body()!!.result == null) -> {
-				checkItemError(response.body()!!.error)
-			}
+			(response.body() == null || response.code() == 500) -> ErrorType.UnknownServerError
+			(response.body()!!.result == null) -> checkItemError(response.body()!!.error)
 			(response.body()!!.result!!.totalCount == null) -> ErrorType.UnknownServerError
 			(response.body()!!.result!!.items == null) -> ErrorType.UnknownServerError
 			else -> null
@@ -50,16 +47,25 @@ class RetrofitErrorResolver {
 	 * Returns ErrorType object if response is unsuccessful.
 	 * Returns null if no errors are found.
 	 */
-	fun checkItemAuthResponse(response: Response<RetrofitItemAuthResponse>): ErrorType? {
+	fun checkResponseAuth(response: Response<RetrofitResponseAuth>): ErrorType? {
 		return when {
-			(response.body() == null || response.code() == 500) -> {
-				ErrorType.UnknownServerError
-			}
-			(response.body()!!.result == null) -> {
-				checkItemError(response.body()!!.error)
-			}
+			(response.code() == 400) -> ErrorType.ValidationError
+			(response.body() == null || response.code() == 500) -> ErrorType.UnknownServerError
+			(response.body()!!.result == null) -> checkItemError(response.body()!!.error)
 			(response.body()!!.result!!.sessionId == null) -> ErrorType.UnknownServerError
 			(response.body()!!.result!!.user == null) -> ErrorType.UnknownServerError
+			else -> null
+		}
+	}
+	
+	/**
+	 * Returns ErrorType object if response is unsuccessful.
+	 * Returns null if no errors are found.
+	 */
+	fun checkResponseMe(response: Response<RetrofitResponseMe>): ErrorType? {
+		return when {
+			(response.body() == null || response.code() == 500) -> ErrorType.UnknownServerError
+			(response.body()!!.result == null) -> checkItemError(response.body()!!.error)
 			else -> null
 		}
 	}

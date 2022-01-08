@@ -18,7 +18,7 @@ interface ApiRequests {
 		@Query("offset") offset: Int,
 		@Query("limit") limit: Int,
 		@Query("q") q: String = ""
-	): Call<RetrofitItemResponse<RealmItemScheduleUser>>
+	): Call<RetrofitResponse<RealmItemScheduleUser>>
 	
 	//APIv2
 	@GET("universities/{university}/professors?")
@@ -27,7 +27,7 @@ interface ApiRequests {
 		@Query("offset") offset: Int,
 		@Query("limit") limit: Int,
 		@Query("q") q: String = ""
-	): Call<RetrofitItemResponse<RealmItemScheduleUser>>
+	): Call<RetrofitResponse<RealmItemScheduleUser>>
 	
 	//APIv2
 	@GET("universities?")
@@ -35,7 +35,7 @@ interface ApiRequests {
 		@Query("offset") offset: Int,
 		@Query("limit") limit: Int,
 		@Query("q") q: String = ""
-	): Call<RetrofitItemResponse<RealmItemUniversity>>
+	): Call<RetrofitResponse<RealmItemUniversity>>
 
 //	@GET("universities/{university}/schedule/{scheduleUserId}/?") //APIv2
 //	fun getLessons (
@@ -64,13 +64,13 @@ interface ApiRequests {
 	fun postUser (
 		@Path("service") service: String,
 		@Body body: RetrofitBodyLoginPassword
-	): Call<RetrofitItemAuthResponse>
+	): Call<RetrofitResponseAuth>
 	
 	//APIv2
 	@POST("auth/vk")
 	fun postVkUser (
 		@Body body: RetrofitBodyToken
-	): Call<RetrofitItemAuthResponse>
+	): Call<RetrofitResponseAuth>
 
 //	@POST("deadlines") //APIv2
 //	fun postDeadline (
@@ -88,13 +88,14 @@ interface ApiRequests {
 //	fun postLogout (
 //		@Header("X-Session-Id") sessionId: String
 //	): Call<Any>
-//
-//	@PUT("me") //APIv2
-//	fun putMe (
-//		@Header("X-Session-Id") sessionId: String,
-//		@Body body: RetrofitBodyMe
-//	): Call<RetrofitMeResponseObject>
-//
+	
+	//APIv2
+	@PUT("me")
+	fun putMe (
+		@Header("X-Session-Id") sessionId: String,
+		@Body body: RetrofitBodyMe
+	): Call<RetrofitResponseMe>
+
 //	@PUT("me") //APIv2
 //	fun putMeServiceLogin (
 //		@Header("X-Session-Id") sessionId: String,

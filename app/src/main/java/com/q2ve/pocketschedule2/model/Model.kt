@@ -99,4 +99,19 @@ class Model(private val onError: (ErrorType) -> Unit) {
 			resolveAuthOnSuccess(sessionId, user, onSuccess)
 		}
 	}
+	
+	fun putMe(
+		sessionId: String,
+		universityId: String,
+		scheduleUserId: String,
+		onSuccess: (RealmItemUser) -> Unit
+	) {
+		retrofitCalls.putMe(sessionId, universityId, scheduleUserId) { user: RealmItemUser? ->
+			resolveAuthOnSuccess(sessionId, user) { onSuccess(user!!) }
+		}
+	}
+	
+	fun updateMainObject(mainObject: RealmItemMain, onSuccess: (RealmItemMain) -> Unit) {
+		RealmIO(onError).insertOrUpdate(mainObject, onSuccess)
+	}
 }

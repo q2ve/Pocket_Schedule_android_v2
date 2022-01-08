@@ -22,11 +22,12 @@ import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
 class LoginMethodSelectorViewModel: ViewModel() {
 	private val router = LoginMethodSelectorRouter()
 	private var bottomPopupContainer: BottomPopupContainerFragment? = null
-	private var selectedUniversity: RealmItemUniversity? = null
 	
 	var errorMessage: Observable<Int?>? = Observable(null)
 	var loadingSpinnerVisibility: Observable<Boolean>? = Observable(false)
 	var universityName: Observable<String>? = Observable("")
+	
+	private var selectedUniversity: RealmItemUniversity? = null
 	
 	init {
 		VKAuthCallbackSetter.callback = ::vkAuthCallback
@@ -48,7 +49,7 @@ class LoginMethodSelectorViewModel: ViewModel() {
 			fun onSuccess(mainObject: RealmItemMain) {
 				val user = mainObject.currentUser
 				if (user?.scheduleUser == null || user.university == null) {
-					router.openScheduleUserSelector()
+					router.openScheduleUserPicker()
 				}
 				else router.goToCoreFragments()
 			}
@@ -56,21 +57,13 @@ class LoginMethodSelectorViewModel: ViewModel() {
 		}
 	}
 	
-	private fun showSpinner() {
-		loadingSpinnerVisibility?.value = true
-	}
+	private fun showSpinner() { loadingSpinnerVisibility?.value = true }
 	
-	private fun hideSpinner() {
-		loadingSpinnerVisibility?.value = false
-	}
+	private fun hideSpinner() { loadingSpinnerVisibility?.value = false }
 	
-	private fun makeErrorMessage(stringId: Int) {
-		errorMessage?.value = stringId
-	}
+	private fun makeErrorMessage(stringId: Int) { errorMessage?.value = stringId }
 	
-	private fun removeErrorMessage() {
-		errorMessage?.value = null
-	}
+	private fun removeErrorMessage() { errorMessage?.value = null }
 	
 	fun enterButtonPressed() {
 		removeErrorMessage()
@@ -127,7 +120,7 @@ class LoginMethodSelectorViewModel: ViewModel() {
 			makeErrorMessage(R.string.an_error_has_occurred_try_again)
 		} else {
 			selectedUniversity = university
-			universityName?.value = university.name ?: ""
+			universityName?.value = university.name ?: "-"
 		}
 		bottomPopupContainer?.animateExit()
 	}

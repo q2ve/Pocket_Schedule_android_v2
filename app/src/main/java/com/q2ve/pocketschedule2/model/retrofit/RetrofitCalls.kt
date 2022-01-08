@@ -1,5 +1,6 @@
 package com.q2ve.pocketschedule2.model.retrofit
 
+import android.util.Log
 import com.q2ve.pocketschedule2.model.ErrorType
 import com.q2ve.pocketschedule2.model.dataclasses.*
 import retrofit2.Call
@@ -16,17 +17,17 @@ class RetrofitCalls(private val onError: (ErrorType) -> Unit) {
 	fun getUniversities(
 		onSuccess: (List<RealmItemUniversity>?) -> Unit
 	) {
-		val callback = object: Callback<RetrofitItemResponse<RealmItemUniversity>> {
+		val callback = object: Callback<RetrofitResponse<RealmItemUniversity>> {
 			override fun onResponse(
-				call: Call<RetrofitItemResponse<RealmItemUniversity>>,
-				response: Response<RetrofitItemResponse<RealmItemUniversity>>
+				call: Call<RetrofitResponse<RealmItemUniversity>>,
+				response: Response<RetrofitResponse<RealmItemUniversity>>
 			) {
-				val errorType = RetrofitErrorResolver().checkItemResponse(response)
+				val errorType = RetrofitErrorResolver().checkResponse(response)
 				if (errorType != null) onError(errorType)
 				else onSuccess(response.body()?.result?.items)
 			}
 			override fun onFailure(
-				call: Call<RetrofitItemResponse<RealmItemUniversity>>,
+				call: Call<RetrofitResponse<RealmItemUniversity>>,
 				t: Throwable
 			) {
 				val errorType = RetrofitErrorResolver().checkOnFailure(t)
@@ -39,18 +40,18 @@ class RetrofitCalls(private val onError: (ErrorType) -> Unit) {
 	
 	private fun buildScheduleUserCallback(
 		onSuccess: (List<RealmItemScheduleUser>?) -> Unit
-	): Callback<RetrofitItemResponse<RealmItemScheduleUser>> {
-		return object: Callback<RetrofitItemResponse<RealmItemScheduleUser>> {
+	): Callback<RetrofitResponse<RealmItemScheduleUser>> {
+		return object: Callback<RetrofitResponse<RealmItemScheduleUser>> {
 			override fun onResponse(
-				call: Call<RetrofitItemResponse<RealmItemScheduleUser>>,
-				response: Response<RetrofitItemResponse<RealmItemScheduleUser>>
+				call: Call<RetrofitResponse<RealmItemScheduleUser>>,
+				response: Response<RetrofitResponse<RealmItemScheduleUser>>
 			) {
-				val errorType = RetrofitErrorResolver().checkItemResponse(response)
+				val errorType = RetrofitErrorResolver().checkResponse(response)
 				if (errorType != null) onError(errorType)
 				else onSuccess(response.body()?.result?.items)
 			}
 			override fun onFailure(
-				call: Call<RetrofitItemResponse<RealmItemScheduleUser>>,
+				call: Call<RetrofitResponse<RealmItemScheduleUser>>,
 				t: Throwable
 			) {
 				val errorType = RetrofitErrorResolver().checkOnFailure(t)
@@ -85,18 +86,18 @@ class RetrofitCalls(private val onError: (ErrorType) -> Unit) {
 	
 	private fun buildAuthCallback(
 		onSuccess: (String?, RealmItemUser?) -> Unit
-	): Callback<RetrofitItemAuthResponse>  {
-		return object: Callback<RetrofitItemAuthResponse> {
+	): Callback<RetrofitResponseAuth>  {
+		return object: Callback<RetrofitResponseAuth> {
 			override fun onResponse(
-				call: Call<RetrofitItemAuthResponse>,
-				response: Response<RetrofitItemAuthResponse>
+				call: Call<RetrofitResponseAuth>,
+				response: Response<RetrofitResponseAuth>
 			) {
-				val errorType = RetrofitErrorResolver().checkItemAuthResponse(response)
+				val errorType = RetrofitErrorResolver().checkResponseAuth(response)
 				if (errorType != null) onError(errorType)
 				else onSuccess(response.body()?.result?.sessionId, response.body()?.result?.user)
 			}
 			override fun onFailure(
-				call: Call<RetrofitItemAuthResponse>,
+				call: Call<RetrofitResponseAuth>,
 				t: Throwable
 			) {
 				val errorType = RetrofitErrorResolver().checkOnFailure(t)
@@ -124,6 +125,35 @@ class RetrofitCalls(private val onError: (ErrorType) -> Unit) {
 		val callback = buildAuthCallback(onSuccess)
 		val body = RetrofitBodyLoginPassword(login, password)
 		val call = RetrofitCaller().getRequest().postUser(service, body)
+		RetrofitCaller().enqueueCall(call, callback)
+	}
+	
+	fun putMe(
+		sessionId: String,
+		universityId: String,
+		scheduleUserId: String,
+		onSuccess: (RealmItemUser?) -> Unit
+	) {
+		val callback = object: Callback<RetrofitResponseMe> {
+			override fun onResponse(
+				call: Call<RetrofitResponseMe>,
+				response: Response<RetrofitResponseMe>
+			) {
+				val errorType = RetrofitErrorResolver().checkResponseMe(response)
+				if (errorType != null) onError(errorType) else onSuccess(response.body()?.result)
+				Log.e("response", response.toString())
+				Log.e("response.body", response.body().toString())
+			}
+			override fun onFailure(
+				call: Call<RetrofitResponseMe>,
+				t: Throwable
+			) {
+				val errorType = RetrofitErrorResolver().checkOnFailure(t)
+				onError(errorType)
+			}
+		}
+		val body = RetrofitBodyMe(scheduleUserId, universityId)
+		val call = RetrofitCaller().getRequest().putMe(sessionId, body)
 		RetrofitCaller().enqueueCall(call, callback)
 	}
 }

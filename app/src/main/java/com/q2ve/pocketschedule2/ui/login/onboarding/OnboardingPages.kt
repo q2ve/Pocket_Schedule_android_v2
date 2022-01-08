@@ -1,9 +1,7 @@
 package com.q2ve.pocketschedule2.ui.login.onboarding
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -134,7 +132,7 @@ class OnboardingPageFiveFragment: Fragment() {
 		val noAuthoriseButton = binding.loginOnboardingNoAuthorizeButton
 		ButtonAnimator(noAuthoriseButton).animateWeakPressing()
 		noAuthoriseButton.setOnClickListener {
-			router.openScheduleUserSelector()
+			router.openScheduleUserPicker()
 		}
 		
 		return binding.root
@@ -154,7 +152,7 @@ class OnboardingPageFiveRouter {
 		}
 	}
 	
-	fun openScheduleUserSelector() {
+	fun openScheduleUserPicker() {
 	
 	}
 }

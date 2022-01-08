@@ -28,7 +28,7 @@ class RecyclerSelectorUploadingControllerGroups(
 		{ objects ->
 			groups += objects
 			val stringsList = emptyList<String>().toMutableList()
-			objects.forEach { stringsList.add(it.name ?: "") }
+			objects.forEach { stringsList.add(it.name ?: "-") }
 			fillRecyclerDataset(stringsList)
 		}
 	}

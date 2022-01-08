@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.q2ve.pocketschedule2.R
+import com.q2ve.pocketschedule2.ui.ButtonAnimator
 
 /**
  * Created by Denis Shishkin
@@ -31,7 +32,7 @@ class RecyclerSelectorAdapter(
 	override fun onBindViewHolder(holder: RecyclerItemHolder, position: Int) {
 		var text = stringsList[position]
 		
-		//TODO(Remove string cutting after transition on api v2)
+		//TODO("Проверить, нужно ли еще это обрезание.")
 		if (text.contains("—")) {
 			(text).forEachIndexed { pos, it ->
 				if (it.toString() == "—") {
@@ -42,6 +43,7 @@ class RecyclerSelectorAdapter(
 		holder.name.text = text
 		
 		holder.itemView.setOnClickListener { callbackOnItemClicked(position) }
+		ButtonAnimator(holder.itemView).animateWeakPressing()
 	}
 
 	override fun getItemCount() = stringsList.size

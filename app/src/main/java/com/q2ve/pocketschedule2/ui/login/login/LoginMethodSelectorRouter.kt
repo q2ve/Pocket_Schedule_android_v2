@@ -9,6 +9,7 @@ import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
 import com.q2ve.pocketschedule2.ui.Frames
 import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
+import com.q2ve.pocketschedule2.ui.scheduleUserPicker.ScheduleUserPickerFragment
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKScope
 
@@ -33,8 +34,15 @@ class LoginMethodSelectorRouter {
 		}
 	}
 	
-	fun openScheduleUserSelector() {
-		//TODO()
+	fun openScheduleUserPicker() {
+		Frames.getLoginFrame()?.let { frame: Int ->
+			Navigator.replaceFragment(
+				ScheduleUserPickerFragment.newInstance(false),
+				frame,
+				ReplaceAnimation.SlideRtL,
+				true
+			)
+		}
 	}
 	
 	fun openBottomPopupContainer(
@@ -65,5 +73,6 @@ class LoginMethodSelectorRouter {
 	
 	fun goToCoreFragments() {
 		//TODO()
+		openScheduleUserPicker()
 	}
 }

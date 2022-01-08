@@ -250,7 +250,7 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 		var mainObject = RealmItemMain()
 		realm.executeTransaction { r: Realm ->
 			val foundMainObject = r.where(RealmItemMain::class.java)
-									.equalTo("_id", "mainObject")
+									.equalTo("_id", Constants.mainObjectId)
 									.findFirst()
 			if (foundMainObject == null) { r.insertOrUpdate(RealmItemMain()) }
 			else {
@@ -266,7 +266,7 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 		var mainObject: RealmItemMain? = null
 		realm.executeTransaction { r: Realm ->
 			mainObject = r.where(RealmItemMain::class.java)
-							.equalTo("_id", "mainObject")
+							.equalTo("_id", Constants.mainObjectId)
 							.findFirst()
 		}
 		if (mainObject == null) {

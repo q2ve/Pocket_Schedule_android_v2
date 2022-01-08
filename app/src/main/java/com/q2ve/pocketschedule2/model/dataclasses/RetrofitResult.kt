@@ -5,7 +5,7 @@ package com.q2ve.pocketschedule2.model.dataclasses
  * qwq2eq@gmail.com
  */
 
-data class RetrofitItemAuthResult(
-    val sessionId: String?,
-    val user: RealmItemUser?
+data class RetrofitResult <type>(
+    val totalCount: Int?,
+    val items: List<type>?
 )

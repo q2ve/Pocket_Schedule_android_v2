@@ -5,7 +5,7 @@ package com.q2ve.pocketschedule2.model.dataclasses
  * qwq2eq@gmail.com
  */
 
-data class RetrofitItemResult <type>(
-    val totalCount: Int?,
-    val items: List<type>?
+class RetrofitResponse <type> (
+	val error: RetrofitItemError?,
+	val result: RetrofitResult <type>?
 )

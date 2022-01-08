@@ -9,7 +9,7 @@
     android:background="@color/colorPlaqueBackground">
 
     <ImageView
-        android:id="@+id/login_background_ellipse"
+        android:id="@+id/schedule_user_picker_background_ellipse"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:rotation="-60"

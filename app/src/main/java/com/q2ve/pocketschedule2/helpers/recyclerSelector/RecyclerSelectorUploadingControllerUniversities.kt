@@ -31,7 +31,7 @@ class RecyclerSelectorUploadingControllerUniversities(
 		Model(onErrorCallback).getUniversities	{ objects ->
 			universities += objects
 			val stringsList = emptyList<String>().toMutableList()
-			objects.forEach { stringsList.add(it.name ?: "") }
+			objects.forEach { stringsList.add(it.name ?: "-") }
 			fillRecyclerDataset(stringsList)
 		}
 	}

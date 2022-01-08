@@ -15,21 +15,13 @@ class LoginViaUniversityViewModel(): ViewModel() {
 	var errorMessage: Observable<Int?>? = Observable(null)
 	var loadingSpinnerVisibility: Observable<Boolean>? = Observable(false)
 	
-	private fun showSpinner() {
-		loadingSpinnerVisibility?.value = true
-	}
+	private fun showSpinner() { loadingSpinnerVisibility?.value = true }
 	
-	private fun hideSpinner() {
-		loadingSpinnerVisibility?.value = false
-	}
+	private fun hideSpinner() { loadingSpinnerVisibility?.value = false }
 	
-	private fun makeErrorMessage(stringId: Int) {
-		errorMessage?.value = stringId
-	}
+	private fun makeErrorMessage(stringId: Int) { errorMessage?.value = stringId }
 	
-	private fun removeErrorMessage() {
-		errorMessage?.value = null
-	}
+	private fun removeErrorMessage() { errorMessage?.value = null }
 	
 	fun enterButtonPressed(login: String, password: String) {
 		when {
@@ -40,9 +32,7 @@ class LoginViaUniversityViewModel(): ViewModel() {
 		}
 	}
 	
-	fun backButtonPressed(activity: Activity) {
-		router.goBackToLoginMethodSelector(activity)
-	}
+	fun backButtonPressed(activity: Activity) { router.goBackToLoginMethodSelector(activity) }
 	
 	private fun postUser(login: String, password: String) {
 		removeErrorMessage()
@@ -59,7 +49,7 @@ class LoginViaUniversityViewModel(): ViewModel() {
 		fun onSuccess(mainObject: RealmItemMain) {
 			val user = mainObject.currentUser
 			if (user?.scheduleUser == null || user.university == null) {
-				router.openScheduleUserSelector()
+				router.openScheduleUserPicker()
 			}
 			else router.goToCoreFragments()
 		}

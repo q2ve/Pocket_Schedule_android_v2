@@ -32,7 +32,6 @@ class LoginViaUniversityFragment: Fragment() {
 		}
 	}
 	
-	private lateinit var binding: LoginViaUniversityBinding
 	private lateinit var viewModel: LoginViaUniversityViewModel
 	
 	private lateinit var loginField: EditText
@@ -40,13 +39,14 @@ class LoginViaUniversityFragment: Fragment() {
 	private lateinit var enterButton: TextView
 	private lateinit var backButton: Button
 	private lateinit var spinner: ProgressBar
+	private lateinit var errorField: TextView
 	
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View {
-		binding = LoginViaUniversityBinding.inflate(inflater, container, false)
+		val binding = LoginViaUniversityBinding.inflate(inflater, container, false)
 		viewModel = ViewModelProvider(this).get(LoginViaUniversityViewModel::class.java)
 		arguments?.getString("universityId")?.let { viewModel.universityId = it }
 		
@@ -78,13 +78,15 @@ class LoginViaUniversityFragment: Fragment() {
 		
 		spinner = binding.loginViaUniversityWaitingSpinner
 		
+		errorField = binding.loginViaUniversityErrorTextview
+		
 		//Subscribing on viewModel fields
 		viewModel.loadingSpinnerVisibility?.subscribe {
 			if (it) placeSpinner() else removeSpinner()
 		}
 		
 		viewModel.errorMessage?.subscribe {
-			if (it == null) cleanErrorMessage() else makeErrorMessage(it)
+			if (it == null) removeErrorMessage() else makeErrorMessage(it)
 		}
 		
 		return binding.root
@@ -98,33 +100,24 @@ class LoginViaUniversityFragment: Fragment() {
 		viewModel.backButtonPressed(requireActivity())
 	}
 	
-	private fun makeErrorMessage(stringResource: Int) {
-		val errorTextView = binding.loginViaUniversityErrorTextview
-		errorTextView.text = getString(stringResource)
-	}
+	private fun makeErrorMessage(resource: Int) { errorField.text = getString(resource) }
 	
-	private fun cleanErrorMessage() {
-		val errorTextView = binding.loginViaUniversityErrorTextview
-		errorTextView.text = ""
-	}
+	private fun removeErrorMessage() { errorField.text = "" }
 	
 	//TODO("Color changing animation. And better color for locked state")
 	private fun placeSpinner() {
 		spinner.visibility = View.VISIBLE
 		enterButton.text = ""
 		enterButton.background.setTint(
-			ContextCompat.getColor(requireContext(),
-				R.color.colorBlueLightBlocked)
+			ContextCompat.getColor(requireContext(), R.color.colorBlueLightBlocked)
 		)
 		enterButton.setOnClickListener {  }
 		loginField.setTextColor(
-			ContextCompat.getColor(requireContext(),
-				R.color.colorLightGray1)
+			ContextCompat.getColor(requireContext(), R.color.colorLightGray1)
 		)
 		loginField.isEnabled = false
 		passwordField.setTextColor(
-			ContextCompat.getColor(requireContext(),
-				R.color.colorLightGray1)
+			ContextCompat.getColor(requireContext(), R.color.colorLightGray1)
 		)
 		passwordField.isEnabled = false
 		backButton.setOnClickListener {  }
@@ -134,20 +127,17 @@ class LoginViaUniversityFragment: Fragment() {
 		spinner.visibility = View.INVISIBLE
 		enterButton.text = resources.getString(R.string.login_as_verb)
 		enterButton.background.setTint(
-			ContextCompat.getColor(requireContext(),
-				R.color.colorBlueLight)
+			ContextCompat.getColor(requireContext(), R.color.colorBlueLight)
 		)
 		enterButton.setOnClickListener {
 			enterButtonPressed(loginField.text.toString(), passwordField.text.toString())
 		}
 		loginField.setTextColor(
-			ContextCompat.getColor(requireContext(),
-				R.color.colorBlack)
+			ContextCompat.getColor(requireContext(), R.color.colorBlack)
 		)
 		loginField.isEnabled = true
-		passwordField.setTextColor(ContextCompat.getColor(
-			requireContext(),
-			R.color.colorBlack)
+		passwordField.setTextColor(
+			ContextCompat.getColor(requireContext(), R.color.colorBlack)
 		)
 		passwordField.isEnabled = true
 		backButton.setOnClickListener { backButtonPressed() }

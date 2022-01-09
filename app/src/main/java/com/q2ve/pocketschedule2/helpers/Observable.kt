@@ -23,6 +23,8 @@ class Observable<T>(value: T) {
 	fun unsubscribe(observer: Observer<T>) {
 		callbacks.remove(observer)
 	}
+	
+	fun unsubscribeAll() {
+		callbacks.clear()
+	}
 }
-
-//чекнуть потокобезопасность

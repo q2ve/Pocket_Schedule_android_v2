@@ -9,7 +9,7 @@ import com.q2ve.pocketschedule2.helpers.Observable
  */
 
 //TODO("А как будет получаться доступ к управдению эллипсом из других фрагментов? Подумать о синглтоне с подпиской")
-class LoginNavigatorViewModel: LoginNavigatorInterface, ViewModel() {
+class LoginNavigatorViewModel: ViewModel() {
 	lateinit var startScreen: LoginScreens
 	
 	private val router = LoginNavigatorRouter()
@@ -27,7 +27,7 @@ class LoginNavigatorViewModel: LoginNavigatorInterface, ViewModel() {
 		}
 	}
 	
-	override fun moveEllipse(translationX: Float, translationY: Float, rotation: Float) {
+	fun moveEllipse(translationX: Float, translationY: Float, rotation: Float) {
 		ellipseTranslationX?.value = translationX
 		ellipseTranslationY?.value = translationY
 		ellipseRotation?.value = rotation

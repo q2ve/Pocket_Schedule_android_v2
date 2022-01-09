@@ -128,7 +128,10 @@ class LoginMethodSelectorFragment: Fragment() {
 	}
 	
 	override fun onDestroy() {
-		super.onDestroy()
+		viewModel.loadingSpinnerVisibility?.unsubscribeAll()
+		viewModel.errorMessage?.unsubscribeAll()
+		viewModel.universityName?.unsubscribeAll()
 		viewModel.onDestroyView()
+		super.onDestroy()
 	}
 }

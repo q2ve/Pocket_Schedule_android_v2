@@ -133,6 +133,10 @@ class ScheduleUserPickerFragment: Fragment() {
 	}
 	
 	override fun onDestroy() {
+		viewModel.loadingSpinnerVisibility?.unsubscribeAll()
+		viewModel.errorMessage?.unsubscribeAll()
+		viewModel.universityName?.unsubscribeAll()
+		viewModel.scheduleUserName?.unsubscribeAll()
 		viewModel.onDestroyView()
 		super.onDestroy()
 	}

@@ -144,7 +144,9 @@ class LoginViaUniversityFragment: Fragment() {
 	}
 	
 	override fun onDestroy() {
-		super.onDestroy()
+		viewModel.loadingSpinnerVisibility?.unsubscribeAll()
+		viewModel.errorMessage?.unsubscribeAll()
 		viewModel.onDestroyView()
+		super.onDestroy()
 	}
 }

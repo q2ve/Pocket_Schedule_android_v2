@@ -79,8 +79,11 @@ class LoginNavigatorFragment: Fragment() {
 	}
 	
 	override fun onDestroy() {
-		super.onDestroy()
-		Frames.unregisterLoginFrame()
+		viewModel.ellipseTranslationX?.unsubscribeAll()
+		viewModel.ellipseTranslationY?.unsubscribeAll()
+		viewModel.ellipseRotation?.unsubscribeAll()
 		viewModel.onDestroyView()
+		Frames.unregisterLoginFrame()
+		super.onDestroy()
 	}
 }

@@ -11,11 +11,8 @@ import io.realm.annotations.PrimaryKey
 
 open class RealmItemScheduleUser(
 	@PrimaryKey
-	@JvmField
 	var _id: String = "",
-	var name: String? = null
+	var name: String = ""
 ): RealmObject(), RealmNameInterface {
-	fun set_id(value: String?) { _id = value ?: "" }
-	fun get_id(): String = _id
 	override fun getObjectName(): String = name ?: ""
 }

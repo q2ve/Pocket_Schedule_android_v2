@@ -17,16 +17,32 @@ import com.q2ve.pocketschedule2.model.retrofit.RetrofitCalls
 class Model(private val onError: (ErrorType) -> Unit) {
 	
 	private fun onRetrofitError(errorType: ErrorType) {
-		ErrorResolver().resolveRetrofitError(errorType, onError)
+		ErrorDeclarer().declareRetrofitError(errorType, onError)
 	}
 	
 	private val retrofitCalls = RetrofitCalls(::onRetrofitError)
+	private val realm = RealmIO(onError)
+	private val checker = ObjectsChecker()
 	
 	fun getUniversities(onSuccess: (List<RealmItemUniversity>) -> Unit) {
 		RetrofitCalls(::onRetrofitError).getUniversities { objects ->
-			val universities: List<RealmItemUniversity> = objects ?: emptyList()
-			RealmIO(onError).insertOrUpdateWithIndexing(universities, onSuccess)
+			val checkedObjects = checker.checkList(
+				objects ?: emptyList(),
+				checker::checkUniversity
+			)
+			realm.insertOrUpdateWithIndexing(checkedObjects, onSuccess)
 		}
+	}
+	
+	private fun resolveScheduleUserOnSuccess(
+		objects: List<RealmItemScheduleUser>?,
+		onSuccess: (List<RealmItemScheduleUser>) -> Unit
+	) {
+		val checkedObjects = checker.checkList(
+			objects ?: emptyList(),
+			checker::checkScheduleUser
+		)
+		realm.insertOrUpdateWithIndexing(checkedObjects, onSuccess)
 	}
 	
 	fun getGroups(
@@ -37,9 +53,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		onSuccess: (List<RealmItemScheduleUser>) -> Unit
 	) {
 		retrofitCalls.getGroups (offset, limit, university, query)
-		{ objects: List<RealmItemScheduleUser>? ->
-			RealmIO().insertOrUpdateWithIndexing(objects ?: emptyList(), onSuccess)
-		}
+		{ resolveScheduleUserOnSuccess(it, onSuccess) }
 	}
 	
 	fun getProfessors(
@@ -50,9 +64,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		onSuccess: (List<RealmItemScheduleUser>) -> Unit
 	) {
 		retrofitCalls.getProfessors (offset, limit, university, query)
-		{ objects: List<RealmItemScheduleUser>? ->
-			RealmIO().insertOrUpdateWithIndexing(objects ?: emptyList(), onSuccess)
-		}
+		{ resolveScheduleUserOnSuccess(it, onSuccess) }
 	}
 
 	private fun resolveAuthOnSuccess(
@@ -63,6 +75,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		when {
 			user == null -> onError(ErrorType.UnknownServerError)
 			sessionId == null -> onError(ErrorType.UnknownServerError)
+			(checker.checkUser(user) == null) -> onError(ErrorType.IncorrectObject)
 			else -> {
 				val mainObject = UserObserver.getMainObject()
 				mainObject.currentUser = user
@@ -73,7 +86,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 				if (user.university != null) {
 					mainObject.scheduleUniversity = user.university
 				}
-				RealmIO(onError).insertOrUpdate(mainObject, onSuccess)
+				realm.insertOrUpdate(mainObject, onSuccess)
 			}
 		}
 	}
@@ -112,6 +125,6 @@ class Model(private val onError: (ErrorType) -> Unit) {
 	}
 	
 	fun updateMainObject(mainObject: RealmItemMain, onSuccess: (RealmItemMain) -> Unit) {
-		RealmIO(onError).insertOrUpdate(mainObject, onSuccess)
+		realm.insertOrUpdate(mainObject, onSuccess)
 	}
 }

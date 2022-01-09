@@ -110,7 +110,12 @@ class LoginMethodSelectorViewModel: ViewModel() {
 	
 	private fun onSelectorError(errorType: ErrorType) {
 		Log.e("LoginMethodSelectorViewModel.onSelectorError", errorType.toString())
-		makeErrorMessage(R.string.an_error_has_occurred_try_again)
+		when (errorType) {
+			ErrorType.ValidationError -> makeErrorMessage(R.string.server_error)
+			ErrorType.UnknownServerError -> makeErrorMessage(R.string.server_error)
+			ErrorType.NoInternetConnection -> Unit //This error will be displayed as toast
+			else -> makeErrorMessage(R.string.an_error_has_occurred_try_again)
+		}
 		bottomPopupContainer?.animateExit()
 	}
 	

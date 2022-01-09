@@ -17,5 +17,6 @@ enum class ErrorType {
 	UnknownHost,
 	ConnectionTimeout,
 	OutdatedSession,
-	InvalidApiVersion
+	InvalidApiVersion,
+	IncorrectObject
 }

@@ -1,15 +1,17 @@
 package com.q2ve.pocketschedule2.model
 
+import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.helpers.UserObserver
 import com.q2ve.pocketschedule2.ui.OutdatedAppNotification
+import com.q2ve.pocketschedule2.ui.popup.PopupMessagePresenter
 
 /**
  * Created by Denis Shishkin
  * qwq2eq@gmail.com
  */
 
-class ErrorResolver {
-	fun resolveRetrofitError(errorType: ErrorType, onError: (ErrorType) -> Unit) {
+class ErrorDeclarer {
+	fun declareRetrofitError(errorType: ErrorType, onError: (ErrorType) -> Unit) {
 		var outputErrorType = ErrorType.UnknownServerError
 		//TODO("Как добавится проверка интернета - выставить актуально типы ошибок. Разделить ошибку интернета и сервера.")
 		when (errorType) {
@@ -22,5 +24,10 @@ class ErrorResolver {
 			else -> outputErrorType = errorType
 		}
 		onError(outputErrorType)
+	}
+	
+	fun declareIncorrectObjectError() {
+		val errorMessageId = R.string.some_items_not_loaded
+		PopupMessagePresenter().createMessageSmall(true, errorMessageId, 5000)
 	}
 }

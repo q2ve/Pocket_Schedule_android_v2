@@ -8,7 +8,12 @@ import com.q2ve.pocketschedule2.model.ErrorType
 import com.q2ve.pocketschedule2.model.Model
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemMain
 
-class LoginViaUniversityViewModel(): ViewModel() {
+/**
+ * Created by Denis Shishkin
+ * qwq2eq@gmail.com
+ */
+
+class LoginViaUniversityViewModel: ViewModel() {
 	lateinit var universityId: String
 	private val router = LoginViaUniversityRouter()
 	
@@ -41,6 +46,7 @@ class LoginViaUniversityViewModel(): ViewModel() {
 		fun onError(errorType: ErrorType) {
 			hideSpinner()
 			when (errorType) {
+				ErrorType.RealmError -> makeErrorMessage(R.string.an_error_has_occurred_try_again)
 				ErrorType.ValidationError -> makeErrorMessage(R.string.validation_error)
 				ErrorType.NoInternetConnection -> Unit //This error will be displayed as toast
 				else -> makeErrorMessage(R.string.server_error)

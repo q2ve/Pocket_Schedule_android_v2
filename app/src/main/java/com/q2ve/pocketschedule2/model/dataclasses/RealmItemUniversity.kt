@@ -11,14 +11,11 @@ import io.realm.annotations.PrimaryKey
 
 open class RealmItemUniversity (
 	@PrimaryKey
-	@JvmField
 	var _id: String = "",
-	var referenceDate: String? = null,
-	var referenceWeek: String? = null,
-	var name: String? = null,
-	var serviceName: String? = null
+	var name: String = "",
+	var serviceName: String = "",
+	var referenceDate: Int = 1630454400, //TODO("Automatize it. It must be 1.09 of this study year")
+	var referenceWeek: String = "odd",
 ): RealmObject(), RealmNameInterface {
-	fun set_id(value: String?) { _id = value ?: "" }
-	fun get_id(): String = _id
-	override fun getObjectName(): String = name ?: ""
+	override fun getObjectName(): String = name
 }

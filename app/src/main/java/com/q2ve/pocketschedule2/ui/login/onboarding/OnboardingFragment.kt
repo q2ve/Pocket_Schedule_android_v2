@@ -1,16 +1,15 @@
 package com.q2ve.pocketschedule2.ui.login.onboarding
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
-import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.databinding.OnboardingHostBinding
+import com.q2ve.pocketschedule2.ui.login.BackgroundEllipseObservable
+import com.q2ve.pocketschedule2.ui.login.BackgroundEllipseProperties
 
 /**
  * Created by Denis Shishkin
@@ -54,6 +53,8 @@ class OnboardingFragment: Fragment() {
 			viewPager.setCurrentItem(adapter.itemCount - 1, false)
 		}
 		
+		registerOnPageChangeCallback()
+		
 		return binding.root
 	}
 	
@@ -68,5 +69,15 @@ class OnboardingFragment: Fragment() {
 			//TODO("Не работает, починить.")
 			viewPager.setCurrentItem(savedInstanceState.getInt("selectedPage"), false)
 		}
+	}
+	
+	private fun registerOnPageChangeCallback() {
+		viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+			override fun onPageSelected(position: Int) {
+				super.onPageSelected(position)
+				val ellipseViewModel = BackgroundEllipseProperties.onboardingPages[position]
+				BackgroundEllipseObservable.changeProperties(ellipseViewModel)
+			}
+		})
 	}
 }

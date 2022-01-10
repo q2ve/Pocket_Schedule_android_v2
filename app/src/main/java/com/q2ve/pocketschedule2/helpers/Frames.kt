@@ -1,4 +1,4 @@
-package com.q2ve.pocketschedule2.ui
+package com.q2ve.pocketschedule2.helpers
 
 /**
  * Created by Denis Shishkin

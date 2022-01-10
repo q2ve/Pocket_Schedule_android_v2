@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.VKAuthCallbackSetter
-import com.q2ve.pocketschedule2.ui.Frames
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback

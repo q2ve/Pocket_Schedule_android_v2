@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.databinding.Onboarding5Binding
+import com.q2ve.pocketschedule2.helpers.ButtonAnimator
+import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
-import com.q2ve.pocketschedule2.ui.ButtonAnimator
-import com.q2ve.pocketschedule2.ui.Frames
 import com.q2ve.pocketschedule2.ui.login.login.LoginMethodSelectorFragment
 
 /**

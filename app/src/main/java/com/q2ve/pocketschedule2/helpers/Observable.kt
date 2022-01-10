@@ -5,7 +5,7 @@ package com.q2ve.pocketschedule2.helpers
  * qwq2eq@gmail.com
  */
 
-typealias Observer<T> = (T) -> Unit
+private typealias Observer<T> = (T) -> Unit
 
 class Observable<T>(value: T) {
 	private val callbacks = mutableListOf<Observer<T>>()

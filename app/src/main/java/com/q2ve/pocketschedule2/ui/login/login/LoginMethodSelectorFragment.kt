@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.databinding.LoginMethodSelectorBinding
-import com.q2ve.pocketschedule2.ui.ButtonAnimator
+import com.q2ve.pocketschedule2.helpers.ButtonAnimator
+import com.q2ve.pocketschedule2.ui.login.BackgroundEllipseObservable
+import com.q2ve.pocketschedule2.ui.login.BackgroundEllipseProperties
 
 /**
  * Created by Denis Shishkin
@@ -74,6 +76,11 @@ class LoginMethodSelectorFragment: Fragment() {
 		}
 		
 		return binding.root
+	}
+	
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		BackgroundEllipseObservable.changeProperties(BackgroundEllipseProperties.loginMethodSelector)
 	}
 	
 	private fun enterButtonPressed () {

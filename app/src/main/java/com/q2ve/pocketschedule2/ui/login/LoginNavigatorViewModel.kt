@@ -8,17 +8,19 @@ import com.q2ve.pocketschedule2.helpers.Observable
  * qwq2eq@gmail.com
  */
 
-//TODO("А как будет получаться доступ к управдению эллипсом из других фрагментов? Подумать о синглтоне с подпиской")
 class LoginNavigatorViewModel: ViewModel() {
 	lateinit var startScreen: LoginScreens
 	
 	private val router = LoginNavigatorRouter()
 	
-	var ellipseTranslationX: Observable<Float>? = Observable(0f)
-	var ellipseTranslationY: Observable<Float>? = Observable(0f)
-	var ellipseRotation: Observable<Float>? = Observable(0f)
+	var ellipseViewModel: Observable<BackgroundEllipseViewModel>? = null
 	
-	fun viewCreated() {
+	fun onCreateView() {
+		BackgroundEllipseObservable.subscribe(::moveEllipse)
+		ellipseViewModel = Observable(BackgroundEllipseProperties.onboardingPages[0])
+	}
+	
+	fun onViewCreated() {
 		when (startScreen) {
 			LoginScreens.Default -> router.openOnboarding()
 			LoginScreens.Onboarding -> TODO()
@@ -27,16 +29,13 @@ class LoginNavigatorViewModel: ViewModel() {
 		}
 	}
 	
-	fun moveEllipse(translationX: Float, translationY: Float, rotation: Float) {
-		ellipseTranslationX?.value = translationX
-		ellipseTranslationY?.value = translationY
-		ellipseRotation?.value = rotation
+	private fun moveEllipse(properties: BackgroundEllipseViewModel) {
+		ellipseViewModel?.value = properties
 	}
 	
 	fun onDestroyView() {
 		//TODO("Проверить, нужно ли это")
-		ellipseTranslationX = null
-		ellipseTranslationY = null
-		ellipseRotation = null
+		BackgroundEllipseObservable.unsubscribe(::moveEllipse)
+		ellipseViewModel = null
 	}
 }

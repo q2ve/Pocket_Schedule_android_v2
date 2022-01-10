@@ -1,10 +1,10 @@
 package com.q2ve.pocketschedule2
 
 import androidx.fragment.app.FragmentActivity
+import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.UserObserver
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
-import com.q2ve.pocketschedule2.ui.Frames
 import com.q2ve.pocketschedule2.ui.login.LoginNavigatorFragment
 import io.realm.Realm
 

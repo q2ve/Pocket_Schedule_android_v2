@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.q2ve.pocketschedule2.R
-import com.q2ve.pocketschedule2.ui.ButtonAnimator
+import com.q2ve.pocketschedule2.helpers.ButtonAnimator
 
 /**
  * Created by Denis Shishkin

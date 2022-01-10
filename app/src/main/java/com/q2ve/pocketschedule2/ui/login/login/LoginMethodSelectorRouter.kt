@@ -5,9 +5,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.q2ve.pocketschedule2.R
+import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
-import com.q2ve.pocketschedule2.ui.Frames
 import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
 import com.q2ve.pocketschedule2.ui.scheduleUserPicker.ScheduleUserPickerFragment
 import com.vk.api.sdk.VK

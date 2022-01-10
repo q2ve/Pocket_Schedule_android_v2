@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.q2ve.pocketschedule2.databinding.OutdatedAppNotificationBinding
+import com.q2ve.pocketschedule2.helpers.ButtonAnimator
+import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
 

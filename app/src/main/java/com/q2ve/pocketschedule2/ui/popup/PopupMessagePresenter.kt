@@ -2,9 +2,9 @@ package com.q2ve.pocketschedule2.ui.popup
 
 import android.os.Handler
 import androidx.fragment.app.Fragment
+import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
-import com.q2ve.pocketschedule2.ui.Frames
 
 /**
  * Created by Denis Shishkin

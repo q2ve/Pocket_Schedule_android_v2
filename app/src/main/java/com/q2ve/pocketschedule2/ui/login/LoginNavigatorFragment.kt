@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.q2ve.pocketschedule2.R
-import com.q2ve.pocketschedule2.ui.Frames
+import com.q2ve.pocketschedule2.helpers.Frames
 
 /**
  * Created by Denis Shishkin
@@ -40,27 +42,34 @@ class LoginNavigatorFragment: Fragment() {
 		
 		Frames.registerLoginFrame(R.id.login_navigation_frame)
 		
+		viewModel.onCreateView()
+		
 		return inflater.inflate(R.layout.login_navigator, container, false)
 	}
 	
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		
-		viewModel.ellipseTranslationX?.subscribe{
-			getEllipse()?.translationX = (it * resources.displayMetrics.density)
-		}
-		viewModel.ellipseTranslationY?.subscribe{
-			getEllipse()?.translationY = (it * resources.displayMetrics.density)
-		}
-		viewModel.ellipseRotation?.subscribe{
-			getEllipse()?.rotation = (it * resources.displayMetrics.density)
-		}
+		viewModel.ellipseViewModel?.subscribe(::moveEllipse)
 		
-		viewModel.viewCreated()
+		viewModel.onViewCreated()
 	}
 	
 	private fun getEllipse(): ImageView? {
 		return view?.findViewById(R.id.schedule_user_picker_background_ellipse)
+	}
+	
+	private fun moveEllipse(properties: BackgroundEllipseViewModel) {
+		getEllipse()?.let { ellipse ->
+			val multiplier = resources.displayMetrics.density
+			ViewCompat.animate(ellipse)
+				.rotation(properties.rotation)
+				.translationX(properties.translationX * multiplier)
+				.translationY(properties.translationY * multiplier)
+				.setInterpolator(AccelerateDecelerateInterpolator())
+				.setDuration(300)
+				.start()
+		}
 	}
 	
 	override fun onSaveInstanceState(outState: Bundle) {
@@ -79,9 +88,7 @@ class LoginNavigatorFragment: Fragment() {
 	}
 	
 	override fun onDestroy() {
-		viewModel.ellipseTranslationX?.unsubscribeAll()
-		viewModel.ellipseTranslationY?.unsubscribeAll()
-		viewModel.ellipseRotation?.unsubscribeAll()
+		viewModel.ellipseViewModel?.unsubscribeAll()
 		viewModel.onDestroyView()
 		Frames.unregisterLoginFrame()
 		super.onDestroy()

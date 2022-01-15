@@ -1,9 +1,8 @@
 package com.q2ve.pocketschedule2.helpers.navigator
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.q2ve.pocketschedule2.R
 
 /**
  * Created by Denis Shishkin
@@ -15,14 +14,21 @@ import com.q2ve.pocketschedule2.R
  * To initialize you need to use the "configure" method.
  */
 object Navigator {
-	private lateinit var activityLink: FragmentActivity
+	private lateinit var fragmentManager: FragmentManager
 	
 	/**
 	 * Configures Navigator with link to activity.
 	 * It is necessary to Navigator can get transactions from activity's fragment manager.
 	 */
-	fun configure(activity: FragmentActivity) {
-		activityLink = activity
+	fun configure(fragmentManager: FragmentManager) {
+		this.fragmentManager = fragmentManager
+	}
+	
+	/**
+	 * Removes all fragments from backstack. The name of each fragment should not be "clr_fragment".
+	 */
+	fun clearBackstack() {
+		fragmentManager.popBackStack("clr_fragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
 	}
 	
 	/**
@@ -70,11 +76,10 @@ object Navigator {
 	}
 	
 	private fun getTransaction(): FragmentTransaction {
-		return activityLink.supportFragmentManager.beginTransaction()
+		return fragmentManager.beginTransaction()
 	}
 	
 	private fun setAnimation(transaction: FragmentTransaction, animation: ReplaceAnimation?) {
-		//TODO("Проверить, нужно ли возвращать транзакцию. Если да - добавить ретурн.")
 		if (animation != null) {
 			transaction.setCustomAnimations(
 				animation.enterAnimation,

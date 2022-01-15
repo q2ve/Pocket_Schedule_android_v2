@@ -39,4 +39,33 @@ class ButtonAnimator(private val button: View) {
 			true
 		}
 	}
+	
+	fun animateStrongPressing() {
+		val defaultNoAuthoriseScaleX = button.scaleX
+		val defaultNoAuthoriseScaleY = button.scaleY
+		
+		button.setOnTouchListener { view, event ->
+			fun setDefaultProperties(view: View) {
+				view.scaleX = defaultNoAuthoriseScaleX
+				view.scaleY = defaultNoAuthoriseScaleY
+			}
+			when (event.action) {
+				MotionEvent.ACTION_DOWN -> {
+					view.scaleX *= 0.90f
+					view.scaleY *= 0.90f
+				}
+				MotionEvent.ACTION_UP -> {
+					setDefaultProperties(view)
+					view.performClick()
+				}
+				MotionEvent.ACTION_CANCEL -> {
+					setDefaultProperties(view)
+				}
+				MotionEvent.ACTION_OUTSIDE -> {
+					setDefaultProperties(view)
+				}
+			}
+			true
+		}
+	}
 }

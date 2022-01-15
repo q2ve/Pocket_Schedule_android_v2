@@ -4,6 +4,7 @@ import android.app.Activity
 import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
+import com.q2ve.pocketschedule2.ui.core.CoreNavigatorFragment
 import com.q2ve.pocketschedule2.ui.scheduleUserPicker.ScheduleUserPickerFragment
 
 /**
@@ -22,12 +23,20 @@ class LoginViaUniversityRouter {
 				true
 			)
 		}
+		Navigator.clearBackstack()
 	}
 	
 	fun goBackToLoginMethodSelector(activity: Activity) { activity.onBackPressed() }
 	
 	fun goToCoreFragments() {
-		//TODO()
-		openScheduleUserPicker()
+		Frames.getActivityFrame()?.let { frame: Int ->
+			Navigator.replaceFragment(
+				CoreNavigatorFragment.newInstance(),
+				frame,
+				ReplaceAnimation.SlideDownBounce,
+				false
+			)
+		}
+		Navigator.clearBackstack()
 	}
 }

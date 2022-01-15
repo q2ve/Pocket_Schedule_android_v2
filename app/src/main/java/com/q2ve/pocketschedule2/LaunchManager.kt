@@ -5,7 +5,7 @@ import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.UserObserver
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
-import com.q2ve.pocketschedule2.ui.login.LoginNavigatorFragment
+import com.q2ve.pocketschedule2.ui.core.CoreNavigatorFragment
 import io.realm.Realm
 
 /**
@@ -17,18 +17,17 @@ class LaunchManager(private val activity: FragmentActivity) {
 	
 	fun initializeHelpers() {
 		//ResourceGetter.configure(activity)
-		Navigator.configure(activity)
+		Navigator.configure(activity.supportFragmentManager)
 		Realm.init(activity)
 		UserObserver.configure()
 	}
 	
 	fun applicationStarted() {
-		val fragment = LoginNavigatorFragment.newInstance()
+		val fragment = CoreNavigatorFragment.newInstance()
+		//val fragment = LoginNavigatorFragment.newInstance()
 		val frame = Frames.getActivityFrame()
-		if (frame != null) {
+		frame?.let {
 			Navigator.replaceFragment(fragment, frame, ReplaceAnimation.FadingWithoutScaling)
-		} else {
-			TODO("Not yet implemented")
 		}
 	}
 }

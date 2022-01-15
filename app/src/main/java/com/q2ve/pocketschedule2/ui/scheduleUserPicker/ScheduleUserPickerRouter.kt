@@ -15,6 +15,7 @@ import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
 class ScheduleUserPickerRouter {
 	fun goToCoreFragments() {
 		//TODO()
+		Navigator.clearBackstack()
 	}
 	
 	fun openBottomPopupContainer(

@@ -84,6 +84,32 @@ class RetrofitCalls(private val onError: (ErrorType) -> Unit) {
 		RetrofitCaller().enqueueCall(call, callback)
 	}
 	
+	fun getLessons(
+		university: String,
+		scheduleUser: String,
+		onSuccess: (List<RealmItemLesson>?) -> Unit
+	) {
+		val callback = object: Callback<RetrofitResponse<RealmItemLesson>> {
+			override fun onResponse(
+				call: Call<RetrofitResponse<RealmItemLesson>>,
+				response: Response<RetrofitResponse<RealmItemLesson>>
+			) {
+				val errorType = RetrofitErrorResolver().checkResponse(response)
+				if (errorType != null) onError(errorType)
+				else onSuccess(response.body()?.result?.items)
+			}
+			override fun onFailure(
+				call: Call<RetrofitResponse<RealmItemLesson>>,
+				t: Throwable
+			) {
+				val errorType = RetrofitErrorResolver().checkOnFailure(t)
+				onError(errorType)
+			}
+		}
+		val call = RetrofitCaller().getRequest().getLessons(university, scheduleUser)
+		RetrofitCaller().enqueueCall(call, callback)
+	}
+	
 	private fun buildAuthCallback(
 		onSuccess: (String?, RealmItemUser?) -> Unit
 	): Callback<RetrofitResponseAuth>  {

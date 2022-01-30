@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.helpers.Observable
 import com.q2ve.pocketschedule2.helpers.UserObserver
-import com.q2ve.pocketschedule2.helpers.recyclerSelector.RecyclerSelectorPresenter
-import com.q2ve.pocketschedule2.helpers.recyclerSelector.RecyclerSelectorUploadingControllerGroups
-import com.q2ve.pocketschedule2.helpers.recyclerSelector.RecyclerSelectorUploadingControllerUniversities
 import com.q2ve.pocketschedule2.model.ErrorType
 import com.q2ve.pocketschedule2.model.Model
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemScheduleUser
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
 import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
+import com.q2ve.pocketschedule2.ui.recyclerSelector.RecyclerSelectorPresenter
+import com.q2ve.pocketschedule2.ui.recyclerSelector.RecyclerSelectorUploadingControllerGroups
+import com.q2ve.pocketschedule2.ui.recyclerSelector.RecyclerSelectorUploadingControllerUniversities
 
 /**
  * Created by Denis Shishkin
@@ -114,7 +114,7 @@ class ScheduleUserPickerViewModel: ViewModel() {
 	
 	private fun onSelectorError(errorType: ErrorType) {
 		Log.e("LoginMethodSelectorViewModel.onSelectorError", errorType.toString())
-		onNetworkError(errorType)
+		onError(errorType)
 		bottomPopupContainer?.animateExit()
 	}
 	
@@ -147,7 +147,7 @@ class ScheduleUserPickerViewModel: ViewModel() {
 					}
 					Model(::onError).updateMainObject(mainObject) { router.goToCoreFragments() }
 				} else {
-					Model(::onNetworkError).putMe(
+					Model(::onError).putMe(
 						sessionId,
 						selectedUniversity!!._id,
 						selectedScheduleUser!!._id
@@ -157,7 +157,7 @@ class ScheduleUserPickerViewModel: ViewModel() {
 		}
 	}
 	
-	private fun onNetworkError(errorType: ErrorType) {
+	private fun onError(errorType: ErrorType) {
 		hideSpinner()
 		when (errorType) {
 			ErrorType.RealmError -> {

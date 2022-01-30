@@ -27,7 +27,12 @@ class LaunchManager(private val activity: FragmentActivity) {
 		//val fragment = LoginNavigatorFragment.newInstance()
 		val frame = Frames.getActivityFrame()
 		frame?.let {
-			Navigator.replaceFragment(fragment, frame, ReplaceAnimation.FadingWithoutScaling)
+			Navigator.replaceFragment(
+				fragment,
+				frame,
+				ReplaceAnimation.FadingWithoutScaling,
+				false
+			)
 		}
 	}
 }

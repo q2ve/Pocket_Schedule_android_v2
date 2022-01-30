@@ -1,4 +1,4 @@
-package com.q2ve.pocketschedule2.helpers.recyclerSelector
+package com.q2ve.pocketschedule2.ui.recyclerSelector
 
 import android.view.View
 import android.view.ViewGroup

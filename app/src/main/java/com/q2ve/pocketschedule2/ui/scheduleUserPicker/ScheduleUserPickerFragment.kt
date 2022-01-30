@@ -146,5 +146,6 @@ class ScheduleUserPickerFragment: Fragment() {
 		viewModel.scheduleUserName?.unsubscribeAll()
 		viewModel.onDestroyView()
 		super.onDestroy()
+		allowBackButtonAction(true)
 	}
 }

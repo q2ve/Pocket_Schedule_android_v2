@@ -17,7 +17,8 @@ interface ApiRequests {
 		@Path("university") university: String,
 		@Query("offset") offset: Int,
 		@Query("limit") limit: Int,
-		@Query("q") q: String = ""
+		@Query("q") q: String = "",
+		@Query("sort") sort: String = "name"
 	): Call<RetrofitResponse<RealmItemScheduleUser>>
 	
 	//APIv2
@@ -26,7 +27,8 @@ interface ApiRequests {
 		@Path("university") university: String,
 		@Query("offset") offset: Int,
 		@Query("limit") limit: Int,
-		@Query("q") q: String = ""
+		@Query("q") q: String = "",
+		@Query("sort") sort: String = "name"
 	): Call<RetrofitResponse<RealmItemScheduleUser>>
 	
 	//APIv2
@@ -36,14 +38,15 @@ interface ApiRequests {
 		@Query("limit") limit: Int,
 		@Query("q") q: String = ""
 	): Call<RetrofitResponse<RealmItemUniversity>>
+	
+	//APIv2
+	@GET("universities/{university}/schedule/{scheduleUserId}/?")
+	fun getLessons (
+		@Path("university") university: String,
+		@Path("scheduleUserId") scheduleUserId: String
+		//@Query("q") week: String = ""
+	): Call<RetrofitResponse<RealmItemLesson>>
 
-//	@GET("universities/{university}/schedule/{scheduleUserId}/?") //APIv2
-//	fun getLessons (
-//		@Path("university") university: String,
-//		@Path("scheduleUserId") scheduleUserId: String
-//		//@Query("q") week: String = ""
-//	): Call<RetrofitResponseObject<RetrofitItemLesson>>
-//
 //	@GET("objects/feedSources?")
 //	fun getFeedSources (
 //		@Header("X-Session-Id") sessionId: String

@@ -1,4 +1,4 @@
-package com.q2ve.pocketschedule2.helpers.recyclerSelector
+package com.q2ve.pocketschedule2.ui.recyclerSelector
 
 import com.q2ve.pocketschedule2.model.ErrorType
 import com.q2ve.pocketschedule2.model.Model

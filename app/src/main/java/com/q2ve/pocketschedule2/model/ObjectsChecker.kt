@@ -1,8 +1,6 @@
 package com.q2ve.pocketschedule2.model
 
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemScheduleUser
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUser
+import com.q2ve.pocketschedule2.model.dataclasses.*
 
 /**
  * Created by Denis Shishkin
@@ -49,6 +47,23 @@ class ObjectsChecker {
 	}
 	
 	fun checkUser(item: RealmItemUser?): RealmItemUser? {
+		return if (item?._id == null || item._id == "") null else item
+	}
+	
+	fun checkLesson(item: RealmItemLesson?): RealmItemLesson? {
+		item?.groups?.let {
+			item.groups!!.addAll(checkList(item.groups!!, this::checkScheduleUser))
+		}
+		item?.professors?.let {
+			item.professors!!.addAll(checkList(item.professors!!, this::checkScheduleUser))
+		}
+		item?.subject = checkSubject(item?.subject)
+		
+		return if (item?._id == null || item._id == "") null
+		else item
+	}
+	
+	fun checkSubject(item: RealmItemSubject?): RealmItemSubject? {
 		return if (item?._id == null || item._id == "") null else item
 	}
 }

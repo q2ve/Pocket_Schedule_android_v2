@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModel
 import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.helpers.Observable
 import com.q2ve.pocketschedule2.helpers.VKAuthCallbackSetter
-import com.q2ve.pocketschedule2.helpers.recyclerSelector.RecyclerSelectorPresenter
-import com.q2ve.pocketschedule2.helpers.recyclerSelector.RecyclerSelectorUploadingControllerUniversities
 import com.q2ve.pocketschedule2.model.ErrorType
 import com.q2ve.pocketschedule2.model.Model
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemMain
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
 import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
+import com.q2ve.pocketschedule2.ui.recyclerSelector.RecyclerSelectorPresenter
+import com.q2ve.pocketschedule2.ui.recyclerSelector.RecyclerSelectorUploadingControllerUniversities
 
 /**
  * Created by Denis Shishkin

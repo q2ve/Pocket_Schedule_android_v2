@@ -36,7 +36,7 @@ class LoginMethodSelectorRouter {
 	}
 	
 	fun openScheduleUserPicker() {
-		Frames.getLoginFrame()?.let { frame: Int ->
+		Frames.getActivityFrame()?.let { frame: Int ->
 			Navigator.replaceFragment(
 				ScheduleUserPickerFragment.newInstance(false),
 				frame,

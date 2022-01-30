@@ -1,10 +1,7 @@
 package com.q2ve.pocketschedule2.model
 
 import com.q2ve.pocketschedule2.helpers.UserObserver
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemMain
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemScheduleUser
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUniversity
-import com.q2ve.pocketschedule2.model.dataclasses.RealmItemUser
+import com.q2ve.pocketschedule2.model.dataclasses.*
 import com.q2ve.pocketschedule2.model.realm.RealmIO
 import com.q2ve.pocketschedule2.model.retrofit.RetrofitCalls
 
@@ -25,7 +22,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 	private val checker = ObjectsChecker()
 	
 	fun getUniversities(onSuccess: (List<RealmItemUniversity>) -> Unit) {
-		RetrofitCalls(::onRetrofitError).getUniversities { objects ->
+		retrofitCalls.getUniversities { objects ->
 			val checkedObjects = checker.checkList(
 				objects ?: emptyList(),
 				checker::checkUniversity
@@ -65,6 +62,20 @@ class Model(private val onError: (ErrorType) -> Unit) {
 	) {
 		retrofitCalls.getProfessors (offset, limit, university, query)
 		{ resolveScheduleUserOnSuccess(it, onSuccess) }
+	}
+	
+	fun getLessons(
+		university: String,
+		scheduleUser: String,
+		onSuccess: (List<RealmItemLesson>) -> Unit
+	) {
+		retrofitCalls.getLessons(university, scheduleUser) { objects ->
+			val checkedObjects = checker.checkList(
+				objects ?: emptyList(),
+				checker::checkLesson
+			)
+			realm.insertOrUpdate(checkedObjects, onSuccess)
+		}
 	}
 
 	private fun resolveAuthOnSuccess(

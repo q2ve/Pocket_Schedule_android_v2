@@ -7,7 +7,7 @@ import io.realm.annotations.PrimaryKey
 import java.util.UUID.randomUUID
 
 /**
- * Created by Denis Shishkin on 20.06.2021.
+ * Created by Denis Shishkin
  * qwq2eq@gmail.com
  */
 

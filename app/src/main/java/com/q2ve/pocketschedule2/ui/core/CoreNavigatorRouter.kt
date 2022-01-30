@@ -1,5 +1,10 @@
 package com.q2ve.pocketschedule2.ui.core
 
+import com.q2ve.pocketschedule2.helpers.Frames
+import com.q2ve.pocketschedule2.helpers.navigator.Navigator
+import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
+import com.q2ve.pocketschedule2.ui.core.schedule.ScheduleFragment
+
 /**
  * Created by Denis Shishkin
  * qwq2eq@gmail.com
@@ -11,7 +16,17 @@ class CoreNavigatorRouter {
 	}
 	
 	fun openSchedule() {
-		//TODO("Not yet implemented")
+		val fragment = ScheduleFragment()
+		val frame = Frames.getCoreFrame()
+		frame?.let {
+			Navigator.replaceFragment(
+				fragment,
+				frame,
+				ReplaceAnimation.FadingWithoutScaling,
+				false
+			)
+			Navigator.clearBackstack()
+		}
 	}
 	
 	fun openDeadlines() {

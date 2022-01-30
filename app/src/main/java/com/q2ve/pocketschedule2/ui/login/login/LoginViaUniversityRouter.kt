@@ -15,7 +15,7 @@ import com.q2ve.pocketschedule2.ui.scheduleUserPicker.ScheduleUserPickerFragment
 class LoginViaUniversityRouter {
 	
 	fun openScheduleUserPicker() {
-		Frames.getLoginFrame()?.let { frame: Int ->
+		Frames.getActivityFrame()?.let { frame: Int ->
 			Navigator.replaceFragment(
 				ScheduleUserPickerFragment.newInstance(false),
 				frame,

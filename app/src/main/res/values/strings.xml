@@ -126,5 +126,18 @@
 	<string name="go_to_google_play">Перейти в Google Play</string>
 	<string name="an_error_has_occurred_try_again">Произошла ошибка, попробуйте еще раз</string>
 	<string name="some_items_not_loaded">Некоторые элементы не были загружены.\nРекомендуется свериться с сервисом учебного заведения.</string>
-
+	<string name="mon">Пн</string>
+	<string name="tue">Вт</string>
+	<string name="wed">Ср</string>
+	<string name="thu">Чт</string>
+	<string name="fri">Пт</string>
+	<string name="sat">Сб</string>
+	<string name="monday">Понедельник</string>
+	<string name="tuesday">Вторник</string>
+	<string name="wednesday">Среда</string>
+	<string name="thursday">Четверг</string>
+	<string name="friday">Пятница</string>
+	<string name="saturday">Суббота</string>
+	<string name="off_the_grid">Вне сетки</string>
+	
 </resources>

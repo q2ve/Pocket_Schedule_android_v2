@@ -6,8 +6,15 @@ import androidx.lifecycle.LifecycleOwner
 import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
+import com.q2ve.pocketschedule2.ui.AuthorizationRequirement
 import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
 import com.q2ve.pocketschedule2.ui.scheduleUserPicker.ScheduleUserPickerFragment
+import com.q2ve.pocketschedule2.ui.settings.SettingsFragment
+
+/**
+ * Created by Denis Shishkin
+ * qwq2eq@gmail.com
+ */
 
 class ScheduleRouter {
 	fun openBottomPopupContainer(
@@ -25,12 +32,18 @@ class ScheduleRouter {
 	}
 	
 	fun openSettings() {
-		openScheduleUserPicker()
+		Frames.getActivityFrame()?.let { frame: Int ->
+			Navigator.replaceFragment(
+				SettingsFragment(),
+				frame,
+				ReplaceAnimation.SlideUpBounce,
+				true
+			)
+			Navigator.clearBackstack()
+		}
 	}
 	
-	fun openAuthorizationRequirement() {
-	
-	}
+	fun openAuthorizationRequirement() { AuthorizationRequirement().show(showBackButton = true) }
 	
 	fun openScheduleUserPicker() {
 		Frames.getActivityFrame()?.let { frame: Int ->

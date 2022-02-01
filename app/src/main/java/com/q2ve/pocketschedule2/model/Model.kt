@@ -124,15 +124,34 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		}
 	}
 	
+	fun postLogout(sessionId: String, onSuccess: (() -> Unit)? = null) {
+		retrofitCalls.postLogout(sessionId) { onSuccess?.let { it() } }
+	}
+	
 	fun putMe(
 		sessionId: String,
 		universityId: String,
 		scheduleUserId: String,
 		onSuccess: (RealmItemUser) -> Unit
 	) {
-		retrofitCalls.putMe(sessionId, universityId, scheduleUserId) { user: RealmItemUser? ->
-			resolveAuthOnSuccess(sessionId, user) { onSuccess(user!!) }
-		}
+		retrofitCalls.putMe(
+			sessionId,
+			universityId,
+			scheduleUserId
+		) { user: RealmItemUser? -> resolveAuthOnSuccess(sessionId, user) { onSuccess(user!!) } }
+	}
+	
+	fun putMeServiceLogin(
+		sessionId: String,
+		serviceLogin: String,
+		servicePassword: String,
+		onSuccess: (RealmItemUser) -> Unit
+	) {
+		retrofitCalls.putMeServiceLogin(
+			sessionId,
+			serviceLogin,
+			servicePassword
+		) { user: RealmItemUser? -> resolveAuthOnSuccess(sessionId, user) { onSuccess(user!!) } }
 	}
 	
 	fun updateMainObject(mainObject: RealmItemMain, onSuccess: (RealmItemMain) -> Unit) {

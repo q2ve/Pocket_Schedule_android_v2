@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:gravity="center"
+	android:orientation="vertical"
+	android:background="@color/colorBlackTranslucent"
+	android:clickable="true"
+	android:focusable="true">
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="15dp"
+		android:paddingBottom="40dp"
+		android:orientation="vertical"
+		android:gravity="center_horizontal"
+		android:background="@drawable/rc_20dp">
+
+		<ImageView
+			android:layout_width="77dp"
+			android:layout_height="77dp"
+			android:src="@drawable/ic_user_encircled"
+			app:tint="@color/colorBlue" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="12dp"
+			android:layout_marginHorizontal="25dp"
+			android:text="@string/oops"
+			android:textSize="21sp"
+			android:textColor="@color/colorBlack"
+			android:textStyle="bold"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="12dp"
+			android:layout_marginHorizontal="45dp"
+			android:text="@string/re_authentication_required"
+			android:textSize="15sp"
+			android:textColor="@color/colorBlack" />
+
+		<TextView
+			android:id="@+id/logout_notification_enter_button"
+			android:layout_width="match_parent"
+			android:layout_height="44dp"
+			android:layout_marginTop="22dp"
+			android:layout_marginHorizontal="40dp"
+			android:background="@drawable/rc_textfield"
+			android:backgroundTint="@color/colorBlue"
+			android:gravity="center"
+			android:text="@string/authorize"
+			android:textColor="@color/colorWhite"
+			android:textSize="15sp"
+			android:textStyle="bold" />
+
+	</LinearLayout>
+
+</LinearLayout>

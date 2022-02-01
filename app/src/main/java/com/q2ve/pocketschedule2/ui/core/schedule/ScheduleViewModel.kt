@@ -96,7 +96,12 @@ class ScheduleViewModel: ViewModel() {
 	
 	fun onFilterButtonPressed() { openBottomPopupMenu() }
 	
-	fun onSettingsButtonPressed() { router.openSettings() }
+	fun onSettingsButtonPressed() {
+		val mainObject = UserObserver.getMainObject()
+		if (mainObject.currentUser == null || mainObject.sessionId == null) {
+			router.openAuthorizationRequirement()
+		} else router.openSettings()
+	}
 	
 	fun onParityButtonPressed() {
 		if (isButtonBarClickable && selectedWeekParity != null) {

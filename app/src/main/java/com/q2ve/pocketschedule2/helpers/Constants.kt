@@ -13,6 +13,6 @@ object Constants {
 	const val serverCertFingerprint = "sha256/cGuxAXyFXFkWm61cF4HPWX8S0srS9j0aSqN0k4AP+4A="
 	const val mainObjectId = "mainObject"
 	const val realmName = "SUAI_database"
-	const val connectionTimeout = 200L
+	const val connectionTimeout = 10L
 	const val paginationStep = 20
 }

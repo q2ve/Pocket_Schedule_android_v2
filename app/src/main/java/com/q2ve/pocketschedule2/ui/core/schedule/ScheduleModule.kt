@@ -11,6 +11,10 @@ import com.google.android.flexbox.FlexboxLayout
 import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.helpers.ButtonAnimator
 
+/**
+ * Created by Denis Shishkin
+ * qwq2eq@gmail.com
+ */
 
 //TODO("Lesson card")
 class ScheduleModule: Fragment() {

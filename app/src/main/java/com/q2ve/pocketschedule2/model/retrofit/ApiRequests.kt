@@ -86,11 +86,12 @@ interface ApiRequests {
 //		@Path("deadlineId") deadlineId: String,
 //		@Header("X-Session-Id") sessionId: String
 //	): Call<RetrofitDeadlineResponseObject>
-//
-//	@POST("auth/logout") // APIv2
-//	fun postLogout (
-//		@Header("X-Session-Id") sessionId: String
-//	): Call<Any>
+	
+	// APIv2
+	@POST("auth/logout")
+	fun postLogout (
+		@Header("X-Session-Id") sessionId: String
+	): Call<Any>
 	
 	//APIv2
 	@PUT("me")
@@ -98,13 +99,14 @@ interface ApiRequests {
 		@Header("X-Session-Id") sessionId: String,
 		@Body body: RetrofitBodyMe
 	): Call<RetrofitResponseMe>
+	
+	//APIv2
+	@PUT("me")
+	fun putMeServiceLogin (
+		@Header("X-Session-Id") sessionId: String,
+		@Body body: RetrofitBodyLoginPassword
+	): Call<RetrofitResponseMe>
 
-//	@PUT("me") //APIv2
-//	fun putMeServiceLogin (
-//		@Header("X-Session-Id") sessionId: String,
-//		@Body body: RetrofitBodyLoginPassword
-//	): Call<RetrofitMeResponseObject>
-//
 //	@PUT("deadlines/{deadlineId}") //APIv2
 //	fun putDeadline (
 //		@Path("deadlineId") deadlineId: String,

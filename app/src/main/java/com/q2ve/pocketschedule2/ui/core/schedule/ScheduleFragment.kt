@@ -88,7 +88,7 @@ class ScheduleFragment: Fragment() {
 		
 		errorTextView = binding.coreScheduleErrorTextview
 		
-		//Subscribing on viewModels' fields
+		//Subscribing on viewModel's fields
 		viewModel.lessonsViews?.subscribe {
 			if (it == null) placeWaitingSpinner()
 			else placeSchedule(it)
@@ -190,6 +190,10 @@ class ScheduleFragment: Fragment() {
 	}
 	
 	override fun onDestroyView() {
+		viewModel.lessonsViews?.unsubscribeAll()
+		viewModel.selectedWeekParity?.unsubscribeAll()
+		viewModel.selectedPage?.unsubscribeAll()
+		viewModel.errorMessage?.unsubscribeAll()
 		viewModel.onDestroyView()
 		super.onDestroyView()
 	}

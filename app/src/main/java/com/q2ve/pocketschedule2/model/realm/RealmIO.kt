@@ -261,6 +261,17 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 		return mainObject
 	}
 	
+	fun resetMainObject() {
+		val realm = Realm.getInstance(config)
+		realm.executeTransaction { r: Realm ->
+			val foundMainObject = r.where(RealmItemMain::class.java)
+				.equalTo("_id", Constants.mainObjectId)
+				.findFirst()
+			if (foundMainObject != null) { r.insertOrUpdate(RealmItemMain()) }
+		}
+		realm.close()
+	}
+	
 	fun observeMainObject(setMainObject: (RealmItemMain) -> Unit) {
 		val realm = Realm.getInstance(config)
 		var mainObject: RealmItemMain? = null

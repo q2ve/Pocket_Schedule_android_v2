@@ -154,13 +154,22 @@ class RetrofitCalls(private val onError: (ErrorType) -> Unit) {
 		RetrofitCaller().enqueueCall(call, callback)
 	}
 	
-	fun putMe(
-		sessionId: String,
-		universityId: String,
-		scheduleUserId: String,
+	fun postLogout(sessionId: String, onSuccess: () -> Unit) {
+		val callback = object: Callback<Any> {
+			override fun onResponse(call: Call<Any>, response: Response<Any>) { onSuccess() }
+			override fun onFailure(call: Call<Any>, t: Throwable) {
+				val errorType = RetrofitErrorResolver().checkOnFailure(t)
+				onError(errorType)
+			}
+		}
+		val call = RetrofitCaller().getRequest().postLogout(sessionId)
+		RetrofitCaller().enqueueCall(call, callback)
+	}
+	
+	private fun buildPutMeCallback(
 		onSuccess: (RealmItemUser?) -> Unit
-	) {
-		val callback = object: Callback<RetrofitResponseMe> {
+	): Callback<RetrofitResponseMe> {
+		return object: Callback<RetrofitResponseMe> {
 			override fun onResponse(
 				call: Call<RetrofitResponseMe>,
 				response: Response<RetrofitResponseMe>
@@ -178,8 +187,29 @@ class RetrofitCalls(private val onError: (ErrorType) -> Unit) {
 				onError(errorType)
 			}
 		}
+	}
+	
+	fun putMe(
+		sessionId: String,
+		universityId: String,
+		scheduleUserId: String,
+		onSuccess: (RealmItemUser?) -> Unit
+	) {
+		val callback = buildPutMeCallback(onSuccess)
 		val body = RetrofitBodyMe(scheduleUserId, universityId)
 		val call = RetrofitCaller().getRequest().putMe(sessionId, body)
+		RetrofitCaller().enqueueCall(call, callback)
+	}
+	
+	fun putMeServiceLogin(
+		sessionId: String,
+		serviceLogin: String,
+		servicePassword: String,
+		onSuccess: (RealmItemUser?) -> Unit
+	) {
+		val callback = buildPutMeCallback(onSuccess)
+		val body = RetrofitBodyLoginPassword(serviceLogin, servicePassword)
+		val call = RetrofitCaller().getRequest().putMeServiceLogin(sessionId, body)
 		RetrofitCaller().enqueueCall(call, callback)
 	}
 }

@@ -10,5 +10,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 enum class CoreScreens: Parcelable {
-	News, Schedule, Deadlines, Settings, Default
+	News, Schedule, Deadlines, Default
 }

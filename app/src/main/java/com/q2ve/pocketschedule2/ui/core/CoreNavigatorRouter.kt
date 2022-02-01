@@ -3,6 +3,7 @@ package com.q2ve.pocketschedule2.ui.core
 import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
+import com.q2ve.pocketschedule2.ui.AuthorizationRequirement
 import com.q2ve.pocketschedule2.ui.core.schedule.ScheduleFragment
 
 /**
@@ -34,6 +35,6 @@ class CoreNavigatorRouter {
 	}
 	
 	fun openAuthorizationRequirement() {
-		//TODO("Not yet implemented")
+		AuthorizationRequirement().show(showBackButton = true)
 	}
 }

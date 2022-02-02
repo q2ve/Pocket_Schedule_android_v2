@@ -21,7 +21,7 @@ class OutdatedAppNotification: Fragment() {
 	
 	fun show() {
 		Frames.getActivityFrame()?.let {
-			Navigator.addFragment(this, it, ReplaceAnimation.FadingWithoutScaling)
+			Navigator.replaceFragment(this, it, ReplaceAnimation.FadingWithoutScaling)
 		}
 	}
 	

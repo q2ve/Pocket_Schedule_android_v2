@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.q2ve.pocketschedule2.databinding.MainActivityBinding
 import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.VKAuthCallbackSetter
 import com.vk.api.sdk.VK
@@ -30,7 +31,8 @@ class MainActivity : AppCompatActivity() {
 		)*/
 		
 		//View and window setting
-		setContentView(R.layout.main_activity)
+		val binding = MainActivityBinding.inflate(layoutInflater)
+		setContentView(binding.root)
 		this.window.apply {
 			addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 			statusBarColor = Color.TRANSPARENT
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 		Frames.registerActivityFrame(R.id.main_activity_frame)
 		
 		//Setting up helpers
-		val launchManager = LaunchManager(this)
+		val launchManager = LaunchManager(this, binding.appLogo)
 		launchManager.initializeHelpers()
 		
 		//AppCenter analytics

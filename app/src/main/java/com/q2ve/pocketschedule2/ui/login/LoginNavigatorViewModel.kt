@@ -23,9 +23,9 @@ class LoginNavigatorViewModel: ViewModel() {
 	fun onViewCreated() {
 		when (startScreen) {
 			LoginScreens.Default -> router.openOnboarding()
-			LoginScreens.Onboarding -> TODO()
-			LoginScreens.OnboardingEnd -> TODO()
-			LoginScreens.First -> TODO()
+			LoginScreens.Onboarding -> router.openOnboarding()
+			LoginScreens.OnboardingEnd -> router.openOnboarding(goToEnd = true)
+			LoginScreens.First -> router.openLoginMethodSelector()
 		}
 	}
 	

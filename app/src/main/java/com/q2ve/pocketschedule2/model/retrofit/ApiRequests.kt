@@ -44,23 +44,47 @@ interface ApiRequests {
 	fun getLessons (
 		@Path("university") university: String,
 		@Path("scheduleUserId") scheduleUserId: String
-		//@Query("q") week: String = ""
 	): Call<RetrofitResponse<RealmItemLesson>>
 
 //	@GET("objects/feedSources?")
 //	fun getFeedSources (
 //		@Header("X-Session-Id") sessionId: String
 //	)
-//
-//	@GET("deadlines") //APIv2
-//	fun getDeadlines (
-//		@Header("X-Session-Id") sessionId: String
-//	): Call<RetrofitResponseObject<RetrofitItemDeadline>>
-//
-//	@GET("deadlines/sources") //APIv2
-//	fun getDeadlineSources (
-//		@Header("X-Session-Id") sessionId: String
-//	): Call<RetrofitResponseObject<RetrofitItemDeadlineSource>>
+	
+	//APIv2
+	@GET("deadlines")
+	fun getOpenedDeadlines (
+		@Header("X-Session-Id") sessionId: String,
+		@Query("search[isClosed]") search: Boolean = false
+	): Call<RetrofitResponse<RealmItemDeadline>>
+	
+	//APIv2
+	@GET("deadlines")
+	fun getClosedDeadlines (
+		@Header("X-Session-Id") sessionId: String,
+		@Query("search[isClosed]") search: Boolean = true
+	): Call<RetrofitResponse<RealmItemDeadline>>
+	
+	//APIv2
+	@GET("deadlines")
+	fun getExpiredDeadlines (
+		@Header("X-Session-Id") sessionId: String,
+		@Query("less[endDate]") less: Int,
+		@Query("search[isClosed]") search: Boolean = false
+	): Call<RetrofitResponse<RealmItemDeadline>>
+	
+	//APIv2
+	@GET("deadlines")
+	fun getExternalDeadlines (
+		@Header("X-Session-Id") sessionId: String,
+		@Query("externalSource") sourceId: String
+	): Call<RetrofitResponse<RealmItemDeadline>>
+	
+	//APIv2
+	@GET("deadlines/sources")
+	fun getDeadlineSources (
+		@Header("X-Session-Id") sessionId: String
+	): Call<RetrofitResponse<RealmItemDeadlineSource>>
 	
 	//APIv2
 	@POST("auth/{service}/")

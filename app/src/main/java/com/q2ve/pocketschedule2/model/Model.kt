@@ -77,6 +77,49 @@ class Model(private val onError: (ErrorType) -> Unit) {
 			realm.insertOrUpdate(checkedObjects, onSuccess)
 		}
 	}
+	
+	//TODO("Deadlines and deadline sources checking!!!")
+	
+	fun getDeadlineSources(sessionId: String, onSuccess: (List<RealmItemDeadlineSource>) -> Unit) {
+		retrofitCalls.getDeadlineSources(sessionId) { sources ->
+			realm.insertOrUpdate(sources ?: emptyList(), onSuccess)
+		}
+	}
+	
+	private fun onDeadlinesGetSuccess(
+		deadlines: List<RealmItemDeadline>?,
+		onSuccess: (List<RealmItemDeadline>) -> Unit
+	) {
+		//TODO("Для работы оффлайн надо будет реализовать сохранение индекс-списков. Тогда можно будет легко получать список нужных дедлайнов.")
+		
+		realm.insertOrUpdate(deadlines ?: emptyList(), onSuccess)
+	}
+	
+	fun getOpenedDeadlines(sessionId: String, onSuccess: (List<RealmItemDeadline>) -> Unit) {
+		retrofitCalls.getOpenedDeadlines(sessionId) { onDeadlinesGetSuccess(it, onSuccess) }
+	}
+	
+	fun getClosedDeadlines(sessionId: String, onSuccess: (List<RealmItemDeadline>) -> Unit) {
+		retrofitCalls.getClosedDeadlines(sessionId) { onDeadlinesGetSuccess(it, onSuccess) }
+	}
+	
+	fun getExpiredDeadlines(
+		sessionId: String,
+		currentTime: Int,
+		onSuccess: (List<RealmItemDeadline>) -> Unit
+	) {
+		retrofitCalls.getExpiredDeadlines(sessionId, currentTime)
+		{ onDeadlinesGetSuccess(it, onSuccess) }
+	}
+	
+	fun getExternalDeadlines(
+		sessionId: String,
+		deadlineSourceId: String,
+		onSuccess: (List<RealmItemDeadline>) -> Unit
+	) {
+		retrofitCalls.getExternalDeadlines(sessionId, deadlineSourceId)
+		{ onDeadlinesGetSuccess(it, onSuccess) }
+	}
 
 	private fun resolveAuthOnSuccess(
 		sessionId: String?,

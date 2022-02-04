@@ -4,6 +4,7 @@ import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
 import com.q2ve.pocketschedule2.ui.AuthorizationRequirement
+import com.q2ve.pocketschedule2.ui.core.deadlines.DeadlinesFragment
 import com.q2ve.pocketschedule2.ui.core.schedule.ScheduleFragment
 
 /**
@@ -31,7 +32,17 @@ class CoreNavigatorRouter {
 	}
 	
 	fun openDeadlines() {
-		//TODO("Not yet implemented")
+		val fragment = DeadlinesFragment()
+		val frame = Frames.getCoreFrame()
+		frame?.let {
+			Navigator.replaceFragment(
+				fragment,
+				frame,
+				ReplaceAnimation.FadingWithoutScaling,
+				false
+			)
+			Navigator.clearBackstack()
+		}
 	}
 	
 	fun openAuthorizationRequirement() {

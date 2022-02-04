@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:paddingVertical="40dp"
+	android:orientation="vertical"
+	android:gravity="center_horizontal"
+	android:background="@drawable/rc_28dp">
+
+	<ImageView
+		android:layout_width="77dp"
+		android:layout_height="77dp"
+		android:src="@drawable/ic_academic_cap"
+		app:tint="@color/colorDeadlineGreen" />
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="12dp"
+		android:text="@string/deadline_empty_item_title"
+		android:textSize="21sp"
+		android:textStyle="bold"
+		android:textColor="@color/colorBlack"
+		android:textAlignment="center"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="12dp"
+		android:text="@string/deadline_empty_item_external"
+		android:textSize="15sp"
+		android:textStyle="bold"
+		android:textColor="@color/colorLightGray1"
+		android:gravity="center"/>
+
+</LinearLayout>

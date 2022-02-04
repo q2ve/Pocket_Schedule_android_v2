@@ -110,6 +110,82 @@ class RetrofitCalls(private val onError: (ErrorType) -> Unit) {
 		RetrofitCaller().enqueueCall(call, callback)
 	}
 	
+	fun getDeadlineSources(sessionId: String, onSuccess: (List<RealmItemDeadlineSource>?) -> Unit) {
+		val callback = object: Callback<RetrofitResponse<RealmItemDeadlineSource>> {
+			override fun onResponse(
+				call: Call<RetrofitResponse<RealmItemDeadlineSource>>,
+				response: Response<RetrofitResponse<RealmItemDeadlineSource>>
+			) {
+				val errorType = RetrofitErrorResolver().checkResponse(response)
+				if (errorType != null) onError(errorType)
+				else onSuccess(response.body()?.result?.items)
+			}
+			override fun onFailure(
+				call: Call<RetrofitResponse<RealmItemDeadlineSource>>,
+				t: Throwable
+			) {
+				val errorType = RetrofitErrorResolver().checkOnFailure(t)
+				onError(errorType)
+			}
+		}
+		val call = RetrofitCaller().getRequest().getDeadlineSources(sessionId)
+		RetrofitCaller().enqueueCall(call, callback)
+	}
+	
+	private fun buildDeadlinesCallback(
+		onSuccess: (List<RealmItemDeadline>?) -> Unit
+	): Callback<RetrofitResponse<RealmItemDeadline>>{
+		return object: Callback<RetrofitResponse<RealmItemDeadline>> {
+			override fun onResponse(
+				call: Call<RetrofitResponse<RealmItemDeadline>>,
+				response: Response<RetrofitResponse<RealmItemDeadline>>
+			) {
+				val errorType = RetrofitErrorResolver().checkResponse(response)
+				if (errorType != null) onError(errorType)
+				else onSuccess(response.body()?.result?.items)
+			}
+			override fun onFailure(
+				call: Call<RetrofitResponse<RealmItemDeadline>>,
+				t: Throwable
+			) {
+				val errorType = RetrofitErrorResolver().checkOnFailure(t)
+				onError(errorType)
+			}
+		}
+	}
+	
+	fun getOpenedDeadlines(sessionId: String, onSuccess: (List<RealmItemDeadline>?) -> Unit) {
+		val callback = buildDeadlinesCallback(onSuccess)
+		val call = RetrofitCaller().getRequest().getOpenedDeadlines(sessionId)
+		RetrofitCaller().enqueueCall(call, callback)
+	}
+	
+	fun getClosedDeadlines(sessionId: String, onSuccess: (List<RealmItemDeadline>?) -> Unit) {
+		val callback = buildDeadlinesCallback(onSuccess)
+		val call = RetrofitCaller().getRequest().getClosedDeadlines(sessionId)
+		RetrofitCaller().enqueueCall(call, callback)
+	}
+	
+	fun getExpiredDeadlines(
+		sessionId: String,
+		currentTime: Int,
+		onSuccess: (List<RealmItemDeadline>?) -> Unit
+	) {
+		val callback = buildDeadlinesCallback(onSuccess)
+		val call = RetrofitCaller().getRequest().getExpiredDeadlines(sessionId, currentTime)
+		RetrofitCaller().enqueueCall(call, callback)
+	}
+	
+	fun getExternalDeadlines(
+		sessionId: String,
+		deadlineSourceId: String,
+		onSuccess: (List<RealmItemDeadline>?) -> Unit
+	) {
+		val callback = buildDeadlinesCallback(onSuccess)
+		val call = RetrofitCaller().getRequest().getExternalDeadlines(sessionId, deadlineSourceId)
+		RetrofitCaller().enqueueCall(call, callback)
+	}
+	
 	private fun buildAuthCallback(
 		onSuccess: (String?, RealmItemUser?) -> Unit
 	): Callback<RetrofitResponseAuth>  {

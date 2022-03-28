@@ -24,4 +24,10 @@ open class RealmItemDeadline (
 	var markpoint: Int? = null,
 	var reportRequired: Boolean? = null
 	//var files: RealmList<File>? = null //Future feature. ToFix - Realm doesn't allow 'File' class.
-): RealmObject()
+): RealmObject() {
+	override fun toString(): String {
+		//TODO("Тестовая хуйня, удалить")
+		return "vvv\n_id - $_id\ntitle - $title\ndescription - $description\nstartDate - $startDate\n" +
+				"endDate - $endDate\nisExternal - $isExternal\nisClosed - $isClosed\nsubject - $subject"
+	}
+}

@@ -15,6 +15,7 @@
 	<color name="colorBlack">#121212</color>
 	<color name="colorBlackTranslucent">#85121212</color>
 	<color name="colorBlue">#4988F4</color>
+	<color name="colorBlueVK">#2787f5</color>
 	<color name="colorBlueLocked">#9BC0FF</color>
 	<color name="colorBlueLight">#DDE9FF</color>
 	<color name="colorBlueLightBlocked">#EBF2FF</color>

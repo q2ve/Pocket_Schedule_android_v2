@@ -12,7 +12,7 @@
 	android:fadingEdge="vertical"
 	android:fadingEdgeLength="10dp"
 	android:requiresFadingEdge="vertical"
-	android:background="@color/colorPlaque"
+	android:background="@color/colorPlaqueBackground"
 	android:fitsSystemWindows="true">
 
 	<LinearLayout
@@ -66,7 +66,8 @@
 			android:layout_marginHorizontal="12dp"
 			android:layout_marginTop="16dp"
 			android:background="@drawable/rc_20dp"
-			android:padding="16dp">
+			android:padding="16dp"
+			android:elevation="@dimen/shadow_elevation">
 
 			<ImageView
 				android:id="@+id/settings_current_user_picture"
@@ -142,7 +143,8 @@
 			android:layout_marginTop="16dp"
 			android:background="@drawable/rc_20dp"
 			android:paddingVertical="16dp"
-			android:paddingHorizontal="16dp">
+			android:paddingHorizontal="16dp"
+			android:elevation="@dimen/shadow_elevation">
 
 			<EditText
 				android:id="@+id/settings_authorization_login"
@@ -166,6 +168,7 @@
 				android:paddingVertical="6dp"
 				android:textSize="15sp"
 				android:textColor="@color/colorBlack"
+				android:inputType="textPassword"
 				android:hint="@string/password"
 				android:textColorHint="@color/colorTextFieldText"/>
 
@@ -230,7 +233,8 @@
 			android:layout_marginVertical="16dp"
 			android:background="@drawable/rc_20dp"
 			android:paddingVertical="16dp"
-			android:paddingHorizontal="16dp">
+			android:paddingHorizontal="16dp"
+			android:elevation="@dimen/shadow_elevation">
 
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:id="@+id/settings_current_university_module"
@@ -449,7 +453,6 @@
 					android:textColor="@color/colorLightGray1" />
 
 			</LinearLayout>
-
 
 		</LinearLayout>
 

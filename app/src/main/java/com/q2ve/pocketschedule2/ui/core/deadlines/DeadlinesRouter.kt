@@ -16,15 +16,13 @@ import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
 class DeadlinesRouter {
 	fun openBottomPopupContainer(
 		titleId: Int,
-		onResumeCallback: ((BottomPopupContainerFragment) -> Unit)? = null,
-		onCloseCallback: (() -> Unit)? = null
+		onResumeCallback: ((BottomPopupContainerFragment) -> Unit)? = null
 	) {
 		val fragment = BottomPopupContainerFragment.newInstance(titleId)
 		val observer = LifecycleEventObserver { _: LifecycleOwner, event: Lifecycle.Event ->
 			if (event == Lifecycle.Event.ON_RESUME) onResumeCallback?.let {
 				if (fragment.binding.bottomPopupContainerContentContainer.childCount == 0) it(fragment)
 			}
-			if (event == Lifecycle.Event.ON_DESTROY) onCloseCallback?.let { it() }
 		}
 		fragment.lifecycle.addObserver(observer)
 		Navigator.addFragment(fragment, Frames.getActivityFrame()!!, null, true)

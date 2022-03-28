@@ -98,18 +98,20 @@ interface ApiRequests {
 	fun postVkUser (
 		@Body body: RetrofitBodyToken
 	): Call<RetrofitResponseAuth>
-
-//	@POST("deadlines") //APIv2
-//	fun postDeadline (
-//		@Header("X-Session-Id") sessionId: String,
-//		@Body body: RetrofitBodyDeadline
-//	): Call<RetrofitDeadlineResponseObject>
-//
-//	@POST("deadlines/{deadlineId}/close") //APIv2
-//	fun postCloseDeadline (
-//		@Path("deadlineId") deadlineId: String,
-//		@Header("X-Session-Id") sessionId: String
-//	): Call<RetrofitDeadlineResponseObject>
+	
+	//APIv2
+	@POST("deadlines")
+	fun postDeadline (
+		@Header("X-Session-Id") sessionId: String,
+		@Body body: RetrofitBodyDeadline
+	): Call<RetrofitResponseDeadline>
+	
+	//APIv2
+	@POST("deadlines/{deadlineId}/close")
+	fun postDeadlineCloseEndpoint (
+		@Path("deadlineId") deadlineId: String,
+		@Header("X-Session-Id") sessionId: String
+	): Call<RetrofitResponseDeadline>
 	
 	// APIv2
 	@POST("auth/logout")
@@ -131,22 +133,24 @@ interface ApiRequests {
 		@Body body: RetrofitBodyLoginPassword
 	): Call<RetrofitResponseMe>
 
-//	@PUT("deadlines/{deadlineId}") //APIv2
-//	fun putDeadline (
-//		@Path("deadlineId") deadlineId: String,
-//		@Header("X-Session-Id") sessionId: String,
-//		@Body body: RetrofitBodyDeadline
-//	): Call<RetrofitDeadlineResponseObject>
-//
-//	@DELETE("deadlines/{deadlineId}/close") //APIv2
-//	fun deleteCloseDeadline (
-//		@Path("deadlineId") deadlineId: String,
-//		@Header("X-Session-Id") sessionId: String
-//	): Call<RetrofitDeadlineResponseObject>
-//
-//	@DELETE("deadlines/{deadlineId}") //APIv2
-//	fun deleteDeadline (
-//		@Path("deadlineId") deadlineId: String,
-//		@Header("X-Session-Id") sessionId: String
-//	): Call<RetrofitDeadlineResponseObject>
+	@PUT("deadlines/{deadlineId}") //APIv2
+	fun putDeadline (
+		@Path("deadlineId") deadlineId: String,
+		@Header("X-Session-Id") sessionId: String,
+		@Body body: RetrofitBodyDeadline
+	): Call<RetrofitResponseDeadline>
+	
+	//APIv2
+	@DELETE("deadlines/{deadlineId}/close")
+	fun deleteDeadlineCloseEndpoint (
+		@Path("deadlineId") deadlineId: String,
+		@Header("X-Session-Id") sessionId: String
+	): Call<RetrofitResponseDeadline>
+	
+	//APIv2
+	@DELETE("deadlines/{deadlineId}")
+	fun deleteDeadline (
+		@Path("deadlineId") deadlineId: String,
+		@Header("X-Session-Id") sessionId: String
+	): Call<RetrofitResponseDeadline>
 }

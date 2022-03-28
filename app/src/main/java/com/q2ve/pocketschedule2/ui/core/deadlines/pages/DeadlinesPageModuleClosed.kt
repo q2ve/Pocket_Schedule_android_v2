@@ -3,6 +3,8 @@ package com.q2ve.pocketschedule2.ui.core.deadlines.pages
 import com.q2ve.pocketschedule2.model.ErrorType
 import com.q2ve.pocketschedule2.model.Model
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemDeadline
+import io.realm.Realm
+import io.realm.RealmResults
 
 /**
  * Created by Denis Shishkin
@@ -12,11 +14,22 @@ import com.q2ve.pocketschedule2.model.dataclasses.RealmItemDeadline
 class DeadlinesPageModuleClosed(
 	emptyLayoutId: Int,
 	private val sessionId: String,
-	onDeadlineClicked: (RealmItemDeadline) -> Unit,
-	onDeadlineCheckboxClicked: (RealmItemDeadline) -> Unit,
-	private val onError: (ErrorType) -> Unit
-): DeadlinesPageModuleBase(emptyLayoutId, onDeadlineClicked, onDeadlineCheckboxClicked) {
+	onError: (ErrorType) -> Unit
+): DeadlinesPageModuleBase(emptyLayoutId) {
+	private val model = Model(onError)
+	private lateinit var list: RealmResults<RealmItemDeadline>
+	private var realmInstance: Realm? = null
+	
 	override fun getDeadlines() {
-		Model(onError).getClosedDeadlines(sessionId, ::inflateDeadlines)
+		model.getClosedDeadlines(sessionId, ::onDeadlinesLoaded)
 	}
+	
+	private fun onDeadlinesLoaded(deadlines: List<RealmItemDeadline>) {
+		val changeListenerSet = model.observeClosedDeadlines(::inflateDeadlines)
+		list = changeListenerSet.list
+		realmInstance = changeListenerSet.realmInstance
+		inflateDeadlines(deadlines)
+	}
+	
+	override fun onDestroyView() { realmInstance?.close() }
 }

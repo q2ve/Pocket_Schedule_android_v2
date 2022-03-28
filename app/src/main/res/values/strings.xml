@@ -15,7 +15,7 @@
 	<string name="server_error">Ошибка сервера\nПожалуйста, повторите попытку позднее</string>
 	<string name="choose_your_group">Выбери свою группу</string>
 	<string name="or">Или</string>
-	<string name="login_via_VK">Войти через ВКонтакте</string>
+	<string name="login_via_VK">Авторизация через ВК</string>
 	<string name="login_as_noun">Логин</string>
 	<string name="password">Пароль</string>
 	<string name="login_as_verb">Войти</string>
@@ -141,5 +141,6 @@
 	<string name="saturday">Суббота</string>
 	<string name="off_the_grid">Вне сетки</string>
 	<string name="password_dummy">••••••••</string>
+	<string name="subject_choosing">Выбор предмета</string>
 
 </resources>

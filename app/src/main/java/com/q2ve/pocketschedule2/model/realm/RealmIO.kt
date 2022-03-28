@@ -3,13 +3,13 @@ package com.q2ve.pocketschedule2.model.realm
 import android.util.Log
 import com.q2ve.pocketschedule2.helpers.Constants
 import com.q2ve.pocketschedule2.model.ErrorType
+import com.q2ve.pocketschedule2.model.dataclasses.RealmItemDeadline
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemMain
-import io.realm.Realm
-import io.realm.RealmConfiguration
-import io.realm.RealmObject
-import io.realm.Sort
+import com.q2ve.pocketschedule2.ui.core.deadlines.DeadlinesChangeListenerSet
+import io.realm.*
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
+
 
 /**
  * Created by Denis Shishkin
@@ -245,6 +245,26 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 		realm.close()
 	}
 	
+	fun <T: RealmObject> delete(
+		inputObject: T,
+		onSuccess: (() -> Unit)? = null
+	) {
+		val realm = Realm.getInstance(config)
+		realm.executeTransactionAsync(
+			{ r: Realm ->
+				val objectInRealm = r.copyToRealmOrUpdate(inputObject)
+				objectInRealm.deleteFromRealm()
+			}, { onSuccess?.let { it() } }, { t: Throwable ->
+				onError?.let {
+					//TODO("Check possible throwable.")
+					Log.e("RealmIO.delete single", t.toString())
+					it(ErrorType.RealmError)
+				}
+			}
+		)
+		realm.close()
+	}
+	
 	fun getMainObject(): RealmItemMain {
 		val realm = Realm.getInstance(config)
 		var mainObject = RealmItemMain()
@@ -272,6 +292,7 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 		realm.close()
 	}
 	
+	//TODO("Переделать и проверить")
 	fun observeMainObject(setMainObject: (RealmItemMain) -> Unit) {
 		val realm = Realm.getInstance(config)
 		var mainObject: RealmItemMain? = null
@@ -288,6 +309,78 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 				setMainObject(r.copyFromRealm(it))
 			}
 		}
+		realm.close()
+	}
+	
+	/**
+	 * After creating a listener, its realm results must be saved in a field of the calling class.
+	 * Otherwise, the listener will not be able to work.
+	 * Realm instance must be closed after the listener stops working.
+	 */
+	fun observeDeadlines(
+		onDeadlinesSetChange: ((List<RealmItemDeadline>) -> Unit)?,
+		isClosed: Boolean,
+		limitDate: Int? = null
+	): DeadlinesChangeListenerSet {
+		val realm = Realm.getInstance(config)
+		val list = if (limitDate == null) {
+			realm.where(RealmItemDeadline::class.java)
+				.equalTo("isExternal", false)
+				.equalTo("isClosed", isClosed)
+				.findAll()
+		} else {
+			realm.where(RealmItemDeadline::class.java)
+				.equalTo("isExternal", false)
+				.equalTo("isClosed", isClosed)
+				.lessThan("endDate", limitDate)
+				.findAll()
+		}
+		val changeListener = OrderedRealmCollectionChangeListener<RealmResults<RealmItemDeadline>>
+		{ deadlinesRealmResults, _ ->
+			val localRealm = deadlinesRealmResults.realm
+			val deadlines = localRealm.copyFromRealm(deadlinesRealmResults)
+			onDeadlinesSetChange?.invoke(deadlines)
+		}
+		list.addChangeListener(changeListener)
+		return DeadlinesChangeListenerSet(list, realm)
+	}
+	
+	fun deleteDeadlines(
+		isClosed: Boolean,
+		limitDate: Int? = null,
+		onSuccess: (() -> Unit)? = null
+	) {
+		val realm = Realm.getInstance(config)
+		realm.executeTransactionAsync(
+			{ r: Realm ->
+				val list = if (limitDate == null) {
+					r.where(RealmItemDeadline::class.java)
+						.equalTo("isExternal", false)
+						.equalTo("isClosed", isClosed)
+						.findAll()
+				} else {
+					r.where(RealmItemDeadline::class.java)
+						.equalTo("isExternal", false)
+						.equalTo("isClosed", isClosed)
+						.lessThan("endDate", limitDate)
+						.findAll()
+				}
+				list.deleteAllFromRealm()
+			}, { onSuccess?.let { it() } }, { t: Throwable ->
+				onError?.let {
+					//TODO("Check possible throwable.")
+					Log.e("RealmIO.deleteDeadlines", t.toString())
+					it(ErrorType.RealmError)
+				}
+			}
+		)
+		realm.close()
+	}
+	
+	fun stopObservingAllDeadlines() {
+		Log.e("stopObservingAllDeadlines()", "Gotcha")
+		val realm = Realm.getInstance(config)
+		realm.where(RealmItemDeadline::class.java).findAll().removeAllChangeListeners()
 		realm.close()
 	}
 }

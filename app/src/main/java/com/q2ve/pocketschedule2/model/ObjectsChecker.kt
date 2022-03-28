@@ -66,4 +66,16 @@ class ObjectsChecker {
 	fun checkSubject(item: RealmItemSubject?): RealmItemSubject? {
 		return if (item?._id == null || item._id == "") null else item
 	}
+	
+	fun checkDeadline(item: RealmItemDeadline?): RealmItemDeadline? {
+		return if (item?._id == null || item._id == "" ||
+			item.isClosed == null || item.isExternal == null) null else item
+	}
+	
+	fun checkDeadlineSource(item: RealmItemDeadlineSource?): RealmItemDeadlineSource? {
+		return when {
+			(item?._id == null || item._id == "" || item.name == null || item.name == "") -> null
+			else -> item
+		}
+	}
 }

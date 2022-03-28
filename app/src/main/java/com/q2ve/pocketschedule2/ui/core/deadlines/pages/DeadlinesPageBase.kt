@@ -9,6 +9,7 @@ import android.view.ViewGroup
  * qwq2eq@gmail.com
  */
 
+//TODO("Replace with interface?.")
 abstract class DeadlinesPageBase {
 	abstract fun getView(
 		inflater: LayoutInflater,
@@ -16,4 +17,6 @@ abstract class DeadlinesPageBase {
 		position: Int,
 		viewUpdatingFunction: (Int) -> Unit
 	): View
+	
+	open fun onDestroyView() = Unit
 }

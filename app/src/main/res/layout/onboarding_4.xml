@@ -259,8 +259,7 @@
 						android:paddingBottom="5dp"
 						android:text="@string/onboarding_fourth_example_address_two"
 						android:textColor="@color/colorLightGray1"
-						android:textSize="13sp"
-										android:visibility="gone"/>
+						android:textSize="13sp" />
 
 					<TextView
 						android:layout_width="wrap_content"
@@ -276,8 +275,7 @@
 						android:paddingBottom="5dp"
 						android:text="@string/practice_work"
 						android:textColor="@color/colorLightGray1"
-						android:textSize="13sp"
-									android:visibility="gone"/>
+						android:textSize="13sp" />
 
 					<TextView
 						android:layout_width="wrap_content"
@@ -340,8 +338,7 @@
 			android:elevation="@dimen/shadow_elevation"
 			android:minHeight="80dp"
 			android:orientation="horizontal"
-			android:padding="16dp"
-android:visibility="gone">
+			android:padding="16dp">
 
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:layout_width="wrap_content"

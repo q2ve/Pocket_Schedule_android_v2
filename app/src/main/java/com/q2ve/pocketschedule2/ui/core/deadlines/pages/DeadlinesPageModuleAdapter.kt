@@ -1,6 +1,7 @@
 package com.q2ve.pocketschedule2.ui.core.deadlines.pages
 
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -24,7 +25,7 @@ import com.q2ve.pocketschedule2.model.dataclasses.RealmItemDeadline
 class DeadlinesPageModuleAdapter(
 	private val onDeadlineClicked: (RealmItemDeadline) -> Unit,
 	private val onDeadlineCheckboxClicked: (RealmItemDeadline) -> Unit,
-	private val deadlines: List<RealmItemDeadline>,
+	private val deadlines: MutableList<RealmItemDeadline>,
 ): RecyclerView.Adapter<DeadlinesPageModuleAdapter.RecyclerItemHolder>() {
 	
 	class RecyclerItemHolder(
@@ -120,7 +121,6 @@ class DeadlinesPageModuleAdapter(
 
 		//checkbox on click listener
 		holder.checkbox.setOnClickListener {
-			deadline.isClosed = true
 			holder.checkbox.visibility = View.INVISIBLE
 			holder.checkboxChecked.visibility = View.VISIBLE
 			holder.statusNormal.visibility = View.INVISIBLE
@@ -131,7 +131,6 @@ class DeadlinesPageModuleAdapter(
 
 		//checked checkbox on click listener
 		holder.checkboxChecked.setOnClickListener {
-			deadline.isClosed = false
 			holder.checkbox.visibility = View.VISIBLE
 			holder.checkboxChecked.visibility = View.INVISIBLE
 			holder.statusClosed.visibility = View.INVISIBLE
@@ -147,4 +146,22 @@ class DeadlinesPageModuleAdapter(
 	}
 
 	override fun getItemCount() = deadlines.size
+	
+	fun replaceItem(deadline: RealmItemDeadline?, index: Int) {
+		(this.itemCount > index).let {
+			if (deadline == null) {
+				deadlines.removeAt(index)
+				notifyItemRemoved(index)
+			} else {
+				deadlines[index] = deadline
+				notifyItemChanged(index)
+			}
+		}
+	}
+	
+	fun addItem(deadline: RealmItemDeadline) {
+		Log.e("addItem", deadline.toString())
+		deadlines.add(deadline)
+		notifyItemInserted(deadlines.size - 1)
+	}
 }

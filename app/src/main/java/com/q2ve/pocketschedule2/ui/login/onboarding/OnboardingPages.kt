@@ -12,6 +12,7 @@ import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
 import com.q2ve.pocketschedule2.ui.login.login.LoginMethodSelectorFragment
+import com.q2ve.pocketschedule2.ui.scheduleUserPicker.ScheduleUserPickerFragment
 
 /**
  * Created by Denis Shishkin
@@ -153,6 +154,13 @@ class OnboardingPageFiveRouter {
 	}
 	
 	fun openScheduleUserPicker() {
-	
+		Frames.getActivityFrame()?.let { frame: Int ->
+			Navigator.replaceFragment(
+				ScheduleUserPickerFragment.newInstance(true),
+				frame,
+				ReplaceAnimation.SlideRtL,
+				true
+			)
+		}
 	}
 }

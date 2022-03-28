@@ -1,10 +1,7 @@
 package com.q2ve.pocketschedule2.model.retrofit
 
 import com.q2ve.pocketschedule2.model.ErrorType
-import com.q2ve.pocketschedule2.model.dataclasses.RetrofitItemError
-import com.q2ve.pocketschedule2.model.dataclasses.RetrofitResponse
-import com.q2ve.pocketschedule2.model.dataclasses.RetrofitResponseAuth
-import com.q2ve.pocketschedule2.model.dataclasses.RetrofitResponseMe
+import com.q2ve.pocketschedule2.model.dataclasses.*
 import retrofit2.Response
 
 /**
@@ -35,6 +32,7 @@ class RetrofitErrorResolver {
 	 */
 	fun <T> checkResponse(response: Response<RetrofitResponse<T>>): ErrorType? {
 		return when {
+			(response.code() == 403) -> ErrorType.OutdatedSession
 			(response.body() == null || response.code() == 500) -> ErrorType.UnknownServerError
 			(response.body()!!.result == null) -> checkItemError(response.body()!!.error)
 			(response.body()!!.result!!.totalCount == null) -> ErrorType.UnknownServerError
@@ -63,6 +61,18 @@ class RetrofitErrorResolver {
 	 * Returns null if no errors are found.
 	 */
 	fun checkResponseMe(response: Response<RetrofitResponseMe>): ErrorType? {
+		return when {
+			(response.body() == null || response.code() == 500) -> ErrorType.UnknownServerError
+			(response.body()!!.result == null) -> checkItemError(response.body()!!.error)
+			else -> null
+		}
+	}
+	
+	/**
+	 * Returns ErrorType object if response is unsuccessful.
+	 * Returns null if no errors are found.
+	 */
+	fun checkResponseDeadline(response: Response<RetrofitResponseDeadline>): ErrorType? {
 		return when {
 			(response.body() == null || response.code() == 500) -> ErrorType.UnknownServerError
 			(response.body()!!.result == null) -> checkItemError(response.body()!!.error)

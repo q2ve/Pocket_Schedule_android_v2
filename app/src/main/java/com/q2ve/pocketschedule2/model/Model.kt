@@ -4,6 +4,7 @@ import com.q2ve.pocketschedule2.helpers.UserObserver
 import com.q2ve.pocketschedule2.model.dataclasses.*
 import com.q2ve.pocketschedule2.model.realm.RealmIO
 import com.q2ve.pocketschedule2.model.retrofit.RetrofitCalls
+import com.q2ve.pocketschedule2.ui.core.deadlines.DeadlinesChangeListenerSet
 
 /**
  * Created by Denis Shishkin
@@ -78,11 +79,13 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		}
 	}
 	
-	//TODO("Deadlines and deadline sources checking!!!")
-	
 	fun getDeadlineSources(sessionId: String, onSuccess: (List<RealmItemDeadlineSource>) -> Unit) {
-		retrofitCalls.getDeadlineSources(sessionId) { sources ->
-			realm.insertOrUpdate(sources ?: emptyList(), onSuccess)
+		retrofitCalls.getDeadlineSources(sessionId) { objects ->
+			val checkedObjects = checker.checkList(
+				objects ?: emptyList(),
+				checker::checkDeadlineSource
+			)
+			realm.insertOrUpdate(checkedObjects, onSuccess)
 		}
 	}
 	
@@ -91,16 +94,23 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		onSuccess: (List<RealmItemDeadline>) -> Unit
 	) {
 		//TODO("Для работы оффлайн надо будет реализовать сохранение индекс-списков. Тогда можно будет легко получать список нужных дедлайнов.")
-		
+		val checkedObjects = checker.checkList(
+			deadlines ?: emptyList(),
+			checker::checkDeadline
+		)
 		realm.insertOrUpdate(deadlines ?: emptyList(), onSuccess)
 	}
 	
 	fun getOpenedDeadlines(sessionId: String, onSuccess: (List<RealmItemDeadline>) -> Unit) {
-		retrofitCalls.getOpenedDeadlines(sessionId) { onDeadlinesGetSuccess(it, onSuccess) }
+		retrofitCalls.getOpenedDeadlines(sessionId) {
+			realm.deleteDeadlines(false) { onDeadlinesGetSuccess(it, onSuccess) }
+		}
 	}
 	
 	fun getClosedDeadlines(sessionId: String, onSuccess: (List<RealmItemDeadline>) -> Unit) {
-		retrofitCalls.getClosedDeadlines(sessionId) { onDeadlinesGetSuccess(it, onSuccess) }
+		retrofitCalls.getClosedDeadlines(sessionId) {
+			realm.deleteDeadlines(true) { onDeadlinesGetSuccess(it, onSuccess) }
+		}
 	}
 	
 	fun getExpiredDeadlines(
@@ -108,8 +118,9 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		currentTime: Int,
 		onSuccess: (List<RealmItemDeadline>) -> Unit
 	) {
-		retrofitCalls.getExpiredDeadlines(sessionId, currentTime)
-		{ onDeadlinesGetSuccess(it, onSuccess) }
+		retrofitCalls.getExpiredDeadlines(sessionId, currentTime) {
+			realm.deleteDeadlines(false, currentTime) { onDeadlinesGetSuccess(it, onSuccess) }
+		}
 	}
 	
 	fun getExternalDeadlines(
@@ -197,7 +208,88 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		) { user: RealmItemUser? -> resolveAuthOnSuccess(sessionId, user) { onSuccess(user!!) } }
 	}
 	
+	private fun resolveDeadlineOnSuccess(
+		deadline: RealmItemDeadline?,
+		onSuccess: (RealmItemDeadline) -> Unit
+	) {
+		checker.checkDeadline(deadline)?.let { realm.insertOrUpdate(it, onSuccess) }
+	}
+	
+	fun putDeadline(
+		sessionId: String,
+		deadline: RealmItemDeadline,
+		onSuccess: (RealmItemDeadline) -> Unit
+	) {
+		retrofitCalls.putDeadline(
+			sessionId,
+			deadline
+		) { resolveDeadlineOnSuccess(it, onSuccess) }
+	}
+	
+	fun createDeadline(
+		sessionId: String,
+		deadline: RealmItemDeadline,
+		onSuccess: (RealmItemDeadline) -> Unit
+	) {
+		retrofitCalls.postDeadline(
+			sessionId,
+			deadline
+		) { resolveDeadlineOnSuccess(it, onSuccess) }
+	}
+	
+	fun openDeadline(
+		sessionId: String,
+		deadlineId: String,
+		onSuccess: (RealmItemDeadline) -> Unit
+	) {
+		retrofitCalls.deleteDeadlineCloseEndpoint(
+			sessionId,
+			deadlineId
+		) { resolveDeadlineOnSuccess(it, onSuccess) }
+	}
+	
+	fun closeDeadline(
+		sessionId: String,
+		deadlineId: String,
+		onSuccess: (RealmItemDeadline) -> Unit
+	) {
+		retrofitCalls.postDeadlineCloseEndpoint(
+			sessionId,
+			deadlineId
+		) { resolveDeadlineOnSuccess(it, onSuccess) }
+	}
+	
+	fun deleteDeadline(
+		sessionId: String,
+		deadlineId: String,
+		onSuccess: () -> Unit
+	) {
+		retrofitCalls.deleteDeadline(sessionId, deadlineId) {
+			if (it != null) realm.delete(it, onSuccess)
+		}
+	}
+	
 	fun updateMainObject(mainObject: RealmItemMain, onSuccess: (RealmItemMain) -> Unit) {
 		realm.insertOrUpdate(mainObject, onSuccess)
 	}
+	
+	fun observeOpenedDeadlines(
+		onDeadlinesSetChange: (List<RealmItemDeadline>) -> Unit
+	): DeadlinesChangeListenerSet {
+		return realm.observeDeadlines(onDeadlinesSetChange, false)
+	}
+	
+	fun observeClosedDeadlines(
+		onDeadlinesSetChange: (List<RealmItemDeadline>) -> Unit
+	): DeadlinesChangeListenerSet {
+		return realm.observeDeadlines(onDeadlinesSetChange, true)
+	}
+	
+	fun observeExpiredDeadlines(
+		onDeadlinesSetChange: (List<RealmItemDeadline>) -> Unit, time: Int
+	): DeadlinesChangeListenerSet {
+		return realm.observeDeadlines(onDeadlinesSetChange, false, time)
+	}
+	
+	fun stopObservingDeadlines() { realm.stopObservingAllDeadlines() }
 }

@@ -6,18 +6,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.databinding.DeadlinesModuleBinding
+import com.q2ve.pocketschedule2.helpers.UserObserver
+import com.q2ve.pocketschedule2.model.Model
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemDeadline
+import com.q2ve.pocketschedule2.ui.core.deadlines.cards.DeadlinesCard
 
 /**
  * Created by Denis Shishkin
  * qwq2eq@gmail.com
  */
 
-abstract class DeadlinesPageModuleBase(
-	private val emptyLayoutId: Int,
-	private val onDeadlineClicked: (RealmItemDeadline) -> Unit,
-	private val onDeadlineCheckboxClicked: (RealmItemDeadline) -> Unit
-): DeadlinesPageBase() {
+abstract class DeadlinesPageModuleBase(private val emptyLayoutId: Int): DeadlinesPageBase() {
+	private var router = DeadlinesPageModuleBaseRouter()
 	private lateinit var inflater: LayoutInflater
 	private lateinit var container: ViewGroup
 	private lateinit var viewUpdatingFunction: (Int) -> Unit
@@ -54,12 +54,48 @@ abstract class DeadlinesPageModuleBase(
 			val layoutManager = LinearLayoutManager(inflater.context)
 			recyclerView.layoutManager = layoutManager
 			recyclerView.adapter = DeadlinesPageModuleAdapter(
-				onDeadlineClicked,
-				onDeadlineCheckboxClicked,
-				deadlines
+				::onDeadlineClicked,
+				::onDeadlineCheckboxClicked,
+				deadlines.toMutableList()
 			)
 			view = binding.root
 		}
 		position?.let { viewUpdatingFunction(it) }
+	}
+	
+	private fun placeDeadlineCard(deadline: RealmItemDeadline) {
+		val sessionId = UserObserver.getMainObject().sessionId
+		if (sessionId == null) router.openAuthorizationRequirement() else {
+			router.openBottomPopupContainer(R.string.deadline_card) {
+				fun closeBottomPopupContainer() { it.animateExit() }
+				
+				val inflater = it.layoutInflater
+				val container = it.binding.bottomPopupContainerContentContainer
+				val resources = it.resources
+				val theme = it.requireActivity().theme
+				val card = DeadlinesCard(sessionId, deadline, { closeBottomPopupContainer() }).getView(
+					inflater, container, resources, theme
+				)
+				container.addView(card)
+			}
+		}
+	}
+	
+	private fun onDeadlineClicked(deadline: RealmItemDeadline) {
+		placeDeadlineCard(deadline)
+	}
+	
+	private fun onDeadlineCheckboxClicked(deadline: RealmItemDeadline) {
+		val sessionId = UserObserver.getMainObject().sessionId
+		if (sessionId == null) router.openAuthorizationRequirement() else {
+			when (deadline.isClosed) {
+				true -> {
+					Model{ }.openDeadline(sessionId, deadline._id) { }
+				}
+				false -> {
+					Model{ }.closeDeadline(sessionId, deadline._id) { }
+				}
+			}
+		}
 	}
 }

@@ -14,12 +14,11 @@ import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
 class SettingsRouter {
 	fun openBottomPopupContainer(
 		titleId: Int,
-		onResumeCallback: ((BottomPopupContainerFragment) -> Unit)? = null,
-		onCloseCallback: (() -> Unit)? = null
+		onResumeCallback: ((BottomPopupContainerFragment) -> Unit)? = null
 	) {
 		Frames.getActivityFrame()?.let { frame ->
 			val fragment = BottomPopupContainerFragment.newInstance(titleId)
-			fragment.buildObserver(onResumeCallback, onCloseCallback)
+			fragment.buildObserver(onResumeCallback)
 			Navigator.addFragment(fragment, frame, null, true)
 		}
 	}

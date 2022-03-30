@@ -151,15 +151,15 @@ class BottomPopupContainerFragment: Fragment() {
 			.start()
 	}
 	
-	fun buildObserver(
-		onResume: ((BottomPopupContainerFragment) -> Unit)? = null,
-		onClose: (() -> Unit)? = null
-	) {
+	/**
+	 * OnResume callback will not be work if you'll add view in
+	 * bottom_popup_container_content_container before onResume.
+	 */
+	fun buildObserver(onResume: ((BottomPopupContainerFragment) -> Unit)? = null) {
 		val observer = LifecycleEventObserver { _: LifecycleOwner, event: Lifecycle.Event ->
 			if (event == Lifecycle.Event.ON_RESUME) onResume?.let {
 				if (this.binding.bottomPopupContainerContentContainer.childCount == 0) it(this)
 			}
-			if (event == Lifecycle.Event.ON_DESTROY) onClose?.invoke()
 		}
 		this.lifecycle.addObserver(observer)
 	}

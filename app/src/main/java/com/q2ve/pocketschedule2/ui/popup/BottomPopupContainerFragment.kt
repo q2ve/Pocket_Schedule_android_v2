@@ -1,7 +1,6 @@
 package com.q2ve.pocketschedule2.ui.popup
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,9 @@ import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import com.q2ve.pocketschedule2.databinding.BottomPopupContainerBinding
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 
@@ -21,10 +23,11 @@ import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 //TODO("Smooth height increasing")
 class BottomPopupContainerFragment: Fragment() {
 	companion object {
-		fun newInstance(titleId: Int): BottomPopupContainerFragment {
+		fun newInstance(titleId: Int, isFullScreen: Boolean = false): BottomPopupContainerFragment {
 			val fragment = BottomPopupContainerFragment()
 			fragment.arguments = bundleOf(
-				"titleId" to titleId
+				"titleId" to titleId,
+				"isFullScreen" to isFullScreen
 			)
 			return fragment
 		}
@@ -58,7 +61,7 @@ class BottomPopupContainerFragment: Fragment() {
 					endId: Int,
 					progress: Float
 				) {
-					Log.d("Motion", progress.toString())
+					//Log.d("Motion", progress.toString())
 					if (progress > 0.9) {
 						animateExit()
 					}
@@ -111,8 +114,18 @@ class BottomPopupContainerFragment: Fragment() {
 			}
 			.start()
 		
-		val bottomMenuContainer = binding.bottomPopupContainerContainer
+		//val bottomMenuContainer = binding.bottomPopupContainerContainer
 		//bottomMenuContainer.setOnClickListener{ hideKeyboard() } так не работает свайпание
+		
+		val isFullScreen = arguments?.getBoolean("isFullScreen") ?: false
+		if (isFullScreen) {
+			binding.bottomPopupContainerMotionLayout.layoutParams
+				.height = ViewGroup.LayoutParams.MATCH_PARENT
+			binding.bottomPopupContainerContainer.layoutParams
+				.height = LinearLayout.LayoutParams.MATCH_PARENT
+			binding.bottomPopupContainerContentContainer.layoutParams
+				.height = LinearLayout.LayoutParams.MATCH_PARENT
+		}
 		
 		return binding.root
 	}
@@ -136,5 +149,18 @@ class BottomPopupContainerFragment: Fragment() {
 				Navigator.removeFragment(this)
 			}
 			.start()
+	}
+	
+	fun buildObserver(
+		onResume: ((BottomPopupContainerFragment) -> Unit)? = null,
+		onClose: (() -> Unit)? = null
+	) {
+		val observer = LifecycleEventObserver { _: LifecycleOwner, event: Lifecycle.Event ->
+			if (event == Lifecycle.Event.ON_RESUME) onResume?.let {
+				if (this.binding.bottomPopupContainerContentContainer.childCount == 0) it(this)
+			}
+			if (event == Lifecycle.Event.ON_DESTROY) onClose?.invoke()
+		}
+		this.lifecycle.addObserver(observer)
 	}
 }

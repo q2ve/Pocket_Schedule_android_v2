@@ -142,8 +142,7 @@ class OnboardingPageFiveFragment: Fragment() {
 
 class OnboardingPageFiveRouter {
 	fun goToLogin() {
-		val frame = Frames.getLoginFrame()
-		if (frame != null) {
+		Frames.getLoginFrame()?.let { frame ->
 			Navigator.replaceFragment(
 				LoginMethodSelectorFragment(),
 				frame,

@@ -52,11 +52,12 @@ abstract class DeadlinesPageModuleBase(private val emptyLayoutId: Int): Deadline
 			val binding = DeadlinesModuleBinding.inflate(inflater, container, false)
 			val recyclerView = binding.coreDeadlinesModuleRecycler
 			val layoutManager = LinearLayoutManager(inflater.context)
+			val sortedDeadlines = deadlines.sortedBy{ it.title }.toMutableList()
 			recyclerView.layoutManager = layoutManager
 			recyclerView.adapter = DeadlinesPageModuleAdapter(
 				::onDeadlineClicked,
 				::onDeadlineCheckboxClicked,
-				deadlines.toMutableList()
+				sortedDeadlines
 			)
 			view = binding.root
 		}

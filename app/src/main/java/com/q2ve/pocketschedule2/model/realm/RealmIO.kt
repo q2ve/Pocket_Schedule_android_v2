@@ -327,12 +327,14 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 			realm.where(RealmItemDeadline::class.java)
 				.equalTo("isExternal", false)
 				.equalTo("isClosed", isClosed)
+				.sort("title", Sort.ASCENDING)
 				.findAll()
 		} else {
 			realm.where(RealmItemDeadline::class.java)
 				.equalTo("isExternal", false)
 				.equalTo("isClosed", isClosed)
 				.lessThan("endDate", limitDate)
+				.sort("title", Sort.ASCENDING)
 				.findAll()
 		}
 		val changeListener = OrderedRealmCollectionChangeListener<RealmResults<RealmItemDeadline>>

@@ -44,7 +44,7 @@
 	<string name="opened">Открытые</string>
 	<string name="all">Все</string>
 	<string name="deadline_empty_item_title">Заданий пока нет!</string>
-	<string name="deadline_empty_item_opened">Ты выполнил или пропустил все дедлайны!\nЭто достойно уважения!</string>
+	<string name="deadline_empty_item_opened">Ты выполнил все дедлайны!\nЭто достойно уважения!</string>
 	<string name="deadline_empty_item_expired">Ты выполнил все просроченные дедлайны!\nОтдохни немного и берись за остальные!</string>
 	<string name="deadline_empty_item_closed">Ты выполнил вообще все дедлайны!\nМы тобой восхищаемся!</string>
 	<string name="deadline_empty_item_external">Это дедлайны твоего учебного заведения,\nи здесь пока пусто.\nС чем тебя и поздравляем!</string>

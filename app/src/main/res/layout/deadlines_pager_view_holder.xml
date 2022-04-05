@@ -19,6 +19,7 @@
 			android:id="@+id/deadlines_pager_view_holder_container"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:animateLayoutChanges="true"
 			android:layout_marginHorizontal="12dp"
 			android:orientation="vertical"
 			android:gravity="center"

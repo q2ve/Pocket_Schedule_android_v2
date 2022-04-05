@@ -1,5 +1,6 @@
 package com.q2ve.pocketschedule2.ui.core.deadlines.pages
 
+import android.animation.LayoutTransition
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -29,6 +30,8 @@ class DeadlinesPagerAdapter(
 			container,
 			false
 		)
+		val contentContainer = binding.deadlinesPagerViewHolderContainer
+		contentContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 		return DeadlinesItemHolder(binding)
 	}
 	
@@ -45,23 +48,21 @@ class DeadlinesPagerAdapter(
 	
 	private fun replaceView(position: Int) {
 		try {
-			if (viewPager.childCount > position) {
-				val page = viewPager.getChildAt(position)
-				ViewCompat.animate(page)
-					.alpha(0f)
-					.setInterpolator(AccelerateDecelerateInterpolator())
-					.setDuration(300)
-					.withEndAction {
-						notifyItemChanged(position)
-						ViewCompat.animate(page)
-							.alpha(1f)
-							.setInterpolator(AccelerateDecelerateInterpolator())
-							.setStartDelay(100)
-							.setDuration(300)
-							.start()
-					}
-					.start()
-			} else notifyItemChanged(position)
+			val page = (viewPager.getChildAt(0) as RecyclerView).getChildAt(position)
+			ViewCompat.animate(page)
+				.alpha(0f)
+				.setInterpolator(AccelerateDecelerateInterpolator())
+				.setDuration(300)
+				.withEndAction {
+					notifyItemChanged(position)
+					ViewCompat.animate(page)
+						.alpha(1f)
+						.setInterpolator(AccelerateDecelerateInterpolator())
+						.setStartDelay(100)
+						.setDuration(300)
+						.start()
+				}
+				.start()
 		} catch (e: Throwable) {
 			Log.e("DeadlinesPagerAdapter", "Probably missing viewPager", e)
 		}

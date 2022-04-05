@@ -1,7 +1,6 @@
 package com.q2ve.pocketschedule2.ui.core.deadlines.pages
 
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.q2ve.pocketschedule2.databinding.DeadlinesItemBinding
 import com.q2ve.pocketschedule2.helpers.ButtonAnimator
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemDeadline
+import io.realm.OrderedCollectionChangeSet
 import io.realm.RealmRecyclerViewAdapter
 import io.realm.RealmResults
 
@@ -35,6 +35,7 @@ class DeadlinesPageModuleAdapter(
 	true,
 	true
 ) {
+	//BEWARE! GOVNOKOD!
 	class RecyclerItemHolder(
 		viewBinding: DeadlinesItemBinding
 	): RecyclerView.ViewHolder(viewBinding.root) {
@@ -50,6 +51,41 @@ class DeadlinesPageModuleAdapter(
 		var checkboxChecked: ImageView = viewBinding.coreDeadlinesItemCheckboxChecked
 	}
 	
+	private var isOnEmptyCalled: Boolean = false
+	
+	init {
+		isOnEmptyCalled = false //REMOVE!!!
+		realmResults.addChangeListener { data, changeSet ->
+			if (changeSet.state == OrderedCollectionChangeSet.State.UPDATE) {
+				if (data.isEmpty()) {
+					if (!isOnEmptyCalled) {
+						isOnEmptyCalled = true
+						onEmpty?.invoke()
+					} else {
+						isOnEmptyCalled = false
+						onEmptinessFilled?.invoke()
+					}
+				} else if (isOnEmptyCalled) {
+					isOnEmptyCalled = false
+					onEmptinessFilled?.invoke()
+				}
+			}
+		}
+	}
+	
+	override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+		super.onAttachedToRecyclerView(recyclerView)
+		Handler().postDelayed(
+			{
+				if (data == null || data?.isEmpty() == true) {
+					onEmpty?.invoke()
+					isOnEmptyCalled = true
+				}
+			},
+			10
+		)
+	}
+	
 	override fun onCreateViewHolder(container: ViewGroup, viewType: Int): RecyclerItemHolder {
 		val binding = DeadlinesItemBinding.inflate(
 			LayoutInflater.from(container.context),
@@ -60,7 +96,6 @@ class DeadlinesPageModuleAdapter(
 	}
 	
 	override fun onBindViewHolder(holder: RecyclerItemHolder, position: Int) {
-		//BEWARE! GOVNOKOD!
 		getItem(position)?.let { deadline ->
 			val currentTime = (System.currentTimeMillis()/1000).toInt()
 			
@@ -130,10 +165,7 @@ class DeadlinesPageModuleAdapter(
 				holder.statusNormal.visibility = View.INVISIBLE
 				holder.statusClosed.visibility = View.VISIBLE
 				holder.statusExpired.visibility = View.INVISIBLE
-				Handler().postDelayed(
-					{ onDeadlineCheckboxClicked(realmResults.realm.copyFromRealm(deadline)) },
-					250
-				)
+				onDeadlineCheckboxClicked(realmResults.realm.copyFromRealm(deadline))
 			}
 			
 			//checked checkbox on click listener
@@ -148,66 +180,7 @@ class DeadlinesPageModuleAdapter(
 					holder.statusExpired.visibility = View.INVISIBLE
 					holder.statusNormal.visibility = View.VISIBLE
 				}
-				Handler().postDelayed(
-					{ onDeadlineCheckboxClicked(realmResults.realm.copyFromRealm(deadline)) },
-					250
-				)
-			}
-		}
-	}
-	
-	private var isOnEmptyCalled: Boolean = false
-	
-	override fun onViewDetachedFromWindow(holder: RecyclerItemHolder) {
-		Log.e("TEST", "onViewDetachedFromWindow")
-		val data = data
-		if ((data == null || data.isEmpty())) {
-			if (!isOnEmptyCalled) {
-				Log.e("TEST", "1 $isOnEmptyCalled")
-				isOnEmptyCalled = true
-				onEmpty?.invoke()
-				super.onViewDetachedFromWindow(holder)
-			} else {
-				Log.e("TEST", "2 $isOnEmptyCalled")
-				super.onViewDetachedFromWindow(holder)
-				isOnEmptyCalled = false
-				onEmptinessFilled?.invoke()
-			}
-		} else {
-			Log.e("TEST", "3 $isOnEmptyCalled")
-			super.onViewDetachedFromWindow(holder)
-			if (isOnEmptyCalled) {
-				Log.e("TEST", "4 $isOnEmptyCalled")
-				super.onViewDetachedFromWindow(holder)
-				isOnEmptyCalled = false
-				onEmptinessFilled?.invoke()
-			}
-		}
-	}
-	
-	override fun onViewAttachedToWindow(holder: RecyclerItemHolder) {
-		Log.e("TEST", "onViewAttachedToWindow")
-		val data = data
-		if ((data == null || data.isEmpty())) {
-			if (!isOnEmptyCalled) {
-				Log.e("TEST", "1 $isOnEmptyCalled")
-				isOnEmptyCalled = true
-				onEmpty?.invoke()
-				super.onViewAttachedToWindow(holder)
-			} else {
-				Log.e("TEST", "2 $isOnEmptyCalled")
-				super.onViewAttachedToWindow(holder)
-				isOnEmptyCalled = false
-				onEmptinessFilled?.invoke()
-			}
-		} else {
-			Log.e("TEST", "3 $isOnEmptyCalled")
-			super.onViewAttachedToWindow(holder)
-			if (isOnEmptyCalled) {
-				Log.e("TEST", "4 $isOnEmptyCalled")
-				super.onViewAttachedToWindow(holder)
-				isOnEmptyCalled = false
-				onEmptinessFilled?.invoke()
+				onDeadlineCheckboxClicked(realmResults.realm.copyFromRealm(deadline))
 			}
 		}
 	}

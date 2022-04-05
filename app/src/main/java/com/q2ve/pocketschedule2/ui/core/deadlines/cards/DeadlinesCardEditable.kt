@@ -22,7 +22,10 @@ import com.q2ve.pocketschedule2.model.dataclasses.RealmItemDeadline
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemSubject
 import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
 import com.q2ve.pocketschedule2.ui.popup.PopupMessagePresenter
-import com.q2ve.pocketschedule2.ui.recyclerSelector.*
+import com.q2ve.pocketschedule2.ui.recyclerSelector.RecyclerSelectorPresenter
+import com.q2ve.pocketschedule2.ui.recyclerSelector.RecyclerSelectorUploadingControllerBase
+import com.q2ve.pocketschedule2.ui.recyclerSelector.RecyclerSelectorUploadingControllerSubjects
+import com.q2ve.pocketschedule2.ui.recyclerSelector.SearchFieldPresenter
 import com.q2ve.pocketschedule2.ui.scheduleUserPicker.ScheduleUserPickerFragment
 import java.text.SimpleDateFormat
 import java.util.*
@@ -245,7 +248,6 @@ class DeadlinesCardEditable(
 				deadline.title = title.text.toString()
 				deadline.description = description.text.toString()
 				if (checkRequiredParameters()) {
-					Log.e("Deadline card editable - create deadline", deadline.toString())
 					controller.createDeadline(deadline, ::onError, ::processOnCardResult)
 				}
 			}

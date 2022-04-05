@@ -30,6 +30,7 @@ class DeadlinesPagerAdapter(
 			container,
 			false
 		)
+		//EnableTransitionType is necessary to xml "animateLayoutChanges" works with height changing
 		val contentContainer = binding.deadlinesPagerViewHolderContainer
 		contentContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 		return DeadlinesItemHolder(binding)

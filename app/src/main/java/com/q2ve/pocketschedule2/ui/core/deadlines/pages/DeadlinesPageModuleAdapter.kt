@@ -54,7 +54,6 @@ class DeadlinesPageModuleAdapter(
 	private var isOnEmptyCalled: Boolean = false
 	
 	init {
-		isOnEmptyCalled = false //REMOVE!!!
 		realmResults.addChangeListener { data, changeSet ->
 			if (changeSet.state == OrderedCollectionChangeSet.State.UPDATE) {
 				if (data.isEmpty()) {

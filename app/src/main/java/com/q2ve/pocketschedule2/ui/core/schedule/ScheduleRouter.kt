@@ -18,7 +18,7 @@ class ScheduleRouter {
 		titleId: Int,
 		onResumeCallback: ((BottomPopupContainerFragment) -> Unit)? = null
 	) {
-		val fragment = BottomPopupContainerFragment.newInstance(titleId)
+		val fragment = BottomPopupContainerFragment.newInstance(titleId, true)
 		fragment.buildObserver(onResumeCallback)
 		Navigator.addFragment(fragment, Frames.getActivityFrame()!!, null, true)
 	}

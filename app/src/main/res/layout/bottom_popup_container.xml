@@ -19,6 +19,7 @@
 		android:id="@+id/bottom_popup_container_motion_layout"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:animateLayoutChanges="true"
 		android:layout_alignParentBottom="true"
 		android:layout_marginTop="70dp"
 		app:layoutDescription="@xml/bottom_popup_container_motion_scene"

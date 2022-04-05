@@ -129,7 +129,7 @@ class SettingsViewModel: ViewModel() {
 	
 	fun onUniversitySelectorPressed() {
 		removeSelectionErrorMessage()
-		router.openBottomPopupContainer(R.string.university_choosing, ::placeUniversitySelector)
+		router.openBottomPopupContainer(R.string.university_choosing, false, ::placeUniversitySelector)
 	}
 	
 	private fun placeUniversitySelector(
@@ -165,7 +165,7 @@ class SettingsViewModel: ViewModel() {
 			makeSelectionErrorMessage(R.string.error_no_university_selected)
 		}
 		else {
-			router.openBottomPopupContainer(R.string.user_choosing, ::onBottomMenuOpened)
+			router.openBottomPopupContainer(R.string.user_choosing, true, ::onBottomMenuOpened)
 		}
 	}
 	

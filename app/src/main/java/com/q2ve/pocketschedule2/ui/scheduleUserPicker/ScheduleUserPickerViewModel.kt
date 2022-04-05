@@ -34,7 +34,11 @@ class ScheduleUserPickerViewModel: ViewModel() {
 	
 	fun universityFieldPressed() {
 		removeErrorMessage()
-		router.openBottomPopupContainer(R.string.university_choosing, ::placeUniversitySelector)
+		router.openBottomPopupContainer(
+			R.string.university_choosing,
+			false,
+			::placeUniversitySelector
+		)
 	}
 	
 	private fun placeUniversitySelector(
@@ -71,7 +75,11 @@ class ScheduleUserPickerViewModel: ViewModel() {
 	fun scheduleUserFieldPressed() {
 		removeErrorMessage()
 		if (selectedUniversity == null) makeErrorMessage(R.string.error_no_university_selected)
-		else router.openBottomPopupContainer(R.string.user_choosing, ::placeScheduleUserSelector)
+		else router.openBottomPopupContainer(
+			R.string.user_choosing,
+			true,
+			::placeScheduleUserSelector
+		)
 	}
 	
 	//TODO("КНОПКИ")

@@ -1,5 +1,6 @@
 package com.q2ve.pocketschedule2.ui.popup
 
+import android.animation.LayoutTransition
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -126,6 +127,10 @@ class BottomPopupContainerFragment: Fragment() {
 			binding.bottomPopupContainerContentContainer.layoutParams
 				.height = LinearLayout.LayoutParams.MATCH_PARENT
 		}
+		
+		//EnableTransitionType is necessary to xml "animateLayoutChanges" works with height changing
+		val motionLayout = binding.bottomPopupContainerMotionLayout
+		motionLayout.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 		
 		return binding.root
 	}

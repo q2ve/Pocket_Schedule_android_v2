@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="@color/colorPlaqueBackground"
+	android:fitsSystemWindows="true">
+	
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:background="@color/colorPlaque">
+		
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:id="@+id/core_schedule_action_bar"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:layout_alignParentTop="true"
+			android:background="@drawable/rc_action_bar"
+			android:elevation="@dimen/shadow_elevation">
+			
+			<Button
+				android:id="@+id/core_schedule_group_filter"
+				android:layout_width="25dp"
+				android:layout_height="25dp"
+				android:layout_marginStart="16dp"
+				android:background="@drawable/ic_filters"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+			
+			<TextView
+				android:id="@+id/core_schedule_title"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginHorizontal="12dp"
+				android:ellipsize="end"
+				android:gravity="center"
+				android:lines="1"
+				android:text="@string/schedule"
+				android:textColor="@color/colorBlack"
+				android:textSize="19sp"
+				android:textStyle="bold"
+				app:layout_constraintEnd_toStartOf="@+id/core_schedule_user_settings"
+				app:layout_constraintStart_toEndOf="@+id/core_schedule_group_filter"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintWidth_default="spread" />
+			
+			<Button
+				android:id="@+id/core_schedule_user_settings"
+				android:layout_width="25dp"
+				android:layout_height="25dp"
+				android:layout_marginEnd="16dp"
+				android:background="@drawable/ic_settings"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
+		
+		
+		</androidx.constraintlayout.widget.ConstraintLayout>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="67dp"
+			android:layout_below="@id/core_schedule_action_bar"
+			android:orientation="horizontal"
+			android:gravity="center_vertical" >
+			
+			<TextView
+				android:id="@+id/core_schedule_week_parity"
+				android:layout_width="wrap_content"
+				android:layout_height="34dp"
+				android:layout_marginStart="12dp"
+				android:background="@drawable/rc_button_bar_item"
+				android:backgroundTint="@color/colorBlueLight"
+				android:paddingStart="16dp"
+				android:paddingEnd="16dp"
+				android:gravity="center_vertical"
+				android:text="@string/even"
+				android:textColor="@color/colorBlue"
+				android:textSize="15sp"
+				android:textStyle="bold"
+				android:elevation="@dimen/shadow_elevation"/>
+			
+			<FrameLayout
+				android:id="@+id/schedule_button_bar_frame"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:layout_marginStart="12dp"
+				android:translationX="2dp"/>
+		
+		</LinearLayout>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_below="@id/core_schedule_action_bar"
+			android:orientation="vertical"
+			android:elevation="-1dp">
+			
+			<LinearLayout
+				android:id="@+id/core_schedule_current_day_bar"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="12dp"
+				android:layout_marginEnd="12dp"
+				android:visibility="gone">
+				
+				<TextView
+					android:id="@+id/core_schedule_current_weekday_tag"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/colorLightGray1"
+					android:textSize="14sp"
+					android:textStyle="bold"/>
+				
+				<TextView
+					android:id="@+id/core_schedule_current_day_indicator"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:gravity="end"
+					android:text="@string/today"
+					android:textColor="@color/colorBlue"
+					android:textSize="14sp"
+					android:textStyle="bold"
+					android:visibility="invisible"/>
+			
+			</LinearLayout>
+			
+			<TextView
+				android:id="@+id/core_schedule_error_textview"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="66dp"
+				android:layout_marginBottom="20dp"
+				android:layout_marginHorizontal="20dp"
+				android:background="@drawable/rc_20dp"
+				android:elevation="@dimen/shadow_elevation"
+				android:paddingHorizontal="10dp"
+				android:paddingVertical="20dp"
+				android:fontFamily="@font/sf_pro_display_regular"
+				android:gravity="center"
+				android:textColor="@color/colorRedError"
+				android:textSize="14sp"
+				android:visibility="gone"/>
+			
+			<androidx.viewpager2.widget.ViewPager2
+				android:id="@+id/core_schedule_module_pager"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent" />
+			
+		</LinearLayout>
+	</RelativeLayout>
+</LinearLayout>

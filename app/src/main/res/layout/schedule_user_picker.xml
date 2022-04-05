@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:clickable="true"
+	android:focusable="true"
+	tools:ignore="ContentDescription">
+
+	<ImageView
+		android:id="@+id/schedule_user_picker_back_button"
+		android:layout_width="60dp"
+		android:layout_height="50dp"
+		android:layout_marginTop="?android:attr/actionBarSize"
+		android:paddingVertical="14dp"
+		android:paddingEnd="25dp"
+		android:paddingStart="4dp"
+		android:src="@drawable/ic_back_arrow"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:tint="@color/colorBlack"
+		android:visibility="gone" />
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/schedule_user_picker_central_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginHorizontal="12dp"
+		android:paddingBottom="100dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<TextView
+			android:id="@+id/schedule_user_picker_text_login"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/choose_your_university"
+			android:textColor="@color/colorLightGray1"
+			android:textSize="14sp"
+			android:textStyle="bold"
+			app:layout_constraintBottom_toTopOf="@+id/schedule_user_picker_university_field"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<TextView
+			android:id="@+id/schedule_user_picker_university_field"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:layout_marginTop="7dp"
+			android:background="@drawable/rc_textfield"
+			android:outlineProvider="none"
+			android:paddingStart="12dp"
+			android:paddingEnd="42dp"
+			android:gravity="center_vertical"
+			android:textSize="15sp"
+			android:textColor="@color/colorBlack"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/schedule_user_picker_text_login" />
+
+		<ImageView
+			android:id="@+id/schedule_user_picker_university_selector_button"
+			android:layout_width="22dp"
+			android:layout_height="22dp"
+			android:layout_marginEnd="15dp"
+			android:rotation="270"
+			android:src="@drawable/ic_back_arrow"
+			app:layout_constraintBottom_toBottomOf="@+id/schedule_user_picker_university_field"
+			app:layout_constraintEnd_toEndOf="@+id/schedule_user_picker_university_field"
+			app:layout_constraintTop_toTopOf="@+id/schedule_user_picker_university_field"
+			app:tint="@color/colorLightGray1" />
+
+		<TextView
+			android:id="@+id/schedule_user_picker_text_schedule_user"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="25dp"
+			android:text="@string/choose_your_schedule_user"
+			android:textColor="@color/colorLightGray1"
+			android:textSize="14sp"
+			android:textStyle="bold"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/schedule_user_picker_university_field" />
+
+		<TextView
+			android:id="@+id/schedule_user_picker_schedule_user_field"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:layout_marginTop="7dp"
+			android:background="@drawable/rc_textfield"
+			android:outlineProvider="none"
+			android:paddingStart="12dp"
+			android:paddingEnd="42dp"
+			android:gravity="center_vertical"
+			android:textSize="15sp"
+			android:textColor="@color/colorBlack"
+			app:layout_constraintTop_toBottomOf="@+id/schedule_user_picker_text_schedule_user"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toEndOf="parent" />
+
+		<ImageView
+			android:id="@+id/schedule_user_picker_schedule_user_selector_button"
+			android:layout_width="22dp"
+			android:layout_height="22dp"
+			android:layout_marginEnd="15dp"
+			android:rotation="270"
+			android:src="@drawable/ic_back_arrow"
+			app:layout_constraintBottom_toBottomOf="@+id/schedule_user_picker_schedule_user_field"
+			app:layout_constraintEnd_toEndOf="@+id/schedule_user_picker_schedule_user_field"
+			app:layout_constraintTop_toTopOf="@+id/schedule_user_picker_schedule_user_field"
+			app:tint="@color/colorLightGray1" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+	<TextView
+		android:id="@+id/schedule_user_picker_error_textview"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		app:layout_constraintWidth_percent="0.6"
+		android:layout_marginTop="30dp"
+		android:gravity="center"
+		android:textColor="@color/colorRedError"
+		android:textSize="14sp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/schedule_user_picker_central_layout" />
+
+	<TextView
+		android:id="@+id/schedule_user_picker_enter_button"
+		android:layout_width="match_parent"
+		android:layout_height="44dp"
+		android:layout_marginHorizontal="12dp"
+		android:background="@drawable/rc_textfield"
+		android:backgroundTint="@color/colorBlueLight"
+		android:gravity="center"
+		android:text="@string/save"
+		android:textAllCaps="false"
+		android:textColor="@color/colorBlue"
+		android:textSize="15sp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/schedule_user_picker_central_layout" />
+
+	<ProgressBar
+		android:id="@+id/schedule_user_picker_waiting_spinner"
+		android:layout_width="36dp"
+		android:layout_height="36dp"
+		android:indeterminateTint="@color/colorBlue"
+		android:visibility="invisible"
+		app:layout_constraintBottom_toBottomOf="@+id/schedule_user_picker_enter_button"
+		app:layout_constraintEnd_toEndOf="@+id/schedule_user_picker_enter_button"
+		app:layout_constraintStart_toStartOf="@+id/schedule_user_picker_enter_button"
+		app:layout_constraintTop_toTopOf="@+id/schedule_user_picker_enter_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

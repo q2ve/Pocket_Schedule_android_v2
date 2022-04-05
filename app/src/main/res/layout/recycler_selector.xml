@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/recycler_frame"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:animateLayoutChanges="true"
+	android:layout_marginTop="15dp"
+	android:orientation="vertical" >
+	
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/recycler_recyclerview"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:fadingEdge="vertical"
+		android:fadingEdgeLength="30dp"
+		android:overScrollMode="never"
+		android:requiresFadingEdge="vertical"
+		android:background="@color/colorPlaqueBackground"
+		tools:listitem="@layout/recycler_item" />
+	
+	<ProgressBar
+		android:id="@+id/recycler_uploading_progressbar"
+		android:layout_width="match_parent"
+		android:layout_height="40dp"
+		android:layout_marginVertical="10dp"
+		android:layout_gravity="bottom"
+		android:indeterminateTint="@color/colorBlue"
+		android:visibility="visible" />
+	
+</FrameLayout>

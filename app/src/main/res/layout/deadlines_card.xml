@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginHorizontal="12dp"
+	android:layout_marginTop="16dp"
+	android:scrollbars="none"
+	android:overScrollMode="never"
+	android:background="@color/colorPlaqueBackground"
+	tools:ignore="UseCompoundDrawables">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="30dp"
+		android:orientation="vertical">
+
+		<LinearLayout
+			android:id="@+id/core_deadlines_card_title_sign"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center_vertical">
+
+			<ImageView
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:src="@drawable/ic_article"
+				android:layout_marginEnd="10dp"/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:maxLines="1"
+				android:lines="1"
+				android:ellipsize="end"
+				android:text="@string/deadline_title"
+				android:textStyle="bold"
+				android:textSize="15sp"
+				android:textColor="@color/colorBlack" />
+
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/core_deadlines_card_title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:maxLines="2"
+			android:ellipsize="end"
+			android:textSize="15sp"
+			android:textColor="@color/colorLightGray1"/>
+
+		<LinearLayout
+			android:id="@+id/core_deadlines_card_type_sign"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="14dp"
+			android:orientation="horizontal"
+			android:gravity="center_vertical">
+
+			<ImageView
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:src="@drawable/ic_pin"
+				android:layout_marginEnd="10dp"/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:maxLines="1"
+				android:lines="1"
+				android:ellipsize="end"
+				android:text="@string/type"
+				android:textStyle="bold"
+				android:textSize="15sp"
+				android:textColor="@color/colorBlack"/>
+
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/core_deadlines_card_type"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:maxLines="2"
+			android:ellipsize="end"
+			android:textSize="15sp"
+			android:textColor="@color/colorLightGray1"/>
+
+		<LinearLayout
+			android:id="@+id/core_deadlines_card_description_sign"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="14dp"
+			android:orientation="horizontal"
+			android:gravity="center_vertical">
+
+			<ImageView
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:src="@drawable/ic_article_outline"
+				android:layout_marginEnd="10dp"/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:maxLines="1"
+				android:lines="1"
+				android:ellipsize="end"
+				android:text="@string/deadline_description"
+				android:textStyle="bold"
+				android:textSize="15sp"
+				android:textColor="@color/colorBlack"/>
+
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/core_deadlines_card_description"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:maxLines="2"
+			android:ellipsize="end"
+			android:textSize="15sp"
+			android:textColor="@color/colorLightGray1"/>
+
+		<LinearLayout
+			android:id="@+id/core_deadlines_card_date_sign"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="14dp"
+			android:orientation="horizontal"
+			android:gravity="center_vertical">
+
+			<ImageView
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:src="@drawable/ic_schedule"
+				android:scaleY="1.4"
+				android:scaleX="1.4"
+				android:translationY="1dp"
+				android:layout_marginEnd="10dp"/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:maxLines="1"
+				android:lines="1"
+				android:ellipsize="end"
+				android:text="@string/deadline_date"
+				android:textStyle="bold"
+				android:textSize="15sp"
+				android:textColor="@color/colorBlack"/>
+
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/core_deadlines_card_date"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:maxLines="2"
+			android:ellipsize="end"
+			android:textSize="15sp"
+			android:textColor="@color/colorLightGray1"/>
+
+		<LinearLayout
+			android:id="@+id/core_deadlines_card_subject_sign"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="14dp"
+			android:orientation="horizontal"
+			android:gravity="center_vertical">
+
+			<ImageView
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:src="@drawable/ic_academic_cap"
+				android:layout_marginEnd="10dp"/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:maxLines="1"
+				android:lines="1"
+				android:ellipsize="end"
+				android:text="@string/subject"
+				android:textStyle="bold"
+				android:textSize="15sp"
+				android:textColor="@color/colorBlack"/>
+
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/core_deadlines_card_subject"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:maxLines="2"
+			android:ellipsize="end"
+			android:textSize="15sp"
+			android:textColor="@color/colorLightGray1"/>
+
+		<LinearLayout
+			android:id="@+id/core_deadlines_card_points_sign"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="14dp"
+			android:orientation="horizontal"
+			android:gravity="center_vertical">
+
+			<ImageView
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:src="@drawable/ic_coins"
+				android:layout_marginEnd="10dp"/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:maxLines="1"
+				android:lines="1"
+				android:ellipsize="end"
+				android:text="@string/points"
+				android:textStyle="bold"
+				android:textSize="15sp"
+				android:textColor="@color/colorBlack"/>
+
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/core_deadlines_card_points"
+			android:layout_width="28dp"
+			android:layout_height="28dp"
+			android:layout_marginTop="12dp"
+			android:background="@drawable/rc_7dp"
+			android:backgroundTint="@color/colorLightGray3"
+			android:gravity="center"
+			android:maxLines="1"
+			android:lines="1"
+			android:ellipsize="end"
+			android:textSize="13sp"
+			android:textColor="@color/colorLightGray1"/>
+
+		<TextView
+			android:id="@+id/core_deadlines_card_button_close"
+			android:layout_width="match_parent"
+			android:layout_height="44dp"
+			android:layout_marginTop="16dp"
+			android:background="@drawable/rc_deadline_card_button_close"
+			android:gravity="center"
+			android:text="@string/close_deadline"
+			android:textSize="14sp"
+			android:textStyle="bold"
+			android:textColor="@color/colorDeadlineGreen" />
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="14dp"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			android:baselineAligned="false">
+
+			<LinearLayout
+				android:id="@+id/core_deadlines_card_button_edit"
+				android:layout_width="0dp"
+				android:layout_height="44dp"
+				android:layout_weight="50"
+				android:layout_marginEnd="6dp"
+				android:orientation="horizontal"
+				android:gravity="center"
+				android:background="@drawable/rc_deadline_card_button_edit">
+
+				<ImageView
+					android:layout_width="24dp"
+					android:layout_height="24dp"
+					android:layout_marginEnd="6dp"
+					android:src="@drawable/ic_pencil"
+					app:tint="@color/colorBlue" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/edit"
+					android:textSize="14sp"
+					android:textStyle="bold"
+					android:textColor="@color/colorBlue"
+					android:ellipsize="end"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/core_deadlines_card_button_delete"
+				android:layout_width="0dp"
+				android:layout_height="44dp"
+				android:layout_weight="50"
+				android:layout_marginEnd="6dp"
+				android:orientation="horizontal"
+				android:gravity="center"
+				android:background="@drawable/rc_deadline_card_button_delete">
+
+				<ImageView
+					android:layout_width="24dp"
+					android:layout_height="24dp"
+					android:layout_marginEnd="6dp"
+					android:src="@drawable/ic_trash"
+					app:tint="@color/colorRedMain" />
+
+				<TextView
+					android:id="@+id/core_deadlines_card_button_delete_text"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/delete"
+					android:textSize="14sp"
+					android:textStyle="bold"
+					android:textColor="@color/colorRedMain"
+					android:ellipsize="end"/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+</ScrollView>

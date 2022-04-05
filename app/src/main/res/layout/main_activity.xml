@@ -4,4 +4,38 @@
     android:id="@+id/main_activity_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-	android:background="@color/colorPlaqueBackground"/>
+	android:background="@color/colorPlaqueBackground">
+	
+	<LinearLayout
+		android:id="@+id/app_logo"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:layout_marginBottom="26dp"
+		android:layout_gravity="center"
+		android:fitsSystemWindows="true">
+		
+		<TextView
+			android:id="@+id/root_navigation_logo_up"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/app_name_pocket"
+			android:textAlignment="center"
+			android:textColor="@color/colorBlue"
+			android:textSize="64sp"
+			android:textStyle="bold" />
+		
+		<TextView
+			android:id="@+id/root_navigation_logo_down"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/app_name_schedule"
+			android:textAlignment="center"
+			android:textColor="@color/colorBlue"
+			android:textSize="48sp"
+			android:textStyle="bold"
+			android:translationY="-20dp" />
+	
+	</LinearLayout>
+	
+</FrameLayout>

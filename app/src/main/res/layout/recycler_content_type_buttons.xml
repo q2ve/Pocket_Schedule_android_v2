@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/recycler_content_type_buttons_box"
+	android:layout_width="match_parent"
+	android:layout_height="80dp"
+	android:gravity="center_vertical">
+
+	<TextView
+		android:id="@+id/recycler_view_selector_groups_button"
+		android:layout_width="0dp"
+		android:layout_height="40dp"
+		android:layout_weight="50"
+		android:layout_marginStart="12dp"
+		android:layout_marginEnd="5dp"
+		android:elevation="@dimen/shadow_elevation"
+		android:background="@drawable/rc_12dp"
+		android:backgroundTint="@color/colorBlueLight"
+		android:gravity="center"
+		android:textSize="15sp"
+		android:textStyle="bold"
+		android:textColor="@color/colorBlue"
+		android:text="@string/groups" />
+
+	<TextView
+		android:id="@+id/recycler_view_selector_professors_button"
+		android:layout_width="0dp"
+		android:layout_height="40dp"
+		android:layout_weight="50"
+		android:layout_marginStart="5dp"
+		android:layout_marginEnd="12dp"
+		android:elevation="@dimen/shadow_elevation"
+		android:background="@drawable/rc_12dp"
+		android:gravity="center"
+		android:textSize="15sp"
+		android:textStyle="bold"
+		android:textColor="@color/colorLightGray1"
+		android:text="@string/professors" />
+
+</LinearLayout>

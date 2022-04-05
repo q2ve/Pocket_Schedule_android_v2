@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/button_bar_scroll"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:translationX="2dp"
+	android:scrollbars="none"
+	android:overScrollMode="never"
+	android:fadingEdge="horizontal"
+	android:fadingEdgeLength="10dp"
+	android:requiresFadingEdge="horizontal">
+
+	<LinearLayout
+		android:id="@+id/button_bar_buttons_layout"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent"
+		android:orientation="horizontal"
+		android:gravity="center_vertical" >
+
+		<View
+			android:layout_width="12dp"
+			android:layout_height="match_parent"/>
+
+	</LinearLayout>
+
+</HorizontalScrollView>

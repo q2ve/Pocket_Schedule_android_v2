@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/button_bar_item"
+	android:layout_width="wrap_content"
+	android:layout_height="34dp"
+	android:layout_marginEnd="9dp"
+	android:background="@drawable/rc_button_bar_item"
+	android:backgroundTint="@color/colorPlaqueBackground"
+	android:gravity="center"
+	android:paddingStart="16dp"
+	android:paddingEnd="16dp"
+	android:textColor="@color/colorLightGray1"
+	android:textSize="15sp"
+	android:textStyle="bold"
+	android:elevation="@dimen/shadow_elevation"/>

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout
+		android:id="@+id/onboarding_4_example_1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintBottom_toTopOf="@+id/login_onboarding_4_textview2"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginHorizontal="12dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginBottom="8dp"
+			android:background="@drawable/rc_28dp"
+			android:elevation="@dimen/shadow_elevation"
+			android:minHeight="80dp"
+			android:orientation="horizontal"
+			android:padding="16dp">
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent">
+
+				<TextView
+					android:id="@+id/onboarding_4_1_1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="6dp"
+					android:text="09:00"
+					android:textColor="@color/colorBlack"
+					android:textSize="15sp"
+					android:textStyle="bold"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent" />
+
+				<TextView
+					android:id="@+id/onboarding_4_1_2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="1"
+					android:textColor="@color/colorLightGray2"
+					android:textSize="15sp"
+					app:layout_constraintBottom_toTopOf="@+id/onboarding_4_1_3"
+					app:layout_constraintEnd_toEndOf="@+id/onboarding_4_1_1"
+					app:layout_constraintStart_toStartOf="@+id/onboarding_4_1_1"
+					app:layout_constraintTop_toBottomOf="@+id/onboarding_4_1_1" />
+
+				<TextView
+					android:id="@+id/onboarding_4_1_3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="6dp"
+					android:text="10:30"
+					android:textColor="@color/colorBlack"
+					android:textSize="13sp"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="@+id/onboarding_4_1_1"
+					app:layout_constraintStart_toStartOf="parent" />
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+			<View
+				android:layout_width="6dp"
+				android:layout_height="match_parent"
+				android:layout_marginStart="9dp"
+				android:layout_marginEnd="9dp"
+				android:background="@drawable/rc_divider"
+				android:backgroundTint="@color/colorAqua" />
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<TextView
+					android:id="@+id/onboarding_4_1_4"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="2"
+					android:paddingStart="0dp"
+					android:paddingEnd="15dp"
+					android:text="@string/onboarding_fourth_example_title_one"
+					android:textColor="@color/colorBlack"
+					android:textSize="15sp"
+					android:textStyle="bold" />
+
+				<com.google.android.flexbox.FlexboxLayout
+					android:id="@+id/onboarding_4_1_5"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginTop="8dp"
+					android:layout_marginBottom="8dp"
+					android:minHeight="26dp"
+					app:flexWrap="wrap">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="4dp"
+						android:layout_marginEnd="6dp"
+						android:layout_marginBottom="4dp"
+						android:background="@drawable/rc_schedule_tag"
+						android:backgroundTint="@color/colorLightGray3"
+						android:paddingStart="10dp"
+						android:paddingTop="5dp"
+						android:paddingEnd="10dp"
+						android:paddingBottom="5dp"
+						android:text="@string/onboarding_fourth_example_address_one"
+						android:textColor="@color/colorLightGray1"
+						android:textSize="13sp" />
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="4dp"
+						android:layout_marginEnd="6dp"
+						android:layout_marginBottom="4dp"
+						android:background="@drawable/rc_schedule_tag"
+						android:backgroundTint="@color/colorLightGray3"
+						android:paddingStart="10dp"
+						android:paddingTop="5dp"
+						android:paddingEnd="10dp"
+						android:paddingBottom="5dp"
+						android:text="@string/laboratory_work"
+						android:textColor="@color/colorLightGray1"
+						android:textSize="13sp" />
+
+				</com.google.android.flexbox.FlexboxLayout>
+
+				<TextView
+					android:id="@+id/onboarding_4_1_6"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="1"
+					android:paddingStart="0dp"
+					android:paddingEnd="15dp"
+					android:text="@string/onboarding_fourth_example_description_one"
+					android:textColor="@color/colorLightGray1"
+					android:textSize="15sp" />
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/onboarding_4_example_2"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="12dp"
+					android:layout_marginTop="8dp"
+						android:layout_marginBottom="16dp"
+			android:background="@drawable/rc_28dp"
+			android:elevation="@dimen/shadow_elevation"
+			android:minHeight="80dp"
+			android:orientation="horizontal"
+			android:padding="16dp">
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent">
+
+				<TextView
+					android:id="@+id/onboarding_4_2_1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="6dp"
+					android:text="10:50"
+					android:textColor="@color/colorBlack"
+					android:textSize="15sp"
+					android:textStyle="bold"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent" />
+
+				<TextView
+					android:id="@+id/onboarding_4_2_2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="2"
+					android:textColor="@color/colorLightGray2"
+					android:textSize="15sp"
+					app:layout_constraintBottom_toTopOf="@+id/onboarding_4_2_3"
+					app:layout_constraintEnd_toEndOf="@+id/onboarding_4_2_1"
+					app:layout_constraintStart_toStartOf="@+id/onboarding_4_2_1"
+					app:layout_constraintTop_toBottomOf="@+id/onboarding_4_2_1" />
+
+				<TextView
+					android:id="@+id/onboarding_4_2_3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="6dp"
+					android:text="12:20"
+					android:textColor="@color/colorBlack"
+					android:textSize="13sp"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="@+id/onboarding_4_2_1"
+					app:layout_constraintStart_toStartOf="parent" />
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+			<View
+				android:layout_width="6dp"
+				android:layout_height="match_parent"
+				android:layout_marginStart="9dp"
+				android:layout_marginEnd="9dp"
+				android:background="@drawable/rc_divider"
+				android:backgroundTint="@color/colorOrange" />
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<TextView
+					android:id="@+id/onboarding_4_2_4"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="2"
+					android:paddingStart="0dp"
+					android:paddingEnd="15dp"
+					android:text="@string/onboarding_fourth_example_title_two"
+					android:textColor="@color/colorBlack"
+					android:textSize="15sp"
+					android:textStyle="bold" />
+
+				<com.google.android.flexbox.FlexboxLayout
+					android:id="@+id/onboarding_4_2_5"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp"
+					android:layout_marginBottom="8dp"
+					android:minHeight="26dp"
+					app:flexWrap="wrap">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="4dp"
+						android:layout_marginEnd="6dp"
+						android:layout_marginBottom="4dp"
+						android:background="@drawable/rc_schedule_tag"
+						android:backgroundTint="@color/colorLightGray3"
+						android:paddingStart="10dp"
+						android:paddingTop="5dp"
+						android:paddingEnd="10dp"
+						android:paddingBottom="5dp"
+						android:text="@string/onboarding_fourth_example_address_two"
+						android:textColor="@color/colorLightGray1"
+						android:textSize="13sp" />
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="4dp"
+						android:layout_marginEnd="6dp"
+						android:layout_marginBottom="4dp"
+						android:background="@drawable/rc_schedule_tag"
+						android:backgroundTint="@color/colorLightGray3"
+						android:paddingStart="10dp"
+						android:paddingTop="5dp"
+						android:paddingEnd="10dp"
+						android:paddingBottom="5dp"
+						android:text="@string/practice_work"
+						android:textColor="@color/colorLightGray1"
+						android:textSize="13sp" />
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="4dp"
+						android:layout_marginEnd="6dp"
+						android:layout_marginBottom="4dp"
+						android:background="@drawable/rc_schedule_tag"
+						android:backgroundTint="@color/colorLightGray3"
+						android:paddingStart="10dp"
+						android:paddingTop="5dp"
+						android:paddingEnd="10dp"
+						android:paddingBottom="5dp"
+						android:text="@string/three_groups"
+						android:textColor="@color/colorLightGray1"
+						android:textSize="13sp" />
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="4dp"
+						android:layout_marginEnd="6dp"
+						android:layout_marginBottom="4dp"
+						android:background="@drawable/rc_schedule_tag"
+						android:backgroundTint="@color/colorLightGray3"
+						android:paddingStart="10dp"
+						android:paddingTop="5dp"
+						android:paddingEnd="10dp"
+						android:paddingBottom="5dp"
+						android:text="@string/two_deadlines_emoji"
+						android:textColor="@color/colorLightGray1"
+						android:textSize="13sp" />
+
+				</com.google.android.flexbox.FlexboxLayout>
+
+				<TextView
+					android:id="@+id/onboarding_4_2_6"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="1"
+					android:paddingStart="0dp"
+					android:paddingEnd="15dp"
+					android:text="@string/onboarding_fourth_example_description_two"
+					android:textColor="@color/colorLightGray1"
+					android:textSize="15sp" />
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/onboarding_4_example_3"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="12dp"
+			android:layout_marginTop="8dp"
+			android:layout_marginBottom="16dp"
+			android:background="@drawable/rc_28dp"
+			android:elevation="@dimen/shadow_elevation"
+			android:minHeight="80dp"
+			android:orientation="horizontal"
+			android:padding="16dp">
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent">
+
+				<TextView
+					android:id="@+id/onboarding_4_3_1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="6dp"
+					android:text="13:00"
+					android:textColor="@color/colorBlack"
+					android:textSize="15sp"
+					android:textStyle="bold"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent" />
+
+				<TextView
+					android:id="@+id/onboarding_4_3_2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="3"
+					android:textColor="@color/colorLightGray2"
+					android:textSize="15sp"
+					app:layout_constraintBottom_toTopOf="@+id/onboarding_4_3_3"
+					app:layout_constraintEnd_toEndOf="@+id/onboarding_4_3_1"
+					app:layout_constraintStart_toStartOf="@+id/onboarding_4_3_1"
+					app:layout_constraintTop_toBottomOf="@+id/onboarding_4_3_1" />
+
+				<TextView
+					android:id="@+id/onboarding_4_3_3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="6dp"
+					android:text="14:30"
+					android:textColor="@color/colorBlack"
+					android:textSize="13sp"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="@+id/onboarding_4_3_1"
+					app:layout_constraintStart_toStartOf="parent" />
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+			<View
+				android:layout_width="6dp"
+				android:layout_height="match_parent"
+				android:layout_marginStart="9dp"
+				android:layout_marginEnd="9dp"
+				android:background="@drawable/rc_divider"
+				android:backgroundTint="@color/colorPurple" />
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<TextView
+					android:id="@+id/onboarding_4_3_4"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="2"
+					android:paddingStart="0dp"
+					android:paddingEnd="15dp"
+					android:text="@string/onboarding_fourth_example_title_three"
+					android:textColor="@color/colorBlack"
+					android:textSize="15sp"
+					android:textStyle="bold" />
+
+				<com.google.android.flexbox.FlexboxLayout
+					android:id="@+id/onboarding_4_3_5"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp"
+					android:layout_marginBottom="8dp"
+					android:minHeight="26dp"
+					app:flexWrap="wrap">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="4dp"
+						android:layout_marginEnd="6dp"
+						android:layout_marginBottom="4dp"
+						android:background="@drawable/rc_schedule_tag"
+						android:backgroundTint="@color/colorLightGray3"
+						android:paddingStart="10dp"
+						android:paddingTop="5dp"
+						android:paddingEnd="10dp"
+						android:paddingBottom="5dp"
+						android:text="@string/onboarding_fourth_example_address_three"
+						android:textColor="@color/colorLightGray1"
+						android:textSize="13sp" />
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="4dp"
+						android:layout_marginEnd="6dp"
+						android:layout_marginBottom="4dp"
+						android:background="@drawable/rc_schedule_tag"
+						android:backgroundTint="@color/colorLightGray3"
+						android:paddingStart="10dp"
+						android:paddingTop="5dp"
+						android:paddingEnd="10dp"
+						android:paddingBottom="5dp"
+						android:text="@string/lecture"
+						android:textColor="@color/colorLightGray1"
+						android:textSize="13sp" />
+
+				</com.google.android.flexbox.FlexboxLayout>
+
+				<TextView
+					android:id="@+id/onboarding_4_3_6"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:ellipsize="end"
+					android:maxLines="1"
+					android:paddingStart="0dp"
+					android:paddingEnd="15dp"
+					android:text="@string/onboarding_fourth_example_description_three"
+					android:textColor="@color/colorLightGray1"
+					android:textSize="15sp" />
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+	<TextView
+		android:id="@+id/login_onboarding_4_textview2"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginHorizontal="52dp"
+		android:layout_marginBottom="15dp"
+		android:text="@string/schedule"
+		android:gravity="center"
+		android:textColor="@color/colorBlack"
+		android:textSize="21sp"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toTopOf="@+id/login_onboarding_4_textview1"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent" />
+
+	<TextView
+		android:id="@+id/login_onboarding_4_textview1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginHorizontal="52dp"
+		android:layout_marginBottom="110dp"
+		android:text="@string/onboarding_fourth_description"
+		android:gravity="center"
+		android:textColor="@color/colorLightGray1"
+		android:textSize="14sp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

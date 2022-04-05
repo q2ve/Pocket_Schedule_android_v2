@@ -53,6 +53,9 @@ dependencies {
 	implementation 'androidx.viewpager2:viewpager2:1.0.0'
 	implementation 'com.google.android.flexbox:flexbox:3.0.0'
 	implementation 'com.vk:android-sdk-core:3.2.2'
+	implementation "org.jetbrains.kotlin:kotlin-reflect:1.5.31"
+	implementation "io.reactivex.rxjava2:rxjava:2.1.8"
+	implementation 'io.realm:android-adapters:4.0.0'
 	
 	testImplementation 'junit:junit:4.13.2'
 	androidTestImplementation 'androidx.test.ext:junit:1.1.3'

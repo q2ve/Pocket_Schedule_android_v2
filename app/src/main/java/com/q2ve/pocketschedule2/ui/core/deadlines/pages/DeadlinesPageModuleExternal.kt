@@ -17,6 +17,6 @@ class DeadlinesPageModuleExternal(
 	private val model = Model(onError)
 	
 	override fun getDeadlines() {
-		model.getExternalDeadlines(sessionId, deadlineSourceId, ::inflateDeadlines)
+		//model.getExternalDeadlines(sessionId, deadlineSourceId, ::inflateDeadlines)
 	}
 }

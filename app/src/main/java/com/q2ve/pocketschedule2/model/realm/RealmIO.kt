@@ -5,8 +5,11 @@ import com.q2ve.pocketschedule2.helpers.Constants
 import com.q2ve.pocketschedule2.model.ErrorType
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemDeadline
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemMain
-import com.q2ve.pocketschedule2.ui.core.deadlines.DeadlinesChangeListenerSet
-import io.realm.*
+import com.q2ve.pocketschedule2.ui.core.deadlines.DeadlinesRealmResultsSet
+import io.realm.Realm
+import io.realm.RealmConfiguration
+import io.realm.RealmObject
+import io.realm.Sort
 import kotlin.reflect.KMutableProperty
 import kotlin.reflect.KProperty
 
@@ -313,15 +316,12 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 	}
 	
 	/**
-	 * After creating a listener, its realm results must be saved in a field of the calling class.
-	 * Otherwise, the listener will not be able to work.
-	 * Realm instance must be closed after the listener stops working.
+	 * Realm instance must be closed when it becomes unnecessary.
 	 */
-	fun observeDeadlines(
-		onDeadlinesSetChange: ((List<RealmItemDeadline>) -> Unit)?,
+	fun getDeadlinesRealmResultsSet(
 		isClosed: Boolean,
 		limitDate: Int? = null
-	): DeadlinesChangeListenerSet {
+	): DeadlinesRealmResultsSet {
 		val realm = Realm.getInstance(config)
 		val list = if (limitDate == null) {
 			realm.where(RealmItemDeadline::class.java)
@@ -337,14 +337,7 @@ class RealmIO(val onError: ((ErrorType) -> Unit)? = null) {
 				.sort("title", Sort.ASCENDING)
 				.findAll()
 		}
-		val changeListener = OrderedRealmCollectionChangeListener<RealmResults<RealmItemDeadline>>
-		{ deadlinesRealmResults, _ ->
-			val localRealm = deadlinesRealmResults.realm
-			val deadlines = localRealm.copyFromRealm(deadlinesRealmResults)
-			onDeadlinesSetChange?.invoke(deadlines)
-		}
-		list.addChangeListener(changeListener)
-		return DeadlinesChangeListenerSet(list, realm)
+		return DeadlinesRealmResultsSet(list, realm)
 	}
 	
 	fun deleteDeadlines(

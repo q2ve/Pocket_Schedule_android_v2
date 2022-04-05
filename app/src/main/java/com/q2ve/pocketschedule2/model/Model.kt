@@ -4,7 +4,6 @@ import com.q2ve.pocketschedule2.helpers.UserObserver
 import com.q2ve.pocketschedule2.model.dataclasses.*
 import com.q2ve.pocketschedule2.model.realm.RealmIO
 import com.q2ve.pocketschedule2.model.retrofit.RetrofitCalls
-import com.q2ve.pocketschedule2.ui.core.deadlines.DeadlinesChangeListenerSet
 
 /**
  * Created by Denis Shishkin
@@ -273,23 +272,12 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		realm.insertOrUpdate(mainObject, onSuccess)
 	}
 	
-	fun observeOpenedDeadlines(
-		onDeadlinesSetChange: (List<RealmItemDeadline>) -> Unit
-	): DeadlinesChangeListenerSet {
-		return realm.observeDeadlines(onDeadlinesSetChange, false)
-	}
+	fun getOpenedDeadlinesRealmResults() =
+		realm.getDeadlinesRealmResultsSet(false)
 	
-	fun observeClosedDeadlines(
-		onDeadlinesSetChange: (List<RealmItemDeadline>) -> Unit
-	): DeadlinesChangeListenerSet {
-		return realm.observeDeadlines(onDeadlinesSetChange, true)
-	}
+	fun getClosedDeadlinesRealmResults() =
+		realm.getDeadlinesRealmResultsSet(true)
 	
-	fun observeExpiredDeadlines(
-		onDeadlinesSetChange: (List<RealmItemDeadline>) -> Unit, time: Int
-	): DeadlinesChangeListenerSet {
-		return realm.observeDeadlines(onDeadlinesSetChange, false, time)
-	}
-	
-	fun stopObservingDeadlines() { realm.stopObservingAllDeadlines() }
+	fun getExpiredDeadlinesRealmResults(time: Int) =
+		realm.getDeadlinesRealmResultsSet(false, time)
 }

@@ -128,7 +128,6 @@ class DeadlinesViewModel: ViewModel(), DeadlinesViewModelInterface{
 	}
 	
 	override fun onDestroyView() {
-		Model{ }.stopObservingDeadlines()
 		deadlinePages?.value?.forEach { it.onDestroyView() }
 		deadlinePages = null
 		selectedPage = null

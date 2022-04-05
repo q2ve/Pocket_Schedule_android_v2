@@ -4,7 +4,6 @@ import com.q2ve.pocketschedule2.model.ErrorType
 import com.q2ve.pocketschedule2.model.Model
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemDeadline
 import io.realm.Realm
-import io.realm.RealmResults
 
 /**
  * Created by Denis Shishkin
@@ -17,7 +16,7 @@ class DeadlinesPageModuleClosed(
 	onError: (ErrorType) -> Unit
 ): DeadlinesPageModuleBase(emptyLayoutId) {
 	private val model = Model(onError)
-	private lateinit var list: RealmResults<RealmItemDeadline>
+	//private lateinit var list: RealmResults<RealmItemDeadline>
 	private var realmInstance: Realm? = null
 	
 	override fun getDeadlines() {
@@ -25,10 +24,10 @@ class DeadlinesPageModuleClosed(
 	}
 	
 	private fun onDeadlinesLoaded(deadlines: List<RealmItemDeadline>) {
-		val changeListenerSet = model.observeClosedDeadlines(::inflateDeadlines)
-		list = changeListenerSet.list
-		realmInstance = changeListenerSet.realmInstance
-		inflateDeadlines(deadlines)
+		val realmResultsSet = model.getClosedDeadlinesRealmResults()
+		//list = changeListenerSet.list
+		realmInstance = realmResultsSet.realmInstance
+		inflateDeadlines(realmResultsSet.list)
 	}
 	
 	override fun onDestroyView() { realmInstance?.close() }

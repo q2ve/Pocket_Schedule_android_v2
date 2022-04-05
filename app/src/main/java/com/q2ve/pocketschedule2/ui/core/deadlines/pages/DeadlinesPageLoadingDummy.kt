@@ -15,7 +15,7 @@ class DeadlinesPageLoadingDummy: DeadlinesPageBase() {
 		inflater: LayoutInflater,
 		container: ViewGroup,
 		position: Int,
-		viewUpdatingFunction: (Int) -> Unit
+		viewUpdatingCall: (Int) -> Unit
 	): View {
 		return inflater.inflate(R.layout.deadlines_loader_dummy, container, false)
 	}

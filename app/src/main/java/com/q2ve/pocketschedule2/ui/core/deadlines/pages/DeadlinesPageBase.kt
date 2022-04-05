@@ -15,7 +15,7 @@ abstract class DeadlinesPageBase {
 		inflater: LayoutInflater,
 		container: ViewGroup,
 		position: Int,
-		viewUpdatingFunction: (Int) -> Unit
+		viewUpdatingCall: (Int) -> Unit
 	): View
 	
 	open fun onDestroyView() = Unit

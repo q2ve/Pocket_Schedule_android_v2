@@ -26,10 +26,10 @@ class DeadlinesPageModuleExpired(
 	}
 	
 	private fun onDeadlinesLoaded(deadlines: List<RealmItemDeadline>) {
-		val changeListenerSet = model.observeExpiredDeadlines(::inflateDeadlines, currentTime)
-		list = changeListenerSet.list
-		realmInstance = changeListenerSet.realmInstance
-		inflateDeadlines(deadlines)
+		val realmResultsSet = model.getExpiredDeadlinesRealmResults(currentTime)
+		//list = changeListenerSet.list
+		realmInstance = realmResultsSet.realmInstance
+		inflateDeadlines(realmResultsSet.list)
 	}
 	
 	override fun onDestroyView() { realmInstance?.close() }

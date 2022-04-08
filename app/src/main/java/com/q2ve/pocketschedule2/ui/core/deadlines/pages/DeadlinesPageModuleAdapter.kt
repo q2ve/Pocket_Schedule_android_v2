@@ -76,9 +76,11 @@ class DeadlinesPageModuleAdapter(
 		super.onAttachedToRecyclerView(recyclerView)
 		Handler().postDelayed(
 			{
-				if (data == null || data?.isEmpty() == true) {
-					onEmpty?.invoke()
-					isOnEmptyCalled = true
+				if (data?.isValid == true) {
+					if (data == null || data?.isEmpty() == true) {
+						onEmpty?.invoke()
+						isOnEmptyCalled = true
+					}
 				}
 			},
 			10

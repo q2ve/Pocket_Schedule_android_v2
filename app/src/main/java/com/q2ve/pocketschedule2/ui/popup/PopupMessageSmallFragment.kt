@@ -43,11 +43,15 @@ class PopupMessageSmallFragment: Fragment() {
 		textView.text = getString(stringResource ?: R.string.an_error_has_occurred_try_again)
 		
 		val isError = arguments?.getBoolean("isError") ?: true
+		val icon = binding.popupMessageSmallIcon
 		if (isError) {
-			val errorIcon = binding.popupMessageSmallErrorIcon
-			errorIcon.visibility = View.VISIBLE
-		} else {
-			TODO("Other icon. And refactor this. Fragment should receive only text and icons`s id.")
+			icon.setImageDrawable(resources.getDrawable(R.drawable.ic_cancel_cross_inline))
+			icon.drawable.setTint(resources.getColor(R.color.colorRedError))
+		}
+		else {
+			//TODO("Other icon. And refactor this. Fragment should receive only text and icons`s id.")
+			icon.setImageDrawable(resources.getDrawable(R.drawable.ic_view))
+			icon.drawable.setTint(resources.getColor(R.color.colorBlue))
 		}
 		
 		return binding.root

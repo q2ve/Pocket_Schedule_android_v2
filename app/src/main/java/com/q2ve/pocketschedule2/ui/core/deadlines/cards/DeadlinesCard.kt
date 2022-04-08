@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.databinding.DeadlinesCardBinding
+import com.q2ve.pocketschedule2.helpers.ButtonAnimator
 import com.q2ve.pocketschedule2.model.ErrorType
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemDeadline
 import com.q2ve.pocketschedule2.ui.popup.PopupMessagePresenter
@@ -112,6 +113,7 @@ class DeadlinesCard(
 
 		//closeButton
 		val closeButton = binding.coreDeadlinesCardButtonClose
+		ButtonAnimator(closeButton).animateWeakPressing()
 		if (deadline.isExternal == true || deadline.isExternal == null) hideView(closeButton) else {
 			if (deadline.isClosed == true) {
 				val icon = R.drawable.rc_deadline_card_button_open
@@ -132,6 +134,7 @@ class DeadlinesCard(
 
 		//editButton
 		val editButton = binding.coreDeadlinesCardButtonEdit
+		ButtonAnimator(editButton).animateWeakPressing()
 		if (deadline.isExternal == true || deadline.isExternal == null) {
 			hideView(editButton)
 		} else {
@@ -142,6 +145,7 @@ class DeadlinesCard(
 
 		//deleteButton
 		val deleteButton = binding.coreDeadlinesCardButtonDelete
+		ButtonAnimator(deleteButton).animateWeakPressing()
 		var clicksCount = 0 //Эта хуйня даблкличит. TODO("Пофиксить даблклики блять")
 		if (deadline.isExternal == true || deadline.isExternal == null) {
 			hideView(deleteButton)

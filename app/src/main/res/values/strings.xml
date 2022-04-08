@@ -142,5 +142,7 @@
 	<string name="off_the_grid">Вне сетки</string>
 	<string name="password_dummy">••••••••</string>
 	<string name="subject_choosing">Выбор предмета</string>
+	<string name="coming_soon">Раздел тестируется, ждите обновления :)</string>
 
+	
 </resources>

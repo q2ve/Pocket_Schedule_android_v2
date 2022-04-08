@@ -7,52 +7,43 @@
 	android:layout_height="match_parent"
 	android:orientation="horizontal"
 	android:elevation="0dp">
-
+	
 	<ImageButton
-		android:visibility="gone"
 		android:id="@+id/navbar_news_button"
 		android:layout_width="70dp"
 		android:layout_height="50dp"
-		android:background="@android:color/transparent"
+		android:background="?attr/selectableItemBackgroundBorderless"
+		android:theme="@style/RippleTheme"
 		android:src="@drawable/ic_news"
+		app:tint="@color/colorLightGray2"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintTop_toTopOf="parent">
-
-	</ImageButton>
-
+		app:layout_constraintEnd_toStartOf="@+id/navbar_schedule_button"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+	
 	<ImageButton
 		android:id="@+id/navbar_schedule_button"
 		android:layout_width="70dp"
 		android:layout_height="50dp"
-		android:background="@android:color/transparent"
+		android:background="?attr/selectableItemBackgroundBorderless"
+		android:theme="@style/RippleTheme"
 		android:src="@drawable/ic_schedule"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="@+id/navbar_divider"
+		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent">
-
-	</ImageButton>
-
-	<View
-		android:id="@+id/navbar_divider"
-		android:layout_width="70dp"
-		android:layout_height="1dp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"/>
-
+		app:layout_constraintTop_toTopOf="parent" />
+	
+	
 	<ImageButton
 		android:id="@+id/navbar_deadlines_button"
 		android:layout_width="70dp"
 		android:layout_height="50dp"
-		android:background="@android:color/transparent"
+		android:background="?attr/selectableItemBackgroundBorderless"
+		android:theme="@style/RippleTheme"
 		android:src="@drawable/ic_deadlines"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="@+id/navbar_divider"
-		app:layout_constraintTop_toTopOf="parent">
-
-	</ImageButton>
+		app:layout_constraintStart_toEndOf="@+id/navbar_schedule_button"
+		app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

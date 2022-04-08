@@ -14,6 +14,7 @@ class NavbarController(private val defaultColor: Int, private val selectionColor
 	fun buildNavbar(
 		inflater: LayoutInflater,
 		container: ViewGroup,
+		onNewsButtonPressed: () -> Unit,
 		onScheduleButtonPressed: () -> Unit,
 		onDeadlinesButtonPressed: () -> Unit
 	): View {
@@ -23,6 +24,14 @@ class NavbarController(private val defaultColor: Int, private val selectionColor
 		fun throttleTransition() {
 			transitionsAllowed = false
 			Handler().postDelayed({ transitionsAllowed = true }, 600)
+		}
+		
+		val newsButton = binding.navbarNewsButton
+		newsButton.setOnClickListener {
+			if (transitionsAllowed) {
+				throttleTransition()
+				onNewsButtonPressed()
+			}
 		}
 		
 		val scheduleButton = binding.navbarScheduleButton

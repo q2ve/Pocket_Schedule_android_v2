@@ -18,10 +18,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.q2ve.pocketschedule2.databinding.BottomPopupContainerBinding
+import com.q2ve.pocketschedule2.helpers.ButtonAnimator
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
 
-
-//TODO("Smooth height increasing")
 class BottomPopupContainerFragment: Fragment() {
 	companion object {
 		fun newInstance(titleId: Int, isFullScreen: Boolean = false): BottomPopupContainerFragment {
@@ -88,6 +87,7 @@ class BottomPopupContainerFragment: Fragment() {
 		}
 		
 		val exitButton: Button = binding.bottomPopupContainerExitButton
+		ButtonAnimator(exitButton).animateStrongPressing()
 		exitButton.setOnClickListener{
 			if (isMenuFullyOpened) {
 				animateExit()
@@ -95,9 +95,10 @@ class BottomPopupContainerFragment: Fragment() {
 		}
 		
 		bottomMenuTitle.text = arguments?.getInt("titleId")?.let { getString(it) }
-		
+		//Log.e("TEST", TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200f, resources.displayMetrics).toString())
 		background.alpha = 0f
 		background.translationY = 0f
+		//TODO("Replace with startDelay.")
 		ViewCompat.animate(background) //Anti-lag shit, does nothing but delay
 			.alpha(0.0f)
 			.setDuration(120)

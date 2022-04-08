@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
 import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.helpers.UserObserver
+import com.q2ve.pocketschedule2.ui.popup.PopupMessagePresenter
 
 /**
  * Created by Denis Shishkin
@@ -30,6 +31,7 @@ class CoreNavigatorViewModel: ViewModel() {
 		val navbar = navbarController.buildNavbar(
 			inflater,
 			navbarContainer,
+			::onNewsButtonPressed,
 			::onScheduleButtonPressed,
 			::onDeadlinesButtonPressed
 		)
@@ -70,7 +72,7 @@ class CoreNavigatorViewModel: ViewModel() {
 	}
 	
 	private fun onNewsButtonPressed() {
-		//TODO("Not yet implemented")
+		PopupMessagePresenter().createMessageSmall(false, R.string.coming_soon, 2000)
 	}
 	
 	private fun onScheduleButtonPressed() {

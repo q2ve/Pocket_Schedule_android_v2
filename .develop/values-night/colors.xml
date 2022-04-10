@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="colorPlaque">#121212</color>
+	<color name="colorPlaqueBackground">#FFFFFF</color>
+	<color name="colorWhite">#121212</color>
+	<color name="colorPlaqueShadow">#17000000</color>
+	<color name="colorLightGray1">#B3B3B3</color>
+	<color name="colorLightGray2">#404040</color>
+	<color name="colorLightGray3">#282828</color>
+	<color name="colorModuleGreyFill">#282828</color>
+	<color name="colorTextFieldText">#5F5F5F</color>
+	<color name="colorRedError">#EA3323</color>
+	<color name="colorRedMain">#EB4D3D</color>
+	<color name="colorBlack">#FFFFFF</color>
+	<color name="colorBlackTranslucent">#85121212</color>
+	<color name="colorBlue">#399CFF</color>
+	<color name="colorBlueVK">#2787F5</color>
+	<color name="colorBlueLocked">#9BC0FF</color>
+	<color name="colorBlueLight">#282828</color>
+	<color name="colorBlueLightBlocked">#EBF2FF</color>
+	<color name="colorAqua">#60BCFF</color>
+	<color name="colorRedMainLight">#FF453A</color>
+	<color name="colorDeadlineRed">#FFFFFF</color>
+	<color name="colorGreenLight">#30D158</color>
+	<color name="colorDeadlineGreen">#FFFFFF</color>
+	<color name="colorUNNAMED">#CCCCCE</color>
+	<color name="colorOrange">#FFA884</color>
+	<color name="colorPurple">#B25FEA</color>
+	<color name="colorAccent">#A5A5A5</color>
+</resources>

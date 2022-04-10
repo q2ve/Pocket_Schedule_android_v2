@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">Pocket Schedule v2</string>
+	<string name="app_name">Pocket Schedule</string>
 	<integer name="com_vk_sdk_AppId">7810833</integer>
 	
 	<string name="unknown_error_try_again">Произошла ошибка\nПопробуйте еще раз</string>
@@ -69,8 +69,8 @@
 	<string name="choose_subject">выберите тему</string>
 	<string name="enter_title">введите название</string>
 	<string name="enter_description">введите описание</string>
-	<string name="app_name_pocket">Pocket</string>
-	<string name="app_name_schedule">schedule</string>
+	<string name="app_name_first_line">Sched</string>
+	<string name="app_name_second_line">App</string>
 	<string name="welcome">Добро пожаловать!</string>
 	<string name="onboarding_first_description">Свайпай влево, чтобы узнать особенности сервиса</string>
 	<string name="onboarding_second_description">Будь в курсе всех событий своего университета и секций</string>
@@ -108,6 +108,7 @@
 	<string name="settings">Настройки</string>
 	<string name="save_data">Сохранить данные</string>
 	<string name="general_settings">Основные настройки</string>
+	<string name="about_app">О приложении</string>
 	<string name="university">ВУЗ</string>
 	<string name="group">Группа</string>
 	<string name="start_screen">Начальный экран</string>
@@ -143,6 +144,8 @@
 	<string name="password_dummy">••••••••</string>
 	<string name="subject_choosing">Выбор предмета</string>
 	<string name="coming_soon">Раздел тестируется, ждите обновления :)</string>
-
+	<string name="version">Версия&#160;</string>
+	<string name="leave_feedback_with_link"><a href="https://t.me/i5pft">Оставить отзыв</a></string>
+	<string name="privacy_policy_with_link"><a href="https://q2ve.github.io/Pocket_Schedule_legal/">Политика конфиденциальности</a></string>
 	
 </resources>

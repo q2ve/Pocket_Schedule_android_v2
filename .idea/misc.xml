@@ -4,10 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable-v24/bg_ellipse.xml" value="0.39692307692307693" />
-        <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.39692307692307693" />
+        <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.245" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable-v24/rc_7dp.xml" value="0.203" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/bg_ellipse.xml" value="0.39692307692307693" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_academic_cap.xml" value="0.203" />
+        <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_app_icon.xml" value="0.245" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_article.xml" value="0.203" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_article_outline.xml" value="0.203" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_cancel_cross_inline.xml" value="0.3925925925925926" />
@@ -15,7 +16,7 @@
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_check_done.xml" value="0.203" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_filters.xml" value="0.203" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_google_play.xml" value="0.203" />
-        <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.39692307692307693" />
+        <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.245" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_like.xml" value="0.203" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_logout.xml" value="0.203" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_mark.xml" value="0.203" />
@@ -23,6 +24,7 @@
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_recent.xml" value="0.3925925925925926" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_search.xml" value="0.39692307692307693" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_share.xml" value="0.203" />
+        <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_test.xml" value="0.245" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_trash.xml" value="0.203" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_user_encircled.xml" value="0.203" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/drawable/ic_view.xml" value="0.203" />
@@ -88,10 +90,13 @@
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/layout/schedule_module.xml" value="0.38697916666666665" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/layout/schedule_user_picker.xml" value="0.28888888888888886" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/layout/schedule_waiting_dummy.xml" value="0.38697916666666665" />
-        <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/layout/settings.xml" value="0.34814814814814815" />
+        <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/layout/settings.xml" value="0.33" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/layout/settings_menu.xml" value="0.34814814814814815" />
         <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/layout/test_dummy.xml" value="0.38697916666666665" />
-        <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.39692307692307693" />
+        <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.12" />
+        <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/mipmap-anydpi-v26/ic_launcher2.xml" value="0.245" />
+        <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.15" />
+        <entry key="..\:/MyFiles/YandexDisk/Programming/Android/SchedAppV2/app/src/main/res/mipmap-hdpi/ic_launcher2.xml" value="0.245" />
       </map>
     </option>
   </component>

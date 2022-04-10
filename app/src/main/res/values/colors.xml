@@ -4,7 +4,6 @@
 	<color name="colorPlaqueBackground">#FFFFFF</color>
 	<color name="colorWhite">#FFFFFF</color>
 	<color name="colorPlaqueShadow">#17000000</color>
-	<color name="colorSecondary">#DDE9FF</color>
 	<color name="colorLightGray1">#949499</color>
 	<color name="colorLightGray2">#BEBEC4</color>
 	<color name="colorLightGray3">#EFEFF1</color>
@@ -27,7 +26,5 @@
 	<color name="colorUNNAMED">#CCCCCE</color>
 	<color name="colorOrange">#FFA884</color>
 	<color name="colorPurple">#B25FEA</color>
-	
-	<color name="colorPrimaryDark">#3700B3</color>
 	<color name="colorAccent">#A5A5A5</color>
 </resources>

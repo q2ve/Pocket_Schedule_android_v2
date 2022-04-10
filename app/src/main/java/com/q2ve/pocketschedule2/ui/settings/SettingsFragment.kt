@@ -2,11 +2,13 @@ package com.q2ve.pocketschedule2.ui.settings
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.q2ve.pocketschedule2.BuildConfig
 import com.q2ve.pocketschedule2.R
 import com.q2ve.pocketschedule2.databinding.SettingsBinding
 import com.q2ve.pocketschedule2.helpers.ButtonAnimator
@@ -126,6 +128,20 @@ class SettingsFragment: Fragment() {
 		deadlinesScreenRadio.setOnClickListener {
 			viewModel.onStartScreenSelected(CoreScreens.Deadlines)
 		}
+		
+		//aboutApp
+		val appIcon = binding.settingsAppIcon
+		ButtonAnimator(appIcon).animateStrongPressingWithFading()
+		
+		val versionTextView = binding.settingsAppVersion
+		val version = versionTextView.text.toString() + BuildConfig.VERSION_NAME
+		versionTextView.text = version
+		
+		val privacyPolicyLink = binding.settingsPrivacyPolicyLink
+		privacyPolicyLink.movementMethod = LinkMovementMethod.getInstance()
+
+		val feedbackLink = binding.settingsFeedbackLink
+		feedbackLink.movementMethod = LinkMovementMethod.getInstance()
 		
 		//subscribing to viewModel's observables
 		viewModel.selectedStartScreen?.subscribe { selectStartScreen(it) }

@@ -26,6 +26,7 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:paddingTop="8dp"
 			android:orientation="horizontal"
 			android:gravity="center_vertical">
 
@@ -54,7 +55,7 @@
 			android:layout_height="wrap_content"
 			android:text="@string/students_card"
 			android:layout_marginHorizontal="12dp"
-			android:layout_marginTop="5dp"
+			android:layout_marginTop="11dp"
 			android:textSize="14sp"
 			android:textColor="@color/colorLightGray1"
 			android:textStyle="bold"
@@ -125,7 +126,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginHorizontal="12dp"
-			android:layout_marginTop="16dp"
+			android:layout_marginTop="22dp"
 			android:text="@string/authorize"
 			android:textSize="14sp"
 			android:textColor="@color/colorLightGray1"
@@ -220,7 +221,7 @@
 			android:layout_height="wrap_content"
 			android:text="@string/general_settings"
 			android:layout_marginHorizontal="12dp"
-			android:layout_marginTop="16dp"
+			android:layout_marginTop="22dp"
 			android:textSize="14sp"
 			android:textColor="@color/colorLightGray1"
 			android:textStyle="bold" />
@@ -230,7 +231,7 @@
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
 			android:layout_marginHorizontal="12dp"
-			android:layout_marginVertical="16dp"
+			android:layout_marginTop="16dp"
 			android:background="@drawable/rc_20dp"
 			android:paddingVertical="16dp"
 			android:paddingHorizontal="16dp"
@@ -261,6 +262,7 @@
 					android:background="@drawable/rc_textfield"
 					android:gravity="center_vertical"
 					android:hint="@string/choose_your_university"
+					android:textColorHint="@color/colorTextFieldText"
 					android:paddingHorizontal="12dp"
 					android:paddingVertical="6dp"
 					android:textColor="@color/colorTextFieldText"
@@ -319,6 +321,7 @@
 					android:background="@drawable/rc_textfield"
 					android:gravity="center_vertical"
 					android:hint="@string/choose_your_group"
+					android:textColorHint="@color/colorTextFieldText"
 					android:paddingHorizontal="12dp"
 					android:paddingVertical="6dp"
 					android:textColor="@color/colorTextFieldText"
@@ -455,34 +458,99 @@
 			</LinearLayout>
 
 		</LinearLayout>
-
+		
 		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/about_app"
+			android:layout_marginHorizontal="12dp"
+			android:layout_marginTop="22dp"
+			android:textSize="14sp"
+			android:textColor="@color/colorLightGray1"
+			android:textStyle="bold" />
+		
+		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:orientation="horizontal"
 			android:layout_marginHorizontal="12dp"
-			android:gravity="center"
-			android:text="@string/inspired_by"
-			android:textSize="13sp"
-			android:textColor="@color/colorLightGray2" />
+			android:layout_marginVertical="16dp"
+			android:background="@drawable/rc_20dp"
+			android:paddingEnd="16dp"
+			android:elevation="@dimen/shadow_elevation">
+			
+			<com.github.siyamed.shapeimageview.RoundedImageView
+				android:id="@+id/settings_app_icon"
+				android:layout_width="65dp"
+				android:layout_height="65dp"
+				android:src="@drawable/ic_app_icon"
+				android:background="@drawable/rc_10dp"
+				app:siRadius="10dp"
+				app:siBorderWidth="0dp"
+				app:siBorderColor="@color/colorPlaqueBackground"
+				android:layout_margin="16dp"
+				android:elevation="4dp" />
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="65dp"
+				android:layout_gravity="center_vertical"
+				android:orientation="vertical">
+				
+				<TextView
+					android:id="@+id/settings_app_version"
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_weight="1"
+					android:text="@string/version"
+					android:textColor="@color/colorBlack"
+					android:textSize="15sp"
+					android:ellipsize="end"
+					android:lines="1"
+					android:maxLines="1"
+					android:gravity="center_vertical"
+					android:textStyle="bold"/>
+				
+				<TextView
+					android:id="@+id/settings_privacy_policy_link"
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_weight="1"
+					android:text="@string/privacy_policy_with_link"
+					android:textColor="@color/colorBlack"
+					android:textSize="15sp"
+					android:textColorLink="@color/colorBlue"
+					android:ellipsize="end"
+					android:lines="1"
+					android:maxLines="1"
+					android:gravity="center_vertical" />
+				
+				<TextView
+					android:id="@+id/settings_feedback_link"
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_weight="1"
+					android:text="@string/leave_feedback_with_link"
+					android:textColor="@color/colorBlack"
+					android:textSize="15sp"
+					android:textColorLink="@color/colorBlue"
+					android:ellipsize="end"
+					android:lines="1"
+					android:maxLines="1"
+					android:gravity="center_vertical" />
+				
+			</LinearLayout>
+			
+		</LinearLayout>
 		
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="5dp"
+			android:layout_marginBottom="22dp"
 			android:layout_marginHorizontal="12dp"
 			android:gravity="center"
 			android:text="@string/designed_by"
-			android:textSize="13sp"
-			android:textColor="@color/colorLightGray2" />
-		
-		<TextView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="5dp"
-			android:layout_marginHorizontal="12dp"
-			android:layout_marginBottom="20dp"
-			android:gravity="center"
-			android:text="@string/developed_by"
 			android:textSize="13sp"
 			android:textColor="@color/colorLightGray2" />
 		

@@ -17,8 +17,9 @@
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:id="@+id/core_deadlines_action_bar"
 			android:layout_width="match_parent"
-			android:layout_height="40dp"
+			android:layout_height="55dp"
 			android:layout_alignParentTop="true"
+			android:paddingTop="15dp"
 			android:background="@drawable/rc_action_bar"
 			android:elevation="@dimen/shadow_elevation">
 			

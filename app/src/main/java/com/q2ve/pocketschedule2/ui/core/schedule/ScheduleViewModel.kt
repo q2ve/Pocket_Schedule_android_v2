@@ -2,6 +2,7 @@ package com.q2ve.pocketschedule2.ui.core.schedule
 
 import android.content.res.Resources
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.q2ve.pocketschedule2.helpers.UserObserver
 import com.q2ve.pocketschedule2.helpers.hideKeyboard
 import com.q2ve.pocketschedule2.model.ErrorType
 import com.q2ve.pocketschedule2.model.Model
+import com.q2ve.pocketschedule2.model.ModelInterface
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemLesson
 import com.q2ve.pocketschedule2.model.dataclasses.RealmItemScheduleUser
 import com.q2ve.pocketschedule2.ui.buttonBar.ButtonBarController
@@ -20,15 +22,18 @@ import com.q2ve.pocketschedule2.ui.buttonBar.ButtonBarView
 import com.q2ve.pocketschedule2.ui.buttonBar.ButtonBarViewModel
 import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
 import com.q2ve.pocketschedule2.ui.recyclerSelector.*
+import javax.inject.Inject
 
 /**
  * Created by Denis Shishkin
  * qwq2eq@gmail.com
  */
 
-class ScheduleViewModel: ViewModel() {
+class ScheduleViewModel @Inject constructor(): ViewModel() {
 	private val extensions = ScheduleViewModelExtensions()
 	private val router = ScheduleRouter()
+	@Inject lateinit var model: ModelInterface
+	
 	private var bottomPopupContainer: BottomPopupContainerFragment? = null
 	private var selectorController: RecyclerSelectorUploadingControllerBase? = null
 	private lateinit var buttonBarController: ButtonBarController
@@ -55,6 +60,8 @@ class ScheduleViewModel: ViewModel() {
 		resources: Resources,
 		theme: Resources.Theme
 	) {
+		
+		model.hashCode()
 		throttleButtonBarButtonSelection()
 		restrictButtonBarClicks()
 		lessonsViews = Observable(null)
@@ -110,6 +117,7 @@ class ScheduleViewModel: ViewModel() {
 			when (selectedWeekParity?.value) {
 				ScheduleWeekParity.Odd -> selectedWeekParity?.value = ScheduleWeekParity.Even
 				ScheduleWeekParity.Even -> selectedWeekParity?.value = ScheduleWeekParity.Odd
+				else -> { /*Do Nothing*/ }
 			}
 			placeSchedule(
 				extensions.sortScheduleByParity(selectedWeekParity?.value, lessons),
@@ -147,11 +155,11 @@ class ScheduleViewModel: ViewModel() {
 		val scheduleModules = extensions.inflateModuleFragments(sortedSchedule)
 		throttleButtonBarButtonSelection()
 		lessonsViews?.value = scheduleModules
-		Handler().postDelayed({
+		Handler(Looper.getMainLooper()).postDelayed({
 			val currentDay = extensions.getCurrentWeekday()
 			val dayNumber = selectSpecificDay ?: currentDay.ordinal
 			selectPage(dayNumber)
-			Handler().postDelayed({
+			Handler(Looper.getMainLooper()).postDelayed({
 				allowButtonBarClicks()
 				selectButtonBarItem(dayNumber)
 			}, 400)

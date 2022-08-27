@@ -11,7 +11,7 @@ import com.q2ve.pocketschedule2.model.retrofit.RetrofitCalls
  */
 
 //TODO("ПРОВЕРКА НА ДОСТУПНОСТЬ ИНТЕРНЕТА, СУКА")
-class Model(private val onError: (ErrorType) -> Unit) {
+class Model(private val onError: (ErrorType) -> Unit): ModelInterface {
 	
 	private fun onRetrofitError(errorType: ErrorType) {
 		ErrorDeclarer().declareRetrofitError(errorType, onError)
@@ -21,7 +21,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 	private val realm = RealmIO(onError)
 	private val checker = ObjectsChecker()
 	
-	fun getUniversities(onSuccess: (List<RealmItemUniversity>) -> Unit) {
+	override fun getUniversities(onSuccess: (List<RealmItemUniversity>) -> Unit) {
 		retrofitCalls.getUniversities { objects ->
 			val checkedObjects = checker.checkList(
 				objects ?: emptyList(),
@@ -42,29 +42,29 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		realm.insertOrUpdateWithIndexing(checkedObjects, onSuccess)
 	}
 	
-	fun getGroups(
+	override fun getGroups(
 		offset: Int,
 		limit: Int,
 		university: String,
-		query: String = "",
+		query: String,
 		onSuccess: (List<RealmItemScheduleUser>) -> Unit
 	) {
 		retrofitCalls.getGroups (offset, limit, university, query)
 		{ resolveScheduleUserOnSuccess(it, onSuccess) }
 	}
 	
-	fun getProfessors(
+	override fun getProfessors(
 		offset: Int,
 		limit: Int,
 		university: String,
-		query: String = "",
+		query: String,
 		onSuccess: (List<RealmItemScheduleUser>) -> Unit
 	) {
 		retrofitCalls.getProfessors (offset, limit, university, query)
 		{ resolveScheduleUserOnSuccess(it, onSuccess) }
 	}
 	
-	fun getLessons(
+	override fun getLessons(
 		university: String,
 		scheduleUser: String,
 		onSuccess: (List<RealmItemLesson>) -> Unit
@@ -78,7 +78,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		}
 	}
 	
-	fun getDeadlineSources(sessionId: String, onSuccess: (List<RealmItemDeadlineSource>) -> Unit) {
+	override fun getDeadlineSources(sessionId: String, onSuccess: (List<RealmItemDeadlineSource>) -> Unit) {
 		retrofitCalls.getDeadlineSources(sessionId) { objects ->
 			val checkedObjects = checker.checkList(
 				objects ?: emptyList(),
@@ -100,19 +100,19 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		realm.insertOrUpdate(deadlines ?: emptyList(), onSuccess)
 	}
 	
-	fun getOpenedDeadlines(sessionId: String, onSuccess: (List<RealmItemDeadline>) -> Unit) {
+	override fun getOpenedDeadlines(sessionId: String, onSuccess: (List<RealmItemDeadline>) -> Unit) {
 		retrofitCalls.getOpenedDeadlines(sessionId) {
 			realm.deleteDeadlines(false) { onDeadlinesGetSuccess(it, onSuccess) }
 		}
 	}
 	
-	fun getClosedDeadlines(sessionId: String, onSuccess: (List<RealmItemDeadline>) -> Unit) {
+	override fun getClosedDeadlines(sessionId: String, onSuccess: (List<RealmItemDeadline>) -> Unit) {
 		retrofitCalls.getClosedDeadlines(sessionId) {
 			realm.deleteDeadlines(true) { onDeadlinesGetSuccess(it, onSuccess) }
 		}
 	}
 	
-	fun getExpiredDeadlines(
+	override fun getExpiredDeadlines(
 		sessionId: String,
 		currentTime: Int,
 		onSuccess: (List<RealmItemDeadline>) -> Unit
@@ -122,7 +122,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		}
 	}
 	
-	fun getExternalDeadlines(
+	override fun getExternalDeadlines(
 		sessionId: String,
 		deadlineSourceId: String,
 		onSuccess: (List<RealmItemDeadline>) -> Unit
@@ -155,7 +155,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		}
 	}
 	
-	fun postUser(
+	override fun postUser(
 		login: String,
 		password: String,
 		service: String,
@@ -167,7 +167,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		}
 	}
 	
-	fun postVkUser(
+	override fun postVkUser(
 		token: String,
 		onSuccess: (RealmItemMain) -> Unit
 	) {
@@ -177,11 +177,11 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		}
 	}
 	
-	fun postLogout(sessionId: String, onSuccess: (() -> Unit)? = null) {
+	override fun postLogout(sessionId: String, onSuccess: (() -> Unit)?) {
 		retrofitCalls.postLogout(sessionId) { onSuccess?.let { it() } }
 	}
 	
-	fun putMe(
+	override fun putMe(
 		sessionId: String,
 		universityId: String,
 		scheduleUserId: String,
@@ -194,7 +194,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		) { user: RealmItemUser? -> resolveAuthOnSuccess(sessionId, user) { onSuccess(user!!) } }
 	}
 	
-	fun putMeServiceLogin(
+	override fun putMeServiceLogin(
 		sessionId: String,
 		serviceLogin: String,
 		servicePassword: String,
@@ -214,7 +214,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		checker.checkDeadline(deadline)?.let { realm.insertOrUpdate(it, onSuccess) }
 	}
 	
-	fun putDeadline(
+	override fun putDeadline(
 		sessionId: String,
 		deadline: RealmItemDeadline,
 		onSuccess: (RealmItemDeadline) -> Unit
@@ -225,7 +225,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		) { resolveDeadlineOnSuccess(it, onSuccess) }
 	}
 	
-	fun createDeadline(
+	override fun createDeadline(
 		sessionId: String,
 		deadline: RealmItemDeadline,
 		onSuccess: (RealmItemDeadline) -> Unit
@@ -236,7 +236,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		) { resolveDeadlineOnSuccess(it, onSuccess) }
 	}
 	
-	fun openDeadline(
+	override fun openDeadline(
 		sessionId: String,
 		deadlineId: String,
 		onSuccess: (RealmItemDeadline) -> Unit
@@ -247,7 +247,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		) { resolveDeadlineOnSuccess(it, onSuccess) }
 	}
 	
-	fun closeDeadline(
+	override fun closeDeadline(
 		sessionId: String,
 		deadlineId: String,
 		onSuccess: (RealmItemDeadline) -> Unit
@@ -258,7 +258,7 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		) { resolveDeadlineOnSuccess(it, onSuccess) }
 	}
 	
-	fun deleteDeadline(
+	override fun deleteDeadline(
 		sessionId: String,
 		deadlineId: String,
 		onSuccess: () -> Unit
@@ -268,16 +268,16 @@ class Model(private val onError: (ErrorType) -> Unit) {
 		}
 	}
 	
-	fun updateMainObject(mainObject: RealmItemMain, onSuccess: (RealmItemMain) -> Unit) {
+	override fun updateMainObject(mainObject: RealmItemMain, onSuccess: (RealmItemMain) -> Unit) {
 		realm.insertOrUpdate(mainObject, onSuccess)
 	}
 	
-	fun getOpenedDeadlinesRealmResults() =
+	override fun getOpenedDeadlinesRealmResults() =
 		realm.getDeadlinesRealmResultsSet(false)
 	
-	fun getClosedDeadlinesRealmResults() =
+	override fun getClosedDeadlinesRealmResults() =
 		realm.getDeadlinesRealmResultsSet(true)
 	
-	fun getExpiredDeadlinesRealmResults(time: Int) =
+	override fun getExpiredDeadlinesRealmResults(time: Int) =
 		realm.getDeadlinesRealmResultsSet(false, time)
 }

@@ -2,6 +2,8 @@ package com.q2ve.pocketschedule2.ui.popup
 
 import android.animation.LayoutTransition
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +12,13 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.q2ve.pocketschedule2.databinding.BottomPopupContainerBinding
 import com.q2ve.pocketschedule2.helpers.ButtonAnimator
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
@@ -46,36 +48,16 @@ class BottomPopupContainerFragment: Fragment() {
 		
 		val bottomMenuTitle: TextView = binding.bottomPopupContainerTitle
 		
-		val menu: MotionLayout = binding.bottomPopupContainerMotionLayout
-		menu.setTransitionListener(
-			object: MotionLayout.TransitionListener {
-				override fun onTransitionStarted(
-					motionLayout: MotionLayout?,
-					startId: Int,
-					endId: Int
-				) {}
-				
-				override fun onTransitionChange(
-					motionLayout: MotionLayout?,
-					startId: Int,
-					endId: Int,
-					progress: Float
-				) {
-					//Log.d("Motion", progress.toString())
-					if (progress > 0.9) {
-						animateExit()
-					}
-				}
-				
-				override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {}
-				
-				override fun onTransitionTrigger(
-					motionLayout: MotionLayout?,
-					triggerId: Int,
-					positive: Boolean,
-					progress: Float
-				) {}
+		val menu = binding.bottomPopupContainerContainer
+		val bottomSheetBehavior = BottomSheetBehavior.from(menu)
+		bottomSheetBehavior.addBottomSheetCallback(object: BottomSheetBehavior.BottomSheetCallback() {
+			override fun onStateChanged(bottomSheet: View, newState: Int) {
+				if (newState == BottomSheetBehavior.STATE_COLLAPSED) animateExit()
 			}
+			override fun onSlide(bottomSheet: View, slideOffset: Float) { }
+		})
+		Handler(Looper.getMainLooper()).postDelayed(
+			{ bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED }, 10
 		)
 		
 		val background: LinearLayout = binding.bottomPopupContainerBackground

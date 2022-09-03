@@ -14,30 +14,33 @@
 		android:focusableInTouchMode="true"
 		android:clickable="true"
 		android:focusable="true" />
-
-	<androidx.constraintlayout.motion.widget.MotionLayout
+	
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
 		android:id="@+id/bottom_popup_container_motion_layout"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:animateLayoutChanges="true"
 		android:layout_alignParentBottom="true"
 		android:layout_marginTop="70dp"
-		app:layoutDescription="@xml/bottom_popup_container_motion_scene"
-		android:translationY="1000dp">
-
+		android:animateLayoutChanges="true">
+		
 		<LinearLayout
 			android:id="@+id/bottom_popup_container_container"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:minHeight="300dp"
 			android:background="@drawable/rc_bottom_popup_container"
-			android:orientation="vertical">
-
+			android:clickable="true"
+			android:focusable="true"
+			android:minHeight="300dp"
+			android:orientation="vertical"
+			app:behavior_hideable="true"
+			app:behavior_peekHeight="0dp"
+			app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+			
 			<RelativeLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="15dp">
-
+				
 				<TextView
 					android:id="@+id/bottom_popup_container_title"
 					android:layout_width="match_parent"
@@ -46,7 +49,7 @@
 					android:textColor="#FF000000"
 					android:textSize="21sp"
 					android:textStyle="bold" />
-
+				
 				<Button
 					android:id="@+id/bottom_popup_container_exit_button"
 					android:layout_width="28dp"
@@ -55,7 +58,7 @@
 					android:layout_centerVertical="true"
 					android:layout_marginEnd="15dp"
 					android:background="@drawable/ic_cancel_cross_outline" />
-
+			
 			</RelativeLayout>
 			
 			<LinearLayout
@@ -63,13 +66,13 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:orientation="vertical">
-				
+			
 			</LinearLayout>
-
+			
 			<View
 				android:layout_width="match_parent"
-				android:layout_height="20dp"/>
-
+				android:layout_height="20dp" />
+		
 		</LinearLayout>
-	</androidx.constraintlayout.motion.widget.MotionLayout>
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 </RelativeLayout>

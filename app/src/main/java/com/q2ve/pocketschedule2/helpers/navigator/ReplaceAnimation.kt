@@ -54,5 +54,11 @@ enum class ReplaceAnimation(
 		R.animator.fading_without_scaling_exit,
 		R.animator.fading_without_scaling_enter,
 		R.animator.fading_without_scaling_exit
+	),
+	SlideDownOnlyPopAnimation(
+		R.animator.empty_animation,
+		R.animator.empty_animation,
+		R.animator.fading_without_scaling_enter,
+		R.animator.fading_without_scaling_exit
 	)
 }

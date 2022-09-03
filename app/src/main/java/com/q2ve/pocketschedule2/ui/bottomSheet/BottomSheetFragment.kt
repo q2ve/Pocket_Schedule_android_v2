@@ -118,7 +118,7 @@ class BottomSheetFragment: Fragment(), BottomSheetContract.View {
 	override fun inflate(view: View) {
 		var observer: LifecycleEventObserver? = null
 		observer = LifecycleEventObserver { _: LifecycleOwner, event: Lifecycle.Event ->
-			if (event == Lifecycle.Event.ON_RESUME) {
+			if (event == Lifecycle.Event.ON_START) {
 				binding?.bottomSheetContentFrame?.removeAllViews()
 				binding?.bottomSheetContentFrame?.addView(view)
 				observer?.let { this.lifecycle.removeObserver(it) }

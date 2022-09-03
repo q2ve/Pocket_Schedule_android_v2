@@ -20,7 +20,12 @@ class ScheduleRouter {
 	) {
 		val fragment = BottomPopupContainerFragment.newInstance(titleId, true)
 		fragment.buildObserver(onResumeCallback)
-		Navigator.addFragment(fragment, Frames.getActivityFrame()!!, null, true)
+		Navigator.addFragment(
+			fragment,
+			Frames.getActivityFrame()!!,
+			ReplaceAnimation.FadingWithoutScalingOnlyPopAnimation,
+			true
+		)
 	}
 	
 	fun openSettings() {

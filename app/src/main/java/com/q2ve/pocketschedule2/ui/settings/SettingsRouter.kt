@@ -3,6 +3,7 @@ package com.q2ve.pocketschedule2.ui.settings
 import android.app.Activity
 import com.q2ve.pocketschedule2.helpers.Frames
 import com.q2ve.pocketschedule2.helpers.navigator.Navigator
+import com.q2ve.pocketschedule2.helpers.navigator.ReplaceAnimation
 import com.q2ve.pocketschedule2.ui.AuthorizationRequirement
 import com.q2ve.pocketschedule2.ui.popup.BottomPopupContainerFragment
 
@@ -20,7 +21,12 @@ class SettingsRouter {
 		Frames.getActivityFrame()?.let { frame ->
 			val fragment = BottomPopupContainerFragment.newInstance(titleId, openOnFullScreen)
 			fragment.buildObserver(onResumeCallback)
-			Navigator.addFragment(fragment, frame, null, true)
+			Navigator.addFragment(
+				fragment,
+				frame,
+				ReplaceAnimation.FadingWithoutScalingOnlyPopAnimation,
+				true
+			)
 		}
 	}
 	

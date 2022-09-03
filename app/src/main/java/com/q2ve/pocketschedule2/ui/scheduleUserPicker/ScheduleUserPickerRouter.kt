@@ -33,7 +33,12 @@ class ScheduleUserPickerRouter {
 		Frames.getActivityFrame()?.let { frame ->
 			val fragment = BottomPopupContainerFragment.newInstance(titleId, openOnFullScreen)
 			fragment.buildObserver(onResumeCallback)
-			Navigator.addFragment(fragment, frame, null, true)
+			Navigator.addFragment(
+				fragment,
+				frame,
+				ReplaceAnimation.FadingWithoutScalingOnlyPopAnimation,
+				true
+			)
 		}
 	}
 	

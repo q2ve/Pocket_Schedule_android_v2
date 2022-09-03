@@ -49,7 +49,12 @@ class LoginMethodSelectorRouter {
 		val titleId = R.string.university_choosing
 		val fragment = BottomPopupContainerFragment.newInstance(titleId)
 		fragment.buildObserver(onResumeCallback)
-		Navigator.addFragment(fragment, Frames.getLoginFrame()!!, ReplaceAnimation.SlideDownOnlyPopAnimation, true)
+		Navigator.addFragment(
+			fragment,
+			Frames.getLoginFrame()!!,
+			ReplaceAnimation.FadingWithoutScalingOnlyPopAnimation,
+			true
+		)
 	}
 	
 	fun goBackToOnboarding(activity: Activity) {

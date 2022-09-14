@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 	<!-- Base application theme. -->
-	<style name="Theme.PocketSchedule2" parent="Theme.MaterialComponents.NoActionBar">
+	<style name="Theme.SchedApp2" parent="Theme.MaterialComponents.NoActionBar">
 		<!-- Primary brand color. -->
 		<item name="colorPrimary">@color/colorLightGray1</item>
 		<!-- Secondary brand color. -->
@@ -12,7 +12,7 @@
 		<item name="android:windowBackground">@color/colorPlaqueBackground</item>
 	</style>
 	
-	<style name="RippleTheme" parent="Theme.PocketSchedule2">
+	<style name="RippleTheme" parent="Theme.SchedApp2">
 		<item name="colorControlHighlight">@color/colorLightGray3</item>
 	</style>
 </resources>

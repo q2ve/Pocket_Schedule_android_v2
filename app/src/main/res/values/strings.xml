@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">Pocket Schedule</string>
+	<string name="app_name">Sched App</string>
 	<integer name="com_vk_sdk_AppId">7810833</integer>
 	
 	<string name="unknown_error_try_again">Произошла ошибка\nПопробуйте еще раз</string>

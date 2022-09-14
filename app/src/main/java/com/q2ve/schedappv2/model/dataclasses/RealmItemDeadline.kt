@@ -1,0 +1,33 @@
+package com.q2ve.schedappv2.model.dataclasses
+
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+
+/**
+ * Created by Denis Shishkin
+ * qwq2eq@gmail.com
+ */
+
+open class RealmItemDeadline (
+	@PrimaryKey
+	var _id: String = "",
+	var title: String? = null,
+	var description: String? = null,
+	var startDate: Int? = null,
+	var endDate: Int? = null,
+	var isExternal: Boolean? = null,
+	var isClosed: Boolean? = null,
+	var subject: RealmItemSubject? = null,
+	//For tasks below
+	var curPoints: Int? = null,
+	var type: String? = null,
+	var markpoint: Int? = null,
+	var reportRequired: Boolean? = null
+	//var files: RealmList<File>? = null //Future feature. ToFix - Realm doesn't allow 'File' class.
+): RealmObject() {
+	override fun toString(): String {
+		//TODO("Тестовая хуйня, удалить")
+		return "vvv\n_id - $_id\ntitle - $title\ndescription - $description\nstartDate - $startDate\n" +
+				"endDate - $endDate\nisExternal - $isExternal\nisClosed - $isClosed\nsubject - $subject"
+	}
+}
